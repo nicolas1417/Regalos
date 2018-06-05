@@ -8,7 +8,7 @@ public class ABMListas {
 	private List<Lista> listas;
 	
 	public void crearLista(){
-		
+		//Crear una lista
 	}
 	
 	public void eliminarLista(Lista lista){
