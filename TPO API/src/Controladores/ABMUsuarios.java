@@ -3,7 +3,7 @@ package Controladores;
 import java.util.Date;
 import java.util.List;
 
-import Modelo.Usuario;
+import Negocio.Usuario;
 
 public class ABMUsuarios {
 /*Provee métodos para manejar los usuarios, se mete en el modelo llamando los

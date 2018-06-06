@@ -1,4 +1,4 @@
-package Modelo;
+package Negocio;
 
 import java.util.Date;
 import java.util.List;

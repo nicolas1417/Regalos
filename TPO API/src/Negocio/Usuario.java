@@ -1,12 +1,13 @@
-package Modelo;
+package Negocio;
 
 import java.util.Date;
 
 public class Usuario {
 
+	private int id;
 	private String nombre;
 	private Date fechaNacimiento;
-	public String mail;
+	private String mail;
 	private String usuario;
 	private String password;
 	private boolean estado;
@@ -18,6 +19,16 @@ public class Usuario {
 		this.fechaNacimiento = nacimiento;
 		this.estado = true;
 		this.mail = nombre + "@user.com";
+	}
+	
+	public Usuario(int id, String nombre, String usuario, String pass, Date nacimiento,boolean estado, String mail){
+		this.id = id;
+		this.nombre = nombre;
+		this.usuario = usuario;
+		this.password = pass;
+		this.fechaNacimiento = nacimiento;
+		this.estado = estado;
+		this.mail = mail;
 	}
 	
 	public void altaUsuario(){

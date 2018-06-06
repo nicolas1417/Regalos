@@ -1,4 +1,4 @@
-package Modelo;
+package Negocio;
 
 public class UsuarioDeLista {
 	public boolean pagoRealizado;
