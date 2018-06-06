@@ -30,17 +30,5 @@ public class ABMListas {
 	public void modificarLista(){
 		/*Permite cambiar algo de la lista, pueden ser varias cosas y haber
 		 * sobrecarga.*/
-	}
-	
-	public Usuario LoginUser(String usuario, String password) throws Exception
-	{		
-		try 
-		{
-			return AdmPersistenciaLogin.getInstancia().LoginUser(usuario, password);
-		}
-		catch (Exception e) 
-		{
-			throw e;
-		} 
-	}
+	}		
 }

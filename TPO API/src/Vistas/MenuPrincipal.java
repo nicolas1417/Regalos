@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controladores.ABMListas;
+import Controladores.Sesion;
 import Negocio.Usuario;
 
 import javax.swing.JMenuBar;
@@ -64,19 +65,61 @@ public class MenuPrincipal extends JFrame {
 		menuBar.setVisible(false);
 		setJMenuBar(menuBar);
 		
-		JMenu mnArchivo = new JMenu("Archivo");
-		menuBar.add(mnArchivo);
+		JMenu mnAdmUsuarios = new JMenu("Administración de Usuarios");
+		menuBar.add(mnAdmUsuarios);
 		
-		JMenuItem mntmSalir = new JMenuItem("Salir");
-		mntmSalir.addActionListener(new ActionListener() {
+		JMenuItem mntmAUsuario = new JMenuItem("Alta de Usuario");
+		mntmAUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
 				MenuPrincipal.this.dispose();
 			}
 		});
-		mnArchivo.add(mntmSalir);
+		mnAdmUsuarios.add(mntmAUsuario);
 		
-		JMenu mnEditar = new JMenu("Acerca De");
-		menuBar.add(mnEditar);
+		JMenuItem mntmBUsuario = new JMenuItem("Baja de Usuario");
+		mntmBUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {				
+				MenuPrincipal.this.dispose();
+			}
+		});
+		mnAdmUsuarios.add(mntmBUsuario);
+		
+		JMenuItem mntmMUsuario = new JMenuItem("Modificación de Usuario");
+		mntmMUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {				
+				MenuPrincipal.this.dispose();
+			}
+		});
+		mnAdmUsuarios.add(mntmMUsuario);
+				
+		
+		JMenu mnABMListas = new JMenu("Administración de Listas");
+		menuBar.add(mnABMListas);
+		
+		JMenuItem mntmALista = new JMenuItem("Alta de Lista");
+		mntmALista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {				
+				MenuPrincipal.this.dispose();
+			}
+		});
+		mnABMListas.add(mntmALista);
+		
+		JMenuItem mntbALista = new JMenuItem("Baja de Lista");
+		mntbALista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {				
+				MenuPrincipal.this.dispose();
+			}
+		});
+		mnABMListas.add(mntbALista);
+		
+		JMenuItem mntbmLista = new JMenuItem("Modificación de Lista");
+		mntbmLista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {				
+				MenuPrincipal.this.dispose();
+			}
+		});
+		mnABMListas.add(mntbmLista);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -110,12 +153,12 @@ public class MenuPrincipal extends JFrame {
 		lblIngreseContrasea.setBounds(49, 103, 80, 14);
 		contentPane.add(lblIngreseContrasea);
 		
-		JButton btnNewButton = new JButton("Ingresar");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnIngresar = new JButton("Ingresar");
+		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try 
 				{
-					Usuario u = ABMListas.getInstancia().LoginUser(txtUsuario.getText(), new String(txtPasswordField.getPassword()));
+					Sesion.getInstancia().LoginUser(txtUsuario.getText(), new String(txtPasswordField.getPassword()));
 					
 					menuBar.setVisible(true);
 					txtUsuario.setVisible(false);
@@ -123,6 +166,7 @@ public class MenuPrincipal extends JFrame {
 					lblIngreseUsuario.setVisible(false);
 					lblIngreseContrasea.setVisible(false);	
 					textArea.setVisible(false);
+					btnIngresar.setVisible(false);
 					menuBar.setVisible(true);
 				}
 				catch (Exception e)
@@ -132,8 +176,8 @@ public class MenuPrincipal extends JFrame {
 			}
 		});
 		
-		btnNewButton.setBounds(139, 131, 182, 23);
-		contentPane.add(btnNewButton);
+		btnIngresar.setBounds(139, 131, 182, 23);
+		contentPane.add(btnIngresar);
 		
 		
 		
