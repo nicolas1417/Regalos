@@ -4,7 +4,6 @@ import java.util.List;
 
 import Negocio.Lista;
 import Negocio.Usuario;
-import Persistencia.AdmPersistenciaLogin;
 
 public class ABMListas {
 

@@ -1,1 +1,1 @@
-ConnectionString=jdbc:sqlserver://api283976.database.windows.net:1433;database=API;user=lucio.tzikas@api283976;password=Aplicacionesinteractivas_1;encrypt=true;trustServerCertificate=false;hostNameInCertificate=cr2.australiaeast1-a.control.database.windows.net;loginTimeout=30;
+ConnectionString=jdbc:sqlserver://localhost;user=api;password=api;

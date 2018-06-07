@@ -1,7 +1,7 @@
 package Controladores;
 
 import Negocio.Usuario;
-import Persistencia.AdmPersistenciaLogin;
+import Persistencia.ADMPersistenciaUsuarios;
 
 public class Sesion {
 	
@@ -20,7 +20,7 @@ public class Sesion {
 	{		
 		try 
 		{
-			usuarioLogueado = AdmPersistenciaLogin.getInstancia().LoginUser(usuario, password);
+			usuarioLogueado = ADMPersistenciaUsuarios.getInstancia().LoginUser(usuario, password);	
 		}
 		catch (Exception e) 
 		{

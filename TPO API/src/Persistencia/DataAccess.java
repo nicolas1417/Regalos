@@ -70,10 +70,21 @@ public class DataAccess {
 	}
 
 	public Connection getInstanciaDB() {
-		if (instanciaDB == null)
-			return Conectar();
-		else
-			return instanciaDB;				
+		if (instanciaDB != null)
+		{
+			try 
+			{
+				if (!instanciaDB.isClosed())
+					return instanciaDB;	
+				else return Conectar();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return instanciaDB;
 	}
 	
 	public void cerrarConexion()

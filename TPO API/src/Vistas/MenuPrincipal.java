@@ -71,7 +71,8 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmAUsuario = new JMenuItem("Alta de Usuario");
 		mntmAUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
-				MenuPrincipal.this.dispose();
+				AltaUsuario.getInstancia().setLocationRelativeTo(null);
+				AltaUsuario.getInstancia().setVisible(true);
 			}
 		});
 		mnAdmUsuarios.add(mntmAUsuario);

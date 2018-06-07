@@ -2,6 +2,8 @@ package Negocio;
 
 import java.util.Date;
 
+import Persistencia.ADMPersistenciaUsuarios;
+
 public class Usuario {
 	
 	private String nombre;
@@ -11,6 +13,20 @@ public class Usuario {
 	private String password;
 	private boolean estado;
 	private TipoUsuario tipoUsuario;
+	
+	private static Usuario instancia;
+	
+	public Usuario()
+	{
+		
+	}
+	
+	public static Usuario getInstancia()
+	{
+		if (instancia == null)
+			instancia = new Usuario();
+		return instancia;
+	}
 	
 	public Usuario(String nombre, String usuario, String pass, Date nacimiento){
 		this.nombre = nombre;
@@ -31,9 +47,16 @@ public class Usuario {
 		this.tipoUsuario = tu;
 	}
 	
-	public void altaUsuario(){
-		/*El usuario ya deberia estar creado, solo se lo reactiva.*/
-		this.estado = true;
+	public void AltaUsuario(String usuario, String contrasena, String nombre,TipoUsuario tipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	{
+		try
+		{
+			ADMPersistenciaUsuarios.getInstancia().altaUsuario(usuario,contrasena,nombre,tipoUsuario,fechaNacimiento,mail);
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
 	}
 	
 	public void bajaUsuario(){
@@ -46,5 +69,26 @@ public class Usuario {
 	
 	public void modificarUsuario(){
 		
+	}
+	
+	public void validarAltaUsuario(String usuario, String password, String passConfirmada) throws Exception
+	{
+		try
+		{
+			if (!ADMPersistenciaUsuarios.getInstancia().validarUsuario(usuario))
+				throw new Exception("Usuario ya existe");
+			
+			if(!validarContrasena(password,passConfirmada))
+				throw new Exception("Las contrasenas no coinciden");
+		}
+		catch (Exception e)
+		{
+			throw e;
+		}
+	}
+	
+	private boolean validarContrasena(String password, String passConfirmada) 
+	{
+		return (password.equals(passConfirmada));
 	}
 }
