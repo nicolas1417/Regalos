@@ -3,14 +3,14 @@ package Negocio;
 import java.util.Date;
 
 public class Usuario {
-
-	private int id;
+	
 	private String nombre;
 	private Date fechaNacimiento;
 	private String mail;
 	private String usuario;
 	private String password;
 	private boolean estado;
+	private TipoUsuario tipoUsuario;
 	
 	public Usuario(String nombre, String usuario, String pass, Date nacimiento){
 		this.nombre = nombre;
@@ -21,14 +21,14 @@ public class Usuario {
 		this.mail = nombre + "@user.com";
 	}
 	
-	public Usuario(int id, String nombre, String usuario, String pass, Date nacimiento,boolean estado, String mail){
-		this.id = id;
+	public Usuario(String nombre, String usuario, String pass, Date nacimiento,boolean estado, String mail,TipoUsuario tu){		
 		this.nombre = nombre;
 		this.usuario = usuario;
 		this.password = pass;
 		this.fechaNacimiento = nacimiento;
 		this.estado = estado;
 		this.mail = mail;
+		this.tipoUsuario = tu;
 	}
 	
 	public void altaUsuario(){
