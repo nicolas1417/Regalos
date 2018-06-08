@@ -182,8 +182,8 @@ public class AltaModUsuario extends JFrame {
 					    textAreaMsgError.setText("Usuario guardado correctamente!");
 					}
 					else
-					{
-						CtrlABMUsuarios.getInstancia().modificarUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldNombre.getText(),tu,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
+					{						
+						CtrlABMUsuarios.getInstancia().modificarUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldConfPass.getText(),textFieldNombre.getText(),tu,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
 						textAreaMsgError.setForeground(Color.BLUE);
 					    textAreaMsgError.setText("Usuario Modificado correctamente!");
 					}

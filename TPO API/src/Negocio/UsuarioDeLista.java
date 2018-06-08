@@ -4,7 +4,7 @@ public class UsuarioDeLista {
 	private boolean pagoRealizado;
 	private boolean estado;
 	private Usuario usuario;
-	private Lista lista;
+	
 	
 	private static UsuarioDeLista instancia;
 	
@@ -18,7 +18,6 @@ public class UsuarioDeLista {
 	public void asociarUsuarioALista(Usuario usuario, Lista lista)
 	{
 		this.usuario = usuario;
-		this.lista = lista;
 	}
 	
 	public void bajaUsuario(){

@@ -35,7 +35,7 @@ private static ADMPersistenciaUsuarios instancia;
 		{
 			
 			Connection con = DataAccess.getConexion().getInstanciaDB();
-			PreparedStatement s = con.prepareStatement("select * from api.dbo.tipousuario");
+			PreparedStatement s = con.prepareStatement("select * from tipousuario");
 	
 			ResultSet result = s.executeQuery();
 			
@@ -92,7 +92,7 @@ private static ADMPersistenciaUsuarios instancia;
 		try
 		{
 			Connection con = DataAccess.getConexion().getInstanciaDB();
-			PreparedStatement s = con.prepareStatement("select 1 from api.dbo.usuario where usuario = ?");
+			PreparedStatement s = con.prepareStatement("select 1 from usuario where usuario = ?");
 			s.setString(1,usuario);			
 			
 			ResultSet result = s.executeQuery();
@@ -115,7 +115,7 @@ private static ADMPersistenciaUsuarios instancia;
 		{
 			
 			Connection con = DataAccess.getConexion().getInstanciaDB();
-			PreparedStatement s = con.prepareStatement("select u.usuario,u.contrasena,u.nombre,tu.id,tu.codigo,u.fechaNacimiento,u.mail,u.estado from api.dbo.usuario u, api.dbo.tipousuario tu where u.tipo = tu.id AND usuario = ? AND contrasena = ?");
+			PreparedStatement s = con.prepareStatement("select u.usuario,u.contrasena,u.nombre,tu.id,tu.codigo,u.fechaNacimiento,u.mail,u.estado from usuario u, tipousuario tu where u.tipo = tu.id AND usuario = ? AND contrasena = ?");
 			s.setString(1,usuario);
 			s.setString(2, password);
 			ResultSet result = s.executeQuery();
@@ -152,7 +152,7 @@ private static ADMPersistenciaUsuarios instancia;
 		try
 		{
 			Connection con = DataAccess.getConexion().getInstanciaDB();
-			PreparedStatement s = con.prepareStatement("select u.usuario,u.contrasena,u.nombre,tu.id,tu.codigo,u.fechaNacimiento,u.mail,u.estado from api.dbo.usuario u, api.dbo.tipousuario tu where u.tipo = tu.id");		
+			PreparedStatement s = con.prepareStatement("select u.usuario,u.contrasena,u.nombre,tu.id,tu.codigo,u.fechaNacimiento,u.mail,u.estado from usuario u, tipousuario tu where u.tipo = tu.id");		
 			
 			ResultSet result = s.executeQuery();
 			

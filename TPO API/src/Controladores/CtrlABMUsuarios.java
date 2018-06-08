@@ -105,10 +105,13 @@ public class CtrlABMUsuarios {
 		}
 	}
 	
-	public void modificarUsuario(String usuario, String contrasena, String nombre,TipoUsuario tipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void modificarUsuario(String usuario, String contrasena,String passConfirmada, String nombre,TipoUsuario tipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
 		{
+			if (!Usuario.getInstancia().validarContrasena(contrasena, passConfirmada))
+				throw new Exception("Las contrasenas no coinciden");
+			
 			Usuario.getInstancia().modificarUsuario(usuario, contrasena, nombre, tipoUsuario, fechaNacimiento, mail);
 		}
 		catch(Exception e) 

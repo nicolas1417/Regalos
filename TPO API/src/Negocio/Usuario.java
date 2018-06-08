@@ -92,7 +92,7 @@ public class Usuario {
 		}
 	}
 	
-	private boolean validarContrasena(String password, String passConfirmada) 
+	public boolean validarContrasena(String password, String passConfirmada) 
 	{
 		return (password.equals(passConfirmada));
 	}
