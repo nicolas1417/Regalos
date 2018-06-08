@@ -81,9 +81,8 @@ private static ADMPersistenciaUsuarios instancia;
 			
 			DataAccess.getConexion().cerrarConexion();
 		} 
-		catch (SQLException e) 
+		catch (Exception e) 
 		{
-			e.printStackTrace();
 			throw e;
 		}
 	}
@@ -103,8 +102,9 @@ private static ADMPersistenciaUsuarios instancia;
 		}
 		catch(Exception e)
 		{
-		
+			e.printStackTrace();
 		}
+		
 		DataAccess.getConexion().cerrarConexion();
 		return true;
 	}
@@ -179,6 +179,53 @@ private static ADMPersistenciaUsuarios instancia;
 			return v;
 		}
 		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+	
+	public void modificarUsuario(String usuario, String contrasena, String nombre,TipoUsuario tipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	{
+		Connection con = DataAccess.getConexion().getInstanciaDB();
+		PreparedStatement s;
+		try
+		{
+			s = con.prepareStatement("UPDATE usuario SET contrasena = ?,nombre = ?,tipo = ?,fechaNacimiento = ?,mail = ? WHERE usuario = ?");
+					
+			s.setString(1, contrasena);
+			s.setString(2, nombre);
+			s.setInt(3, tipoUsuario.getId());
+			
+			DateFormat df = new SimpleDateFormat("yyyy-M-d");
+			String fechaParaSQL = df.format(fechaNacimiento);
+			s.setDate(4, java.sql.Date.valueOf(fechaParaSQL));
+			
+			s.setString(5, mail);
+			s.setString(6,usuario);
+			
+			s.execute();
+			
+			DataAccess.getConexion().cerrarConexion();
+		}
+		catch(Exception e) 
+		{
+			throw e;
+		}
+	}
+	
+	public void eliminarUsuario(String usuario) throws Exception
+	{
+		Connection con = DataAccess.getConexion().getInstanciaDB();
+		PreparedStatement s;
+		try
+		{
+			s = con.prepareStatement("UPDATE usuario SET estado = 0 where USUARIO = ?");
+			s.setString(1,usuario);
+			s.execute();
+			
+			DataAccess.getConexion().cerrarConexion();
+		}
+		catch(Exception e) 
 		{
 			throw e;
 		}

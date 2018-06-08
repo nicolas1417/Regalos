@@ -69,8 +69,28 @@ public class Usuario {
 		
 	}
 	
-	public void modificarUsuario(){
-		
+	public void modificarUsuario(String usuario, String contrasena, String nombre,TipoUsuario tipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	{
+		try
+		{
+			ADMPersistenciaUsuarios.getInstancia().modificarUsuario(usuario, contrasena, nombre, tipoUsuario, fechaNacimiento, mail);
+		}
+		catch(Exception e) 
+		{
+			throw e;
+		}
+	}
+	
+	public void eliminarUsuario(String usuario) throws Exception
+	{
+		try
+		{
+			ADMPersistenciaUsuarios.getInstancia().eliminarUsuario(usuario);
+		}
+		catch(Exception e) 
+		{
+			throw e;
+		}
 	}
 	
 	public void validarAltaUsuario(String usuario, String password, String passConfirmada) throws Exception
@@ -122,12 +142,20 @@ public class Usuario {
 		return tipoUsuario.getCodigo();
 	}
 	
+	public int getIdTipo() {
+		return tipoUsuario.getId();
+	}
+	
 	public String getMail() {
 		return mail;
 	}
 	
 	public String getDescEstado() {
 		return estado?"Activo":"Inhabilitado";
+	}
+	
+	public boolean getEstado() {
+		return estado;
 	}
 
 

@@ -18,11 +18,13 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import Controladores.ABMUsuarios;
 import Negocio.TipoUsuario;
+import Negocio.Usuario;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class AltaUsuario extends JFrame {
+public class AltaModUsuario extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldUsuario;
@@ -31,37 +33,29 @@ public class AltaUsuario extends JFrame {
 	private JTextField textFieldNombre;
 	private JTextField textFieldFechaNac;
 	private JTextField textFieldMail;
+	private JComboBox<String> comboBoxTipo;
+	private JTextArea textAreaMsgError;
 	
 	private Vector<TipoUsuario> v = null;
-	private static AltaUsuario instancia;
+	private String usuarioMod = "";
 	
-	public static AltaUsuario getInstancia()
+	private static AltaModUsuario instancia;
+	
+	public static AltaModUsuario getInstancia(String usuarioMod)
 	{
-		if (instancia == null)
-			instancia = new AltaUsuario();
-		return instancia;
+		return new AltaModUsuario(usuarioMod);
 	}
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AltaUsuario frame = new AltaUsuario();
-					frame.setVisible(true);	
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	
+	public void SetUsuarioMod(String usuarioMod)
+	{
+		usuarioMod = this.usuarioMod;
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public AltaUsuario() {
+	public AltaModUsuario(String usuarioMod) {
+		this.usuarioMod = usuarioMod;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -72,49 +66,49 @@ public class AltaUsuario extends JFrame {
 		JLabel lblUsuario = new JLabel("Usuario: ");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblUsuario.setBounds(64, 26, 58, 14);
+		lblUsuario.setBounds(64, 8, 58, 14);
 		contentPane.add(lblUsuario);
 		
 		textFieldUsuario = new JTextField();
-		textFieldUsuario.setBounds(126, 23, 172, 20);
+		textFieldUsuario.setBounds(126, 6, 172, 20);
 		contentPane.add(textFieldUsuario);
 		textFieldUsuario.setColumns(10);
 		
 		JLabel lblContrasena = new JLabel("Contrase\u00F1a:");
 		lblContrasena.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblContrasena.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblContrasena.setBounds(43, 51, 77, 14);
+		lblContrasena.setBounds(43, 32, 77, 14);
 		contentPane.add(lblContrasena);
 		
 		textFieldPassword = new JTextField();
-		textFieldPassword.setBounds(126, 48, 172, 20);
+		textFieldPassword.setBounds(126, 30, 172, 20);
 		contentPane.add(textFieldPassword);
 		textFieldPassword.setColumns(10);
 		
 		JLabel lblConfirmarContrasea = new JLabel("Confirmar Contrase\u00F1a: ");
 		lblConfirmarContrasea.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblConfirmarContrasea.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblConfirmarContrasea.setBounds(10, 76, 113, 14);
+		lblConfirmarContrasea.setBounds(10, 56, 113, 14);
 		contentPane.add(lblConfirmarContrasea);
 		
 		textFieldConfPass = new JTextField();
-		textFieldConfPass.setBounds(126, 73, 172, 20);
+		textFieldConfPass.setBounds(126, 54, 172, 20);
 		contentPane.add(textFieldConfPass);
 		textFieldConfPass.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNombre.setBounds(20, 103, 100, 14);
+		lblNombre.setBounds(20, 81, 100, 14);
 		contentPane.add(lblNombre);
 		
 		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(126, 100, 172, 20);
+		textFieldNombre.setBounds(126, 79, 172, 20);
 		contentPane.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
-		JComboBox<String> comboBoxTipo = new JComboBox<String>();
-		comboBoxTipo.setBounds(126, 129, 172, 20);
+		comboBoxTipo = new JComboBox<String>();
+		comboBoxTipo.setBounds(126, 102, 172, 20);
 		contentPane.add(comboBoxTipo);
 		
 		try {
@@ -133,67 +127,116 @@ public class AltaUsuario extends JFrame {
 		JLabel lblTipo = new JLabel("Tipo:");
 		lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblTipo.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTipo.setBounds(74, 132, 46, 14);
+		lblTipo.setBounds(74, 104, 46, 14);
 		contentPane.add(lblTipo);
 		
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento:");
 		lblFechaDeNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblFechaDeNacimiento.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFechaDeNacimiento.setBounds(10, 157, 110, 14);
+		lblFechaDeNacimiento.setBounds(10, 129, 110, 14);
 		contentPane.add(lblFechaDeNacimiento);
 		
 		textFieldFechaNac = new JTextField();
-		textFieldFechaNac.setBounds(126, 154, 172, 20);
+		textFieldFechaNac.setBounds(126, 127, 172, 20);
 		contentPane.add(textFieldFechaNac);
 		textFieldFechaNac.setColumns(10);
 		
 		JLabel lblMail = new JLabel("Mail:");
 		lblMail.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblMail.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMail.setBounds(74, 183, 46, 14);
+		lblMail.setBounds(74, 155, 46, 14);
 		contentPane.add(lblMail);
 		
 		textFieldMail = new JTextField();
-		textFieldMail.setBounds(126, 180, 172, 20);
+		textFieldMail.setBounds(126, 153, 172, 20);
 		contentPane.add(textFieldMail);
 		textFieldMail.setColumns(10);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setForeground(Color.RED);
-		textArea.setBounds(126, 215, 271, 47);		
-	    textArea.setWrapStyleWord(true);
-	    textArea.setLineWrap(true);
-	    textArea.setOpaque(false);
-	    textArea.setEditable(false);
-	    textArea.setFocusable(false);
-	    textArea.setBackground(UIManager.getColor("Label.background"));
-	    textArea.setFont(UIManager.getFont("Label.font"));
-	    textArea.setBorder(UIManager.getBorder("Label.border"));
-		contentPane.add(textArea);
+		textAreaMsgError = new JTextArea();
+		textAreaMsgError.setForeground(Color.RED);
+		textAreaMsgError.setBounds(126, 207, 271, 47);		
+	    textAreaMsgError.setWrapStyleWord(true);
+	    textAreaMsgError.setLineWrap(true);
+	    textAreaMsgError.setOpaque(false);
+	    textAreaMsgError.setEditable(false);
+	    textAreaMsgError.setFocusable(false);
+	    textAreaMsgError.setBackground(UIManager.getColor("Label.background"));
+	    textAreaMsgError.setFont(UIManager.getFont("Label.font"));
+	    textAreaMsgError.setBorder(UIManager.getBorder("Label.border"));
+		contentPane.add(textAreaMsgError);
 		
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnGuardar.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
 				try
 				{
 					TipoUsuario tu = v.elementAt(comboBoxTipo.getSelectedIndex());
-					
-				    ABMUsuarios.getInstancia().validarAltaUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldConfPass.getText());				    
-				    ABMUsuarios.getInstancia().crearUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldNombre.getText(),tu,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
-				    
-				    textArea.setForeground(Color.BLUE);
-				    textArea.setText("Usuario guardado correctamente!");
+					if (usuarioMod.equals(""))
+					{
+					    ABMUsuarios.getInstancia().validarAltaUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldConfPass.getText());				    
+					    ABMUsuarios.getInstancia().crearUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldNombre.getText(),tu,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
+					    
+					    textAreaMsgError.setForeground(Color.BLUE);
+					    textAreaMsgError.setText("Usuario guardado correctamente!");
+					}
+					else
+					{
+						ABMUsuarios.getInstancia().modificarUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldNombre.getText(),tu,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
+						textAreaMsgError.setForeground(Color.BLUE);
+					    textAreaMsgError.setText("Usuario Modificado correctamente!");
+					}
 				}
 				catch(Exception e)
 				{				
-					textArea.setForeground(Color.RED);
-					textArea.setText(e.getMessage());
+					textAreaMsgError.setForeground(Color.RED);
+					textAreaMsgError.setText(e.getMessage());
 				}
 				
 			}
 		});
-		btnGuardar.setBounds(308, 179, 89, 23);
+		btnGuardar.setBounds(127, 181, 80, 23);
 		contentPane.add(btnGuardar);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AltaModUsuario.this.dispose();
+			}
+		});
+		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnCancelar.setBounds(217, 181, 80, 23);
+		contentPane.add(btnCancelar);
+		
+		setearVistaModificacion();
+	}
+	
+	private void setearVistaModificacion()
+	{
+		try
+		{
+			if(!this.usuarioMod.equals(""))
+			{
+				Usuario u = ABMUsuarios.getInstancia().buscarUsuarioParaModificar(this.usuarioMod);
+			
+				if(u != null)
+				{
+					textFieldUsuario.setText(u.getUsuario());
+					textFieldUsuario.setEnabled(false);
+					
+					textFieldNombre.setText(u.getNombre());
+					textFieldFechaNac.setText(u.getFechaNac().toString());
+					textFieldMail.setText(u.getMail());
+					comboBoxTipo.setSelectedIndex(u.getIdTipo() - 1);	
+				}
+				else 
+					throw new Exception("El usuario a Modificar no existe");
+			}
+		}
+		catch(Exception e)
+		{
+			textAreaMsgError.setText(e.getMessage());
+		}
 	}
 }

@@ -71,28 +71,21 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmAUsuario = new JMenuItem("Alta de Usuario");
 		mntmAUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
-				AltaUsuario.getInstancia().setLocationRelativeTo(null);
-				AltaUsuario.getInstancia().setVisible(true);
+				AltaModUsuario.getInstancia("").setLocationRelativeTo(null);
+				AltaModUsuario.getInstancia("").setVisible(true);
 			}
 		});
 		mnAdmUsuarios.add(mntmAUsuario);
 		
-		JMenuItem mntmBUsuario = new JMenuItem("Baja de Usuario");
+		JMenuItem mntmBUsuario = new JMenuItem("Buscar Usuarios");
 		mntmBUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
-				MenuPrincipal.this.dispose();
+				BuscarUsuario buscarUsuario = BuscarUsuario.getInstancia();
+				buscarUsuario.setLocationRelativeTo(null);
+				buscarUsuario.setVisible(true);
 			}
 		});
 		mnAdmUsuarios.add(mntmBUsuario);
-		
-		JMenuItem mntmMUsuario = new JMenuItem("Modificación de Usuario");
-		mntmMUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-				MenuPrincipal.this.dispose();
-			}
-		});
-		mnAdmUsuarios.add(mntmMUsuario);
-				
 		
 		JMenu mnABMListas = new JMenu("Administración de Listas");
 		menuBar.add(mnABMListas);

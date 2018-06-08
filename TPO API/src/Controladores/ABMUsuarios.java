@@ -15,7 +15,6 @@ public class ABMUsuarios {
 /*Provee métodos para manejar los usuarios, se mete en el modelo llamando los
  * metodos que agregan, editan o borran usuarios.*/
 	
-	public static Vector<Usuario> usuarios;
 	private static ABMUsuarios instancia;
 	
 	public static ABMUsuarios getInstancia()
@@ -42,22 +41,12 @@ public class ABMUsuarios {
 		try
 		{
 			Usuario.getInstancia().AltaUsuario(usuario,contrasena,nombre,tipoUsuario,fechaNacimiento,mail);
-		
-			agregarUsuario(new Usuario(nombre, usuario, contrasena, fechaNacimiento, true, mail, tipoUsuario));
 		}
 		catch(Exception e)
 		{
 			throw e;
 		}
 	}
-	
-	private void agregarUsuario(Usuario usuario) 
-	{
-		if (usuarios == null)
-			usuarios = new Vector<Usuario>();
-		usuarios.add(usuario);
-	}
-	
 	
 	public void validarAltaUsuario(String usuario, String password, String passConfirmada) throws Exception
 	{
@@ -95,4 +84,50 @@ public class ABMUsuarios {
 			throw e;
 		}
 	}
+	
+	public Usuario buscarUsuarioParaModificar(String usuario) throws Exception
+	{
+		try
+		{
+			Vector<Usuario> v = Usuario.getInstancia().buscarUsuarios();
+			
+			for (Usuario u:v)
+			{
+				if (u.getUsuario().equals(usuario) && u.getEstado())
+					return u;
+			}
+			
+			throw new Exception("No se ha encontrado al usuario");	
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+	
+	public void modificarUsuario(String usuario, String contrasena, String nombre,TipoUsuario tipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	{
+		try
+		{
+			Usuario.getInstancia().modificarUsuario(usuario, contrasena, nombre, tipoUsuario, fechaNacimiento, mail);
+		}
+		catch(Exception e) 
+		{
+			throw e;
+		}
+	}
+	
+	public void eliminarUsuario(String usuario) throws Exception
+	{
+		try
+		{
+			Usuario.getInstancia().eliminarUsuario(usuario);
+		}
+		catch(Exception e) 
+		{
+			throw e;
+		}
+	}
+		
+	
 }
