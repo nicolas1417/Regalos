@@ -1,8 +1,10 @@
 package Negocio;
 
 import java.util.Date;
+import java.util.Vector;
 
 import Persistencia.ADMPersistenciaUsuarios;
+
 
 public class Usuario {
 	
@@ -91,4 +93,44 @@ public class Usuario {
 	{
 		return (password.equals(passConfirmada));
 	}
+	
+	public Vector<Usuario> buscarUsuarios() throws Exception
+	{
+		try
+		{
+			return ADMPersistenciaUsuarios.getInstancia().buscarUsuarios();
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+	
+	public String getUsuario() {
+		return usuario;
+	}
+	
+	public Date getFechaNac() {
+		return fechaNacimiento;
+	}
+	
+	public String getCodTipo() {
+		return tipoUsuario.getCodigo();
+	}
+	
+	public String getMail() {
+		return mail;
+	}
+	
+	public String getDescEstado() {
+		return estado?"Activo":"Inhabilitado";
+	}
+
+
+
+	
 }

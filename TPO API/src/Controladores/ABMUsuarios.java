@@ -1,5 +1,6 @@
 package Controladores;
 
+import java.sql.ResultSet;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -63,6 +64,31 @@ public class ABMUsuarios {
 		try
 		{
 			Usuario.getInstancia().validarAltaUsuario(usuario,password,passConfirmada);
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+	
+	public Object[][] buscarUsuarios() throws Exception
+	{
+		try
+		{
+			Vector<Usuario> v = Usuario.getInstancia().buscarUsuarios();
+			
+			Object[][] data = new Object[v.size()][5]; 
+			
+			for(int i=0;i<v.size();i++)
+			{
+				data[i][0] = v.elementAt(i).getUsuario();
+				data[i][1] = v.elementAt(i).getNombre();
+				data[i][2] = v.elementAt(i).getCodTipo();
+				data[i][3] = v.elementAt(i).getMail();
+				data[i][4] = v.elementAt(i).getDescEstado();
+			}
+			
+			return data;
 		}
 		catch(Exception e)
 		{

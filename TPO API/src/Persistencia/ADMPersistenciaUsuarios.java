@@ -39,8 +39,6 @@ private static ADMPersistenciaUsuarios instancia;
 	
 			ResultSet result = s.executeQuery();
 			
-			DataAccess.getConexion().cerrarConexion();
-
 			while (result.next()) 
 			{
 				TipoUsuario tu = new TipoUsuario(result.getInt(1),result.getString(2));
@@ -49,7 +47,9 @@ private static ADMPersistenciaUsuarios instancia;
 			}
 			
 			if( vTiposUsuarios.size() == 0)
-				throw new Exception("No existen tipos de usuario");		
+				throw new Exception("No existen tipos de usuario");	
+			
+			DataAccess.getConexion().cerrarConexion();
 		}
 		catch(Exception e)
 		{
@@ -97,8 +97,6 @@ private static ADMPersistenciaUsuarios instancia;
 			s.setString(1,usuario);			
 			
 			ResultSet result = s.executeQuery();
-			
-			DataAccess.getConexion().cerrarConexion();
 				
 			if (result.next())
 				return false;	
@@ -107,6 +105,7 @@ private static ADMPersistenciaUsuarios instancia;
 		{
 		
 		}
+		DataAccess.getConexion().cerrarConexion();
 		return true;
 	}
 	
@@ -142,6 +141,44 @@ private static ADMPersistenciaUsuarios instancia;
 			return u;
 		}
 		catch (Exception e)
+		{
+			throw e;
+		}
+	}
+	
+	public Vector<Usuario> buscarUsuarios() throws Exception
+	{
+		Vector<Usuario> v = new Vector<Usuario>();
+		try
+		{
+			Connection con = DataAccess.getConexion().getInstanciaDB();
+			PreparedStatement s = con.prepareStatement("select u.usuario,u.contrasena,u.nombre,tu.id,tu.codigo,u.fechaNacimiento,u.mail,u.estado from api.dbo.usuario u, api.dbo.tipousuario tu where u.tipo = tu.id");		
+			
+			ResultSet result = s.executeQuery();
+			
+			while(result.next())
+			{
+				String user = result.getString(1);
+				String contrasena = result.getString(2);
+				String nombre = result.getString(3);
+				int idTipoUsuario = result.getInt(4);
+				String codTipoUsuario = result.getString(5);
+				Date fecha_nac = result.getDate(6);
+				String mail = result.getString(7);
+				int estado = result.getInt(8);
+				
+				TipoUsuario tu = new TipoUsuario(idTipoUsuario,codTipoUsuario);
+				
+				Usuario u = new Usuario(nombre,user,contrasena,fecha_nac,estado==1,mail,tu);
+				
+				v.add(u);
+			}
+			
+			DataAccess.getConexion().cerrarConexion();
+					
+			return v;
+		}
+		catch(Exception e)
 		{
 			throw e;
 		}
