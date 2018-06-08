@@ -18,11 +18,6 @@ public class Usuario {
 	
 	private static Usuario instancia;
 	
-	public Usuario()
-	{
-		
-	}
-	
 	public static Usuario getInstancia()
 	{
 		if (instancia == null)
@@ -30,15 +25,11 @@ public class Usuario {
 		return instancia;
 	}
 	
-	public Usuario(String nombre, String usuario, String pass, Date nacimiento){
-		this.nombre = nombre;
-		this.usuario = usuario;
-		this.password = pass;
-		this.fechaNacimiento = nacimiento;
-		this.estado = true;
-		this.mail = nombre + "@user.com";
+	public Usuario()
+	{
+		
 	}
-	
+		
 	public Usuario(String nombre, String usuario, String pass, Date nacimiento,boolean estado, String mail,TipoUsuario tu){		
 		this.nombre = nombre;
 		this.usuario = usuario;
@@ -59,15 +50,7 @@ public class Usuario {
 		{
 			throw e;
 		}
-	}
-	
-	public void bajaUsuario(){
-		this.estado = false;
-	}
-	
-	public void borradoPermanenteDeUsuario(){
-		
-	}
+	}	
 	
 	public void modificarUsuario(String usuario, String contrasena, String nombre,TipoUsuario tipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{

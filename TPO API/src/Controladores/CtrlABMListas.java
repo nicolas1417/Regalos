@@ -6,26 +6,22 @@ import java.util.List;
 import Negocio.Lista;
 import Negocio.TipoUsuario;
 import Negocio.Usuario;
+import Negocio.UsuarioDeLista;
 
-public class ABMListas {
+public class CtrlABMListas {
 
 	private List<Lista> listas;
-	private static ABMListas instancia;
+	private static CtrlABMListas instancia;
 	
-	public static ABMListas getInstancia()
+	public static CtrlABMListas getInstancia()
 	{
 		if (instancia == null)
-			instancia = new ABMListas();
+			instancia = new CtrlABMListas();
 		return instancia;
 	}
 	
-	public void crearLista(){
-		//Crear una lista
-	}
-	
-	public void eliminarLista(Lista lista){
-		/*Saca el parametro pasado de la lista de esta clase*/
-		
+	public void cerrarLista(Lista lista){
+		lista.cerrarLista();		
 	}
 	
 	public void modificarLista(){
@@ -37,12 +33,15 @@ public class ABMListas {
 	{
 		try
 		{
-			Lista.getInstancia().AltaListas(fechaAgasajo,montoParticipante,fechaFin,mail,usuario);
-		
+			Lista.getInstancia().altaListas(fechaAgasajo,montoParticipante,fechaFin,mail,usuario);		
 		}
 		catch(Exception e)
 		{
 			throw e;
 		}
+	}
+	
+	public void agregarParticipante(UsuarioDeLista participante){
+		Lista.getInstancia().agregarParticipante(participante);
 	}
 }

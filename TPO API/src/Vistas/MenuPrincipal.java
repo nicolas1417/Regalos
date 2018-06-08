@@ -10,8 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Controladores.ABMListas;
-import Controladores.Sesion;
+import Controladores.CtrlABMListas;
+import Controladores.CtrlSesion;
 import Negocio.Usuario;
 
 import javax.swing.JMenuBar;
@@ -153,7 +153,7 @@ public class MenuPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try 
 				{
-					Sesion.getInstancia().LoginUser(txtUsuario.getText(), new String(txtPasswordField.getPassword()));
+					CtrlSesion.getInstancia().LoginUser(txtUsuario.getText(), new String(txtPasswordField.getPassword()));
 					
 					menuBar.setVisible(true);
 					txtUsuario.setVisible(false);

@@ -10,17 +10,17 @@ import Negocio.Usuario;
 import Persistencia.ADMPersistenciaUsuarios;
 
 
-public class ABMUsuarios {
+public class CtrlABMUsuarios {
 	
 /*Provee métodos para manejar los usuarios, se mete en el modelo llamando los
  * metodos que agregan, editan o borran usuarios.*/
 	
-	private static ABMUsuarios instancia;
+	private static CtrlABMUsuarios instancia;
 	
-	public static ABMUsuarios getInstancia()
+	public static CtrlABMUsuarios getInstancia()
 	{
 		if (instancia == null)
-			instancia = new ABMUsuarios();
+			instancia = new CtrlABMUsuarios();
 		return instancia;
 	}
 	

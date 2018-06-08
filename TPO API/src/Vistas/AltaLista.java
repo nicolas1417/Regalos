@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Controladores.ABMListas;
+import Controladores.CtrlABMListas;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -116,7 +116,7 @@ public class AltaLista extends JFrame {
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
-					ABMListas.getInstancia().crearLista(textFieldAgasajo.getText(), Integer.parseInt(textFieldMonto.getText()), textFieldFechaFin.getText(), textFieldMail.getText(), textFieldUsuario.getText());
+					CtrlABMListas.getInstancia().crearLista(textFieldAgasajo.getText(), Integer.parseInt(textFieldMonto.getText()), textFieldFechaFin.getText(), textFieldMail.getText(), textFieldUsuario.getText());
 					
 					mensaje.setForeground(Color.BLUE);
 				    mensaje.setText("Lista guardada correctamente!");

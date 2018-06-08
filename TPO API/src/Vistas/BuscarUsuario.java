@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import Controladores.ABMUsuarios;
+import Controladores.CtrlABMUsuarios;
 
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -69,7 +69,7 @@ public class BuscarUsuario extends JFrame {
 		Object[][] data = null;
 		try
 		{
-			data = ABMUsuarios.getInstancia().buscarUsuarios();
+			data = CtrlABMUsuarios.getInstancia().buscarUsuarios();
 		}
 		catch(Exception e)
 		{
@@ -148,7 +148,7 @@ public class BuscarUsuario extends JFrame {
 				{
 					if(!textFieldUsuario.getText().equals(""))
 					{
-						ABMUsuarios.getInstancia().eliminarUsuario(textFieldUsuario.getText());
+						CtrlABMUsuarios.getInstancia().eliminarUsuario(textFieldUsuario.getText());
 						textAreaMsgError.setForeground(Color.BLUE);
 						textAreaMsgError.setText("Usuario Eliminado Correctamente");	
 					}

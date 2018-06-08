@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-import Controladores.ABMUsuarios;
+import Controladores.CtrlABMUsuarios;
 import Negocio.TipoUsuario;
 import Negocio.Usuario;
 
@@ -112,7 +112,7 @@ public class AltaModUsuario extends JFrame {
 		contentPane.add(comboBoxTipo);
 		
 		try {
-			v = ABMUsuarios.getInstancia().obtenerTiposDeUsuario();
+			v = CtrlABMUsuarios.getInstancia().obtenerTiposDeUsuario();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -175,15 +175,15 @@ public class AltaModUsuario extends JFrame {
 					TipoUsuario tu = v.elementAt(comboBoxTipo.getSelectedIndex());
 					if (usuarioMod.equals(""))
 					{
-					    ABMUsuarios.getInstancia().validarAltaUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldConfPass.getText());				    
-					    ABMUsuarios.getInstancia().crearUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldNombre.getText(),tu,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
+					    CtrlABMUsuarios.getInstancia().validarAltaUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldConfPass.getText());				    
+					    CtrlABMUsuarios.getInstancia().crearUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldNombre.getText(),tu,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
 					    
 					    textAreaMsgError.setForeground(Color.BLUE);
 					    textAreaMsgError.setText("Usuario guardado correctamente!");
 					}
 					else
 					{
-						ABMUsuarios.getInstancia().modificarUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldNombre.getText(),tu,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
+						CtrlABMUsuarios.getInstancia().modificarUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldNombre.getText(),tu,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
 						textAreaMsgError.setForeground(Color.BLUE);
 					    textAreaMsgError.setText("Usuario Modificado correctamente!");
 					}
@@ -218,7 +218,7 @@ public class AltaModUsuario extends JFrame {
 		{
 			if(!this.usuarioMod.equals(""))
 			{
-				Usuario u = ABMUsuarios.getInstancia().buscarUsuarioParaModificar(this.usuarioMod);
+				Usuario u = CtrlABMUsuarios.getInstancia().buscarUsuarioParaModificar(this.usuarioMod);
 			
 				if(u != null)
 				{

@@ -3,16 +3,16 @@ package Controladores;
 import Negocio.Usuario;
 import Persistencia.ADMPersistenciaUsuarios;
 
-public class Sesion {
+public class CtrlSesion {
 	
-	private  Usuario usuarioLogueado;
+	private Usuario usuarioLogueado;
 	
-	private static Sesion instancia;
+	private static CtrlSesion instancia;
 	
-	public static Sesion getInstancia()
+	public static CtrlSesion getInstancia()
 	{
 		if (instancia == null)
-			instancia = new Sesion();
+			instancia = new CtrlSesion();
 		return instancia;
 	}
 	

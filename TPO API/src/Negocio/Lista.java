@@ -8,7 +8,7 @@ import Persistencia.ADMPersistenciaUsuarios;
 
 public class Lista {
 	public String nombreAgasajado;
-	public Date fecha;//Para qué sirve?
+	public Date fechaAgasajo;
 	public List<UsuarioDeLista> participantes;
 	public int montoPorParticipante;
 	public int montoRecaudado;
@@ -59,7 +59,7 @@ public class Lista {
 		
 	}
 	
-	public void AltaListas(String fechaAgasajo, int montoParticipante, String fechaFin, String mail, String usuario) throws Exception
+	public void altaListas(String fechaAgasajo, int montoParticipante, String fechaFin, String mail, String usuario) throws Exception
 	{
 		try
 		{
