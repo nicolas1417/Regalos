@@ -100,7 +100,8 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem mntmALista = new JMenuItem("Alta de Lista");
 		mntmALista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
-				MenuPrincipal.this.dispose();
+				AltaLista obj = new AltaLista();
+				obj.setVisible(true);
 			}
 		});
 		mnABMListas.add(mntmALista);

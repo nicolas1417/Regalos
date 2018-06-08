@@ -3,6 +3,9 @@ package Negocio;
 import java.sql.Date;
 import java.util.List;
 
+import Persistencia.ADMPersistenciaListas;
+import Persistencia.ADMPersistenciaUsuarios;
+
 public class Lista {
 	public String nombreAgasajado;
 	public Date fecha;//Para qué sirve?
@@ -14,6 +17,21 @@ public class Lista {
 	public boolean estado;
 	public String mail;
 	public UsuarioDeLista administrador;
+	
+	private static Lista instancia;
+	
+	public Lista()
+	{
+		
+	}
+	
+	public static Lista getInstancia()
+	{
+		if (instancia == null)
+			instancia = new Lista();
+		return instancia;
+	}
+	
 	
 	/*Constructor de la lista, deberia decirse quien es el administrador, que fecha
 	 * de inicio y fin tiene, monto que tiene que poner cada uno, nombre del agasajado
@@ -39,6 +57,18 @@ public class Lista {
 			System.out.println(e.getMessage());//Seria mejor poner un messagebox.
 		}
 		
+	}
+	
+	public void AltaListas(String fechaAgasajo, int montoParticipante, String fechaFin, String mail, String usuario) throws Exception
+	{
+		try
+		{
+			ADMPersistenciaListas.getInstancia().altaLista(usuario,montoParticipante,fechaFin,mail,usuario);
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
 	}
 	
 	public void cerrarLista(){

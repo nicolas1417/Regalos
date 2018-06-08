@@ -1,8 +1,10 @@
 package Controladores;
 
+import java.util.Date;
 import java.util.List;
 
 import Negocio.Lista;
+import Negocio.TipoUsuario;
 import Negocio.Usuario;
 
 public class ABMListas {
@@ -30,4 +32,17 @@ public class ABMListas {
 		/*Permite cambiar algo de la lista, pueden ser varias cosas y haber
 		 * sobrecarga.*/
 	}		
+	
+	public void crearLista(String fechaAgasajo, int montoParticipante, String fechaFin, String mail, String usuario) throws Exception
+	{
+		try
+		{
+			Lista.getInstancia().AltaListas(fechaAgasajo,montoParticipante,fechaFin,mail,usuario);
+		
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
 }
