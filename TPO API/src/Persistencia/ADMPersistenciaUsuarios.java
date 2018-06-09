@@ -58,7 +58,7 @@ private static ADMPersistenciaUsuarios instancia;
 		return vTiposUsuarios;
 	}
 	
-	public void altaUsuario(String usuario, String contrasena, String nombre,TipoUsuario tipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void altaUsuario(String usuario, String contrasena, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		Connection con = DataAccess.getConexion().getInstanciaDB();
 		PreparedStatement s;
@@ -69,7 +69,7 @@ private static ADMPersistenciaUsuarios instancia;
 			s.setString(1,usuario);
 			s.setString(2, contrasena);
 			s.setString(3, nombre);
-			s.setInt(4, tipoUsuario.getId());
+			s.setInt(4, idTipoUsuario);
 			
 			DateFormat df = new SimpleDateFormat("yyyy-M-d");
 			String fechaParaSQL = df.format(fechaNacimiento);

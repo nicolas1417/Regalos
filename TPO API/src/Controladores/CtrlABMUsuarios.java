@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-import Negocio.TipoUsuario;
 import Negocio.Usuario;
 import Persistencia.ADMPersistenciaUsuarios;
 
@@ -24,11 +23,11 @@ public class CtrlABMUsuarios {
 		return instancia;
 	}
 	
-	public Vector<TipoUsuario> obtenerTiposDeUsuario() throws Exception
+	public String[] obtenerTiposDeUsuario() throws Exception
 	{
 		try
 		{
-			return TipoUsuario.getInstancia().obtenerTiposDeUsuario();
+			return Usuario.getInstancia().obtenerTiposDeUsuario();
 		}
 		catch (Exception e) 
 		{
@@ -36,11 +35,11 @@ public class CtrlABMUsuarios {
 		}
 	}
 	
-	public void crearUsuario(String usuario, String contrasena, String nombre,TipoUsuario tipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void crearUsuario(String usuario, String contrasena, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
 		{
-			Usuario.getInstancia().AltaUsuario(usuario,contrasena,nombre,tipoUsuario,fechaNacimiento,mail);
+			Usuario.getInstancia().AltaUsuario(usuario,contrasena,nombre,idTipoUsuario,fechaNacimiento,mail);
 		}
 		catch(Exception e)
 		{
@@ -85,7 +84,7 @@ public class CtrlABMUsuarios {
 		}
 	}
 	
-	public Usuario buscarUsuarioParaModificar(String usuario) throws Exception
+	public String[] buscarUsuarioParaModificar(String usuario) throws Exception
 	{
 		try
 		{
@@ -94,7 +93,16 @@ public class CtrlABMUsuarios {
 			for (Usuario u:v)
 			{
 				if (u.getUsuario().equals(usuario) && u.getEstado())
-					return u;
+				{
+					String[] s = new String[5];
+					s[0] = u.getUsuario();
+					s[1] = u.getNombre();
+					s[2] = u.getFechaNac().toString();
+					s[3] = u.getMail();
+					s[4] = String.valueOf(u.getIdTipo());
+					
+					return s;
+				}					
 			}
 			
 			throw new Exception("No se ha encontrado al usuario");	
@@ -105,14 +113,14 @@ public class CtrlABMUsuarios {
 		}
 	}
 	
-	public void modificarUsuario(String usuario, String contrasena,String passConfirmada, String nombre,TipoUsuario tipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void modificarUsuario(String usuario, String contrasena,String passConfirmada, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
 		{
 			if (!Usuario.getInstancia().validarContrasena(contrasena, passConfirmada))
 				throw new Exception("Las contrasenas no coinciden");
 			
-			Usuario.getInstancia().modificarUsuario(usuario, contrasena, nombre, tipoUsuario, fechaNacimiento, mail);
+			Usuario.getInstancia().modificarUsuario(usuario, contrasena, nombre, idTipoUsuario, fechaNacimiento, mail);
 		}
 		catch(Exception e) 
 		{

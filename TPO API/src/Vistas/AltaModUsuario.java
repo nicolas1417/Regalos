@@ -17,8 +17,6 @@ import javax.swing.UIManager;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import Controladores.CtrlABMUsuarios;
-import Negocio.TipoUsuario;
-import Negocio.Usuario;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -36,7 +34,7 @@ public class AltaModUsuario extends JFrame {
 	private JComboBox<String> comboBoxTipo;
 	private JTextArea textAreaMsgError;
 	
-	private Vector<TipoUsuario> v = null;
+	private String[] s = null;
 	private String usuarioMod = "";
 	
 	private static AltaModUsuario instancia;
@@ -112,16 +110,15 @@ public class AltaModUsuario extends JFrame {
 		contentPane.add(comboBoxTipo);
 		
 		try {
-			v = CtrlABMUsuarios.getInstancia().obtenerTiposDeUsuario();
+			s = CtrlABMUsuarios.getInstancia().obtenerTiposDeUsuario();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		for( int i=0; i<v.size() ; i ++ )
-		{
-			TipoUsuario tu = v.elementAt(i);
-			comboBoxTipo.addItem(tu.getCodigo());
+		for( int i=0; i<s.length ; i ++ )
+		{			
+			comboBoxTipo.addItem(s[0]);
 		}
 		
 		JLabel lblTipo = new JLabel("Tipo:");
@@ -172,18 +169,18 @@ public class AltaModUsuario extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try
 				{
-					TipoUsuario tu = v.elementAt(comboBoxTipo.getSelectedIndex());
+					int idTipoUsuario = comboBoxTipo.getSelectedIndex();
 					if (usuarioMod.equals(""))
 					{
 					    CtrlABMUsuarios.getInstancia().validarAltaUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldConfPass.getText());				    
-					    CtrlABMUsuarios.getInstancia().crearUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldNombre.getText(),tu,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
+					    CtrlABMUsuarios.getInstancia().crearUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldNombre.getText(),idTipoUsuario+1,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
 					    
 					    textAreaMsgError.setForeground(Color.BLUE);
 					    textAreaMsgError.setText("Usuario guardado correctamente!");
 					}
 					else
 					{						
-						CtrlABMUsuarios.getInstancia().modificarUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldConfPass.getText(),textFieldNombre.getText(),tu,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
+						CtrlABMUsuarios.getInstancia().modificarUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldConfPass.getText(),textFieldNombre.getText(),idTipoUsuario+1,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
 						textAreaMsgError.setForeground(Color.BLUE);
 					    textAreaMsgError.setText("Usuario Modificado correctamente!");
 					}
@@ -218,17 +215,17 @@ public class AltaModUsuario extends JFrame {
 		{
 			if(!this.usuarioMod.equals(""))
 			{
-				Usuario u = CtrlABMUsuarios.getInstancia().buscarUsuarioParaModificar(this.usuarioMod);
+				String[] usuario = CtrlABMUsuarios.getInstancia().buscarUsuarioParaModificar(this.usuarioMod);
 			
-				if(u != null)
+				if(!usuario.equals(""))
 				{
-					textFieldUsuario.setText(u.getUsuario());
+					textFieldUsuario.setText(s[0]);
 					textFieldUsuario.setEnabled(false);
 					
-					textFieldNombre.setText(u.getNombre());
-					textFieldFechaNac.setText(u.getFechaNac().toString());
-					textFieldMail.setText(u.getMail());
-					comboBoxTipo.setSelectedIndex(u.getIdTipo() - 1);	
+					textFieldNombre.setText(s[1]);
+					textFieldFechaNac.setText(s[2]);
+					textFieldMail.setText(s[3]);
+					comboBoxTipo.setSelectedIndex(Integer.parseInt(s[4]));	
 				}
 				else 
 					throw new Exception("El usuario a Modificar no existe");

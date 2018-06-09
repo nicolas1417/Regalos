@@ -40,11 +40,20 @@ public class Usuario {
 		this.tipoUsuario = tu;
 	}
 	
-	public void AltaUsuario(String usuario, String contrasena, String nombre,TipoUsuario tipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void AltaUsuario(String usuario, String contrasena, String nombre,int IdTipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
 		{
-			ADMPersistenciaUsuarios.getInstancia().altaUsuario(usuario,contrasena,nombre,tipoUsuario,fechaNacimiento,mail);
+			Vector<TipoUsuario> v = TipoUsuario.getInstancia().obtenerTiposDeUsuario();
+			TipoUsuario tu = null;
+			
+			for(int i=0;i<v.size();i++)
+			{
+				if (v.elementAt(i).getId() == IdTipoUsuario)
+					tu = v.elementAt(i);
+			}
+			
+			ADMPersistenciaUsuarios.getInstancia().altaUsuario(usuario,contrasena,nombre,tu.getId(),fechaNacimiento,mail);
 		}
 		catch(Exception e)
 		{
@@ -52,7 +61,7 @@ public class Usuario {
 		}
 	}	
 	
-	public void modificarUsuario(String usuario, String contrasena, String nombre,TipoUsuario tipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void modificarUsuario(String usuario, String contrasena, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
 		{
@@ -104,6 +113,26 @@ public class Usuario {
 			return ADMPersistenciaUsuarios.getInstancia().buscarUsuarios();
 		}
 		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+	
+	public String[] obtenerTiposDeUsuario() throws Exception
+	{
+		try
+		{
+			Vector<TipoUsuario> v = TipoUsuario.getInstancia().obtenerTiposDeUsuario();
+			String[] s = new String[v.size()];
+			
+			for(int i=0;i<v.size();i++)
+			{
+				s[0] = v.elementAt(0).getCodigo();
+			}
+			
+			return s;
+		}
+		catch (Exception e) 
 		{
 			throw e;
 		}
