@@ -40,7 +40,7 @@ public class Usuario {
 		this.tipoUsuario = tu;
 	}
 	
-	public void AltaUsuario(String usuario, String contrasena, String nombre,int IdTipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void AltaUsuario(String usuario, String contrasena, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
 		{
@@ -49,7 +49,7 @@ public class Usuario {
 			
 			for(int i=0;i<v.size();i++)
 			{
-				if (v.elementAt(i).getId() == IdTipoUsuario)
+				if (v.elementAt(i).getId() == idTipoUsuario)
 					tu = v.elementAt(i);
 			}
 			
@@ -65,7 +65,16 @@ public class Usuario {
 	{
 		try
 		{
-			ADMPersistenciaUsuarios.getInstancia().modificarUsuario(usuario, contrasena, nombre, tipoUsuario, fechaNacimiento, mail);
+			Vector<TipoUsuario> v = TipoUsuario.getInstancia().obtenerTiposDeUsuario();
+			TipoUsuario tu = null;
+			
+			for(int i=0;i<v.size();i++)
+			{
+				if (v.elementAt(i).getId() == idTipoUsuario)
+					tu = v.elementAt(i);
+			}
+			
+			ADMPersistenciaUsuarios.getInstancia().modificarUsuario(usuario, contrasena, nombre, tu, fechaNacimiento, mail);
 		}
 		catch(Exception e) 
 		{
