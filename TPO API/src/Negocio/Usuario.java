@@ -136,7 +136,7 @@ public class Usuario {
 			
 			for(int i=0;i<v.size();i++)
 			{
-				s[0] = v.elementAt(0).getCodigo();
+				s[i] = v.elementAt(i).getCodigo();
 			}
 			
 			return s;

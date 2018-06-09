@@ -2,6 +2,7 @@ package Vistas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controladores.CtrlABMListas;
+import Negocio.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -17,7 +19,12 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
+import javax.swing.JList;
+import java.awt.List;
+import javax.swing.JComboBox;
 
 public class AltaLista extends JFrame {
 
@@ -45,16 +52,18 @@ public class AltaLista extends JFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
 			}
 		});
 	}
 
 	/**
 	 * Create the frame.
+	 * @throws Exception 
 	 */
-	public AltaLista() {
+	public AltaLista() throws Exception {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 372);
+		setBounds(100, 100, 615, 372);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -79,6 +88,8 @@ public class AltaLista extends JFrame {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1.setBounds(10, 71, 156, 14);
 		contentPane.add(lblNewLabel_1);
+		
+		
 		
 		lblFechaFin = new JLabel("Fecha fin:");
 		lblFechaFin.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -111,7 +122,7 @@ public class AltaLista extends JFrame {
 		contentPane.add(lblNewLabel_3);
 		
 		mensaje = new JLabel("");
-		mensaje.setBounds(10, 244, 414, 23);
+		mensaje.setBounds(10, 243, 414, 23);
 		contentPane.add(mensaje);
 		
 		JButton btnGuardar = new JButton("Guardar");
@@ -153,5 +164,25 @@ public class AltaLista extends JFrame {
 		textFieldFechaInicio.setBounds(176, 161, 117, 20);
 		contentPane.add(textFieldFechaInicio);
 		textFieldFechaInicio.setColumns(10);
+		
+		JLabel lblUsuariosParaAgregar = new JLabel("Usuarios para agregar:");
+		lblUsuariosParaAgregar.setBounds(299, 17, 124, 14);
+		contentPane.add(lblUsuariosParaAgregar);
+		
+		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnAgregar.setBounds(335, 67, 89, 23);
+		contentPane.add(btnAgregar);
+		Vector<Usuario> lista = new Vector<Usuario>();
+		lista = CtrlABMListas.getInstancia().buscarUsuarios();		
+		JComboBox comboBoxUsers = new JComboBox();
+		comboBoxUsers.setBounds(303, 37, 156, 20);
+		for (Usuario item : lista) {
+			comboBoxUsers.addItem(item.getUsuario());
+		}
+		contentPane.add(comboBoxUsers);
 	}
 }

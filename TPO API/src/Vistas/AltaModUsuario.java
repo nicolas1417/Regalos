@@ -118,7 +118,7 @@ public class AltaModUsuario extends JFrame {
 		
 		for( int i=0; i<s.length ; i ++ )
 		{			
-			comboBoxTipo.addItem(s[0]);
+			comboBoxTipo.addItem(s[i]);
 		}
 		
 		JLabel lblTipo = new JLabel("Tipo:");
@@ -219,13 +219,13 @@ public class AltaModUsuario extends JFrame {
 			
 				if(!usuario.equals(""))
 				{
-					textFieldUsuario.setText(s[0]);
+					textFieldUsuario.setText(usuario[0]);
 					textFieldUsuario.setEnabled(false);
 					
-					textFieldNombre.setText(s[1]);
-					textFieldFechaNac.setText(s[2]);
-					textFieldMail.setText(s[3]);
-					comboBoxTipo.setSelectedIndex(Integer.parseInt(s[4]));	
+					textFieldNombre.setText(usuario[1]);
+					textFieldFechaNac.setText(usuario[2]);
+					textFieldMail.setText(usuario[3]);
+					comboBoxTipo.setSelectedIndex(Integer.parseInt(usuario[4])-1);	
 				}
 				else 
 					throw new Exception("El usuario a Modificar no existe");
