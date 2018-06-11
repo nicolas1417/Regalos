@@ -6,10 +6,20 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Negocio.Usuario;
+
 import javax.swing.JMenuBar;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import java.awt.List;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.Component;
+import javax.swing.Box;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JSeparator;
 
 public class InicioDeUsuario extends JFrame {
 
@@ -40,17 +50,84 @@ public class InicioDeUsuario extends JFrame {
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
+		
+		JMenu mnArchivo = new JMenu("Archivo");
+		menuBar.add(mnArchivo);
+		
+		JMenuItem mntmSalir = new JMenuItem("Salir");
+		mntmSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				InicioDeUsuario.this.dispose();
+			}
+		});
+		mnArchivo.add(mntmSalir);
+		
+		JMenu mnAdministrar = new JMenu("Administrar");
+		menuBar.add(mnAdministrar);
+		
+		JMenuItem mntmAltaDeUsuario = new JMenuItem("Alta de Usuario");
+		mntmAltaDeUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AltaModUsuario.getInstancia("").setLocationRelativeTo(null);
+				AltaModUsuario.getInstancia("").setVisible(true);
+			}
+		});
+		mnAdministrar.add(mntmAltaDeUsuario);
+		
+		JMenuItem mntmBuscarUsuarios = new JMenuItem("Buscar Usuarios");
+		mntmBuscarUsuarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BuscarUsuario buscarUsuario = BuscarUsuario.getInstancia();
+				buscarUsuario.setLocationRelativeTo(null);
+				buscarUsuario.setVisible(true);
+			}
+		});
+		mnAdministrar.add(mntmBuscarUsuarios);
+		
+		JSeparator separator = new JSeparator();
+		mnAdministrar.add(separator);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Alta de Lista");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AltaLista obj;
+				try {
+					obj = new AltaLista();
+					obj.setVisible(true);
+				} catch (Exception ex) {
+					// TODO Auto-generated catch block
+					ex.printStackTrace();
+				}
+			}
+		});
+		mnAdministrar.add(mntmNewMenuItem);
+		
+		JMenuItem mntmBajaDeLista = new JMenuItem("Baja de Lista");
+		mntmBajaDeLista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InicioDeUsuario.this.dispose();
+			}
+		});
+		mnAdministrar.add(mntmBajaDeLista);
+		
+		JMenuItem mntmModificacinDeLista = new JMenuItem("Modificaci\u00F3n de Lista");
+		mntmModificacinDeLista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InicioDeUsuario.this.dispose();
+			}
+		});
+		mnAdministrar.add(mntmModificacinDeLista);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Bienvenido @usuario");
+		JLabel lblNewLabel = new JLabel("Bienvenido " + Usuario.getInstancia().getNombre());
 		lblNewLabel.setBounds(0, 0, 442, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblMisListas = new JLabel("Mis listas:");
-		lblMisListas.setBounds(0, 22, 46, 14);
+		lblMisListas.setBounds(0, 22, 119, 14);
 		contentPane.add(lblMisListas);
 		
 		List list = new List();
