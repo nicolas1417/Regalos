@@ -24,16 +24,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class BuscarUsuario extends JFrame {
+public class BuscarUsuarios extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldUsuario;
-	private static BuscarUsuario instancia;
-	
-	public static BuscarUsuario getInstancia()
-	{
-		return new BuscarUsuario();
-	}
 
 	/**
 	 * Launch the application.
@@ -43,7 +37,7 @@ public class BuscarUsuario extends JFrame {
 			public void run() {
 				try 
 				{
-					BuscarUsuario frame = new BuscarUsuario();
+					BuscarUsuarios frame = new BuscarUsuarios();
 					frame.setVisible(true);
 				}
 				catch (Exception e) 
@@ -57,7 +51,7 @@ public class BuscarUsuario extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public BuscarUsuario() {
+	public BuscarUsuarios() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -128,7 +122,7 @@ public class BuscarUsuario extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!textFieldUsuario.getText().equals(""))
 				{
-					AltaModUsuario altaModUsuario = AltaModUsuario.getInstancia(textFieldUsuario.getText());
+					AltaModUsuario altaModUsuario = new AltaModUsuario(textFieldUsuario.getText()); 
 					
 					altaModUsuario.setLocationRelativeTo(null);
 					altaModUsuario.setVisible(true);	
@@ -170,7 +164,7 @@ public class BuscarUsuario extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BuscarUsuario.this.dispose();
+				BuscarUsuarios.this.dispose();
 			}
 		});
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));

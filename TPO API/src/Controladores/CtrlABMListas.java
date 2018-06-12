@@ -52,4 +52,32 @@ public class CtrlABMListas {
 		return Usuario.getInstancia().buscarUsuarios();
 	}
 	
+	public Object[][] buscarListas(Usuario usuario) throws Exception
+	{
+		try
+		{
+			Vector<Lista> v = Lista.getInstancia().buscarListas(usuario.getUsuario());
+			
+			Object[][] data = new Object[v.size()][8]; 
+			
+			for(int i=0;i<v.size();i++)
+			{
+				data[i][0] = v.elementAt(i).getIdLista();
+				data[i][1] = v.elementAt(i).getNombreAgasajado();
+				data[i][2] = v.elementAt(i).getFechaAgasajado();
+				data[i][3] = v.elementAt(i).getMontoPartipante();
+				data[i][4] = v.elementAt(i).getMontoRecaudado();
+				data[i][5] = v.elementAt(i).getFechaInicio();
+				data[i][6] = v.elementAt(i).getFechaFin();
+				data[i][7] = v.elementAt(i).getDescEstado();
+			}
+			
+			return data;
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+	
 }

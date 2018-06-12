@@ -1,12 +1,13 @@
 package Negocio;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 import Persistencia.ADMPersistenciaListas;
-import Persistencia.ADMPersistenciaUsuarios;
 
 public class Lista {
+	public int idLista;
 	public String nombreAgasajado;
 	public Date fechaAgasajo;
 	public List<UsuarioDeLista> participantes;
@@ -71,7 +72,59 @@ public class Lista {
 		}
 	}
 	
+	public Vector<Lista> buscarListas(String usuario) throws Exception
+	{
+		try
+		{
+			return ADMPersistenciaListas.getInstancia().buscarListas(usuario);
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+	
 	public void cerrarLista(){
 		this.estado = false;
+	}
+	
+	public int getIdLista()
+	{
+		return this.idLista;
+	}
+	
+	public String getNombreAgasajado()
+	{
+		return this.nombreAgasajado;
+	}
+	
+	public Date getFechaAgasajado()
+	{
+		return this.fechaAgasajo;
+	}
+	
+	public int getMontoPartipante()
+	{
+		return this.montoPorParticipante;
+	}
+	
+	public int getMontoRecaudado()
+	{
+		return this.montoRecaudado;
+	}
+	
+	public Date getFechaInicio()
+	{
+		return this.fechaInicio;
+	}
+	
+	public Date getFechaFin()
+	{
+		return this.fechaFin;
+	}
+
+	public String getDescEstado()
+	{
+		return estado ? "Activa" : "Ihabilitada";
 	}
 }

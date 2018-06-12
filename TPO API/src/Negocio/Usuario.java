@@ -177,9 +177,5 @@ public class Usuario {
 	
 	public boolean getEstado() {
 		return estado;
-	}
-
-
-
-	
+	}	
 }

@@ -2,7 +2,15 @@ package Persistencia;
 
 import java.sql.Connection;
 import java.util.Date;
+import java.util.Vector;
+
+import Negocio.Lista;
+import Negocio.TipoUsuario;
+import Negocio.Usuario;
+import Negocio.UsuarioDeLista;
+
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -48,6 +56,59 @@ private static ADMPersistenciaListas instancia;
 		}catch(Exception ex){
 			ex.printStackTrace();
 			throw ex;
+		}
+	}
+	
+	public Vector<Lista> buscarListas(String usuario) throws Exception
+	{
+		Vector<Lista> v = new Vector<Lista>();
+		try
+		{
+			Connection con = DataAccess.getConexion().getInstanciaDB();
+			PreparedStatement s = con.prepareStatement("SELECT l.idLista, l.fecha, l.montoPorParticipante, l.montoRecaudado, l.fechaInicio, l.fechaFin, l.estado, u.usuario, u.contrasena, u.nombre,tu.id, tu.codigo, u.fechaNacimiento, u.mail, u.estado FROM TIPOUSUARIO tu, USUARIO u, USUARIODELISTA ul, LISTA l WHERE u.usuario = ? AND u.usuario = 1 AND u.tipo = tu.id AND u.usuario = ul.usuario AND ul.idLista = l.idLista");		
+			
+			s.setString(1,usuario);
+			
+			ResultSet result = s.executeQuery();
+			
+			while(result.next())
+			{
+				int idLista = result.getInt(1);
+				Date fechaAgasajo = result.getDate(2);
+				int montoParticipante = result.getInt(3);
+				int montoRecaudado = result.getInt(4);
+				Date fechaInicio = result.getDate(5);
+				Date fechaFin = result.getDate(6);
+				int estadoLista = result.getInt(7);	
+				
+				String user = result.getString(8);
+				String contrasena = result.getString(9);
+				String nombre = result.getString(10);
+				int idTipoUsuario = result.getInt(11);
+				String codTipoUsuario = result.getString(12);
+				Date fecha_nac = result.getDate(13);
+				String mail = result.getString(14);
+				int estadoUsuario = result.getInt(15);
+				
+				TipoUsuario tu = new TipoUsuario(idTipoUsuario,codTipoUsuario);
+				
+				Usuario u = new Usuario(nombre,user,contrasena,fecha_nac,estadoUsuario==1,mail,tu);
+				
+				UsuarioDeLista ul = new UsuarioDeLista(u, true, true);
+						
+				Lista l = new Lista(ul, fechaInicio, fechaFin, ""); //TODO: Nombre Agasajado
+				
+								
+				v.add(l);
+			}										
+			
+			DataAccess.getConexion().cerrarConexion();
+					
+			return v;
+		}
+		catch(Exception e)
+		{
+			throw e;
 		}
 	}
 }

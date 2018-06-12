@@ -14,6 +14,18 @@ public class UsuarioDeLista {
 			instancia = new UsuarioDeLista();
 		return instancia;
 	}
+	
+	public UsuarioDeLista()
+	{
+		
+	}
+	
+	public UsuarioDeLista(Usuario usuario, boolean pagoRealizado, boolean estado)
+	{
+		this.usuario = usuario;
+		this.pagoRealizado = pagoRealizado;
+		this.estado = estado;
+	}
 
 	public void asociarUsuarioALista(Usuario usuario, Lista lista)
 	{

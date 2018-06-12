@@ -37,13 +37,6 @@ public class AltaModUsuario extends JFrame {
 	private String[] s = null;
 	private String usuarioMod = "";
 	
-	private static AltaModUsuario instancia;
-	
-	public static AltaModUsuario getInstancia(String usuarioMod)
-	{
-		return new AltaModUsuario(usuarioMod);
-	}
-	
 	public void SetUsuarioMod(String usuarioMod)
 	{
 		usuarioMod = this.usuarioMod;

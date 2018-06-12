@@ -80,8 +80,9 @@ public class InicioDeUsuario extends JFrame {
 			JMenuItem mntmAltaDeUsuario = new JMenuItem("Alta de Usuario");
 			mntmAltaDeUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					AltaModUsuario.getInstancia("").setLocationRelativeTo(null);
-					AltaModUsuario.getInstancia("").setVisible(true);
+					AltaModUsuario altaModUsuario = new AltaModUsuario("");
+					altaModUsuario.setLocationRelativeTo(null);
+					altaModUsuario.setVisible(true);
 				}
 			});
 			mnAdministrar.add(mntmAltaDeUsuario);
@@ -89,7 +90,7 @@ public class InicioDeUsuario extends JFrame {
 			JMenuItem mntmBuscarUsuarios = new JMenuItem("Buscar Usuarios");
 			mntmBuscarUsuarios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					BuscarUsuario buscarUsuario = BuscarUsuario.getInstancia();
+					BuscarUsuarios buscarUsuario = new BuscarUsuarios();
 					buscarUsuario.setLocationRelativeTo(null);
 					buscarUsuario.setVisible(true);
 				}
