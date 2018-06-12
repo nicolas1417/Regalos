@@ -16,8 +16,12 @@ import javax.swing.JList;
 import java.awt.List;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.JDialog;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
@@ -76,6 +80,10 @@ public class InicioDeUsuario extends JFrame {
 		
 		JMenu mnAdministrar = new JMenu("Administrar");
 		menuBar.add(mnAdministrar);
+		
+		/*
+		 * Si el usuario es administrador se muestran estos controles sino no.
+		 * */
 		if(CtrlSesion.getInstancia().getUsuarioLogueado().getIdTipo() == 1) {
 			JMenuItem mntmAltaDeUsuario = new JMenuItem("Alta de Usuario");
 			mntmAltaDeUsuario.addActionListener(new ActionListener() {
@@ -102,10 +110,10 @@ public class InicioDeUsuario extends JFrame {
 			JMenuItem mntmNewMenuItem = new JMenuItem("Alta de Lista");
 			mntmNewMenuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					AltaLista obj;
+					AltaLista darDeAltaLista;
 					try {
-						obj = new AltaLista();
-						obj.setVisible(true);
+						darDeAltaLista = new AltaLista();
+						darDeAltaLista.setVisible(true);
 					} catch (Exception ex) {
 						// TODO Auto-generated catch block
 						ex.printStackTrace();
@@ -120,7 +128,7 @@ public class InicioDeUsuario extends JFrame {
 		JMenuItem mntmBajaDeLista = new JMenuItem("Baja de Lista");
 		mntmBajaDeLista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				InicioDeUsuario.this.dispose();
+				JOptionPane.showMessageDialog(InicioDeUsuario.this, "No disponible", "Mensaje", JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		mnAdministrar.add(mntmBajaDeLista);
@@ -128,7 +136,7 @@ public class InicioDeUsuario extends JFrame {
 		JMenuItem mntmModificacinDeLista = new JMenuItem("Modificaci\u00F3n de Lista");
 		mntmModificacinDeLista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				InicioDeUsuario.this.dispose();
+				JOptionPane.showMessageDialog(InicioDeUsuario.this, "No disponible", "Mensaje", JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		mnAdministrar.add(mntmModificacinDeLista);
