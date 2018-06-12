@@ -119,6 +119,8 @@ public class LogIn extends JFrame {
 		
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setBounds(139, 223, 182, 16);
+		progressBar.setValue(0);
+		progressBar.setStringPainted(true);
 		contentPane.add(progressBar);
 		
 		
