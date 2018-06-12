@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Controladores.CtrlSesion;
 import Negocio.Usuario;
 
 import javax.swing.JMenuBar;
@@ -45,6 +46,7 @@ public class InicioDeUsuario extends JFrame {
 	 * Create the frame.
 	 */
 	public InicioDeUsuario() {
+		setTitle("P\u00E1gina de inicio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
@@ -60,47 +62,60 @@ public class InicioDeUsuario extends JFrame {
 				InicioDeUsuario.this.dispose();
 			}
 		});
+		
+		JMenuItem mntmCerrarSesin = new JMenuItem("Cerrar sesi\u00F3n");
+		mntmCerrarSesin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				InicioDeUsuario.this.dispose();
+				LogIn inicio = new LogIn();
+				inicio.setVisible(true);
+			}
+		});
+		mnArchivo.add(mntmCerrarSesin);
 		mnArchivo.add(mntmSalir);
 		
 		JMenu mnAdministrar = new JMenu("Administrar");
 		menuBar.add(mnAdministrar);
-		
-		JMenuItem mntmAltaDeUsuario = new JMenuItem("Alta de Usuario");
-		mntmAltaDeUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AltaModUsuario.getInstancia("").setLocationRelativeTo(null);
-				AltaModUsuario.getInstancia("").setVisible(true);
-			}
-		});
-		mnAdministrar.add(mntmAltaDeUsuario);
-		
-		JMenuItem mntmBuscarUsuarios = new JMenuItem("Buscar Usuarios");
-		mntmBuscarUsuarios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BuscarUsuario buscarUsuario = BuscarUsuario.getInstancia();
-				buscarUsuario.setLocationRelativeTo(null);
-				buscarUsuario.setVisible(true);
-			}
-		});
-		mnAdministrar.add(mntmBuscarUsuarios);
-		
-		JSeparator separator = new JSeparator();
-		mnAdministrar.add(separator);
-		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Alta de Lista");
-		mntmNewMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AltaLista obj;
-				try {
-					obj = new AltaLista();
-					obj.setVisible(true);
-				} catch (Exception ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
+		if(CtrlSesion.getInstancia().getUsuarioLogueado().getIdTipo() == 1) {
+			JMenuItem mntmAltaDeUsuario = new JMenuItem("Alta de Usuario");
+			mntmAltaDeUsuario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					AltaModUsuario.getInstancia("").setLocationRelativeTo(null);
+					AltaModUsuario.getInstancia("").setVisible(true);
 				}
-			}
-		});
-		mnAdministrar.add(mntmNewMenuItem);
+			});
+			mnAdministrar.add(mntmAltaDeUsuario);
+			
+			JMenuItem mntmBuscarUsuarios = new JMenuItem("Buscar Usuarios");
+			mntmBuscarUsuarios.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BuscarUsuario buscarUsuario = BuscarUsuario.getInstancia();
+					buscarUsuario.setLocationRelativeTo(null);
+					buscarUsuario.setVisible(true);
+				}
+			});
+			mnAdministrar.add(mntmBuscarUsuarios);
+			
+			JSeparator separator = new JSeparator();
+			mnAdministrar.add(separator);
+			
+			JMenuItem mntmNewMenuItem = new JMenuItem("Alta de Lista");
+			mntmNewMenuItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					AltaLista obj;
+					try {
+						obj = new AltaLista();
+						obj.setVisible(true);
+					} catch (Exception ex) {
+						// TODO Auto-generated catch block
+						ex.printStackTrace();
+					}
+				}
+			});
+			mnAdministrar.add(mntmNewMenuItem);
+		}
+		
+		
 		
 		JMenuItem mntmBajaDeLista = new JMenuItem("Baja de Lista");
 		mntmBajaDeLista.addActionListener(new ActionListener() {
@@ -122,7 +137,7 @@ public class InicioDeUsuario extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Bienvenido " + Usuario.getInstancia().getNombre());
+		JLabel lblNewLabel = new JLabel("Bienvenido " + CtrlSesion.getInstancia().getUsuarioLogueado().getNombre());
 		lblNewLabel.setBounds(0, 0, 442, 14);
 		contentPane.add(lblNewLabel);
 		

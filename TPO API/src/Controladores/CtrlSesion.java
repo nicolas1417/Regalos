@@ -27,5 +27,9 @@ public class CtrlSesion {
 			throw e;
 		} 
 	}
+	
+	public Usuario getUsuarioLogueado() {
+		return this.usuarioLogueado;
+	}
 
 }
