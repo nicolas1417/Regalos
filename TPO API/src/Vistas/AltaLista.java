@@ -62,7 +62,7 @@ public class AltaLista extends JFrame {
 	 * @throws Exception 
 	 */
 	public AltaLista() throws Exception {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 615, 372);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

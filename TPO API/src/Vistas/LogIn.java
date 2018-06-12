@@ -16,10 +16,13 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import java.awt.Color;
+import java.awt.Cursor;
+
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JProgressBar;
 
 public class LogIn extends JFrame {
 
@@ -91,6 +94,7 @@ public class LogIn extends JFrame {
 		JButton btnIngresar = new JButton("Ingresar");
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 				iniciarSesion();
 				cambiarDeVentana();
 			}
@@ -104,6 +108,7 @@ public class LogIn extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 					iniciarSesion();
 					cambiarDeVentana();
 				}
@@ -111,6 +116,13 @@ public class LogIn extends JFrame {
 		});
 		txtPasswordField.setBounds(139, 100, 182, 20);
 		contentPane.add(txtPasswordField);	
+		
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setBounds(139, 223, 182, 16);
+		progressBar.setValue(0);
+		progressBar.setStringPainted(true);
+		contentPane.add(progressBar);
+		
 		
 	}
 	
