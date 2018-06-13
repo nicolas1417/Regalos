@@ -12,7 +12,7 @@ import Persistencia.ADMPersistenciaUsuarios;
 
 public class CtrlABMListas {
 
-	private List<Lista> listas;
+	private Vector<Lista> listas;
 	private static CtrlABMListas instancia;
 	
 	public static CtrlABMListas getInstancia()
@@ -22,8 +22,16 @@ public class CtrlABMListas {
 		return instancia;
 	}
 	
-	public void cerrarLista(Lista lista){
-		lista.cerrarLista();		
+	public void cerrarLista(Lista lista) throws Exception
+	{
+		try
+		{
+			lista.cerrarLista();		
+		}
+		catch (Exception e)
+		{
+			throw e;
+		}
 	}
 	
 	public void modificarLista(){
@@ -40,6 +48,34 @@ public class CtrlABMListas {
 		catch(Exception e)
 		{
 			throw e;
+		}
+	}
+	
+	public void modificarLista(int idLista, java.util.Date fechaAga, int montoPart, java.util.Date fechaF, String correo, java.util.Date fechaI) throws Exception
+	{
+		try
+		{
+			Lista l = this.buscarLista(idLista);	
+			
+			l.modificarLista(idLista, fechaAga,montoPart,fechaF,correo,fechaI);
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	
+	public void eliminarLista(int idLista)
+	{
+		try
+		{
+			Lista l = this.buscarLista(idLista);	
+			
+			l.cerrarLista();
+		}
+		catch(Exception e)
+		{
+			
 		}
 	}
 	
@@ -70,6 +106,8 @@ public class CtrlABMListas {
 				data[i][5] = v.elementAt(i).getFechaInicio();
 				data[i][6] = v.elementAt(i).getFechaFin();
 				data[i][7] = v.elementAt(i).getDescEstado();
+				
+				this.agregarLista(v.elementAt(i));
 			}
 			
 			return data;
@@ -78,6 +116,48 @@ public class CtrlABMListas {
 		{
 			throw e;
 		}
+	}
+	
+	private void agregarLista(Lista l) 
+	{
+		if(listas == null)
+			listas = new Vector<Lista>();
+		
+		listas.add(l);
+	}
+	
+	public String[] buscarListaParaModificar(int lista) throws Exception
+	{
+		try
+		{
+			Lista l = buscarLista(lista);
+			
+			if (l != null && l.getEstado())
+			{
+				String[] s = new String[6];
+				s[0] = String.valueOf(l.getFechaAgasajado());
+				s[1] = String.valueOf(l.getMontoPartipante());
+				s[2] = String.valueOf(l.getFechaFin());
+				s[3] = l.getMail();
+				s[4] = String.valueOf(l.getFechaInicio());
+				s[5] = l.getAdmin().getUsuario().getUsuario();
+				
+				return s;
+			}					
+		}
+		catch(Exception e)
+		{
+			throw new Exception("No se ha encontrado al usuario");
+		}
+		return null;	
+	}
+	
+	private Lista buscarLista(int lista)
+	{
+		for (Lista l:listas)
+			if (l.getIdLista() == lista)	
+				return l;
+		return null;
 	}
 	
 }

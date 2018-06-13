@@ -94,9 +94,16 @@ public class LogIn extends JFrame {
 		JButton btnIngresar = new JButton("Ingresar");
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-				iniciarSesion();
-				cambiarDeVentana();
+				try
+				{
+					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+					iniciarSesion();
+					cambiarDeVentana();
+				}
+				catch(Exception e)
+				{
+					textArea.setText(e.getMessage());
+				}
 			}
 		});
 		
@@ -107,10 +114,17 @@ public class LogIn extends JFrame {
 		txtPasswordField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode()==KeyEvent.VK_ENTER) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-					iniciarSesion();
-					cambiarDeVentana();
+				try
+				{
+					if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+						setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+						iniciarSesion();
+						cambiarDeVentana();
+					}
+				}
+				catch(Exception ex)
+				{
+					textArea.setText(ex.getMessage());
 				}
 			}
 		});
@@ -126,14 +140,14 @@ public class LogIn extends JFrame {
 		
 	}
 	
-	public void iniciarSesion() {
+	public void iniciarSesion() throws Exception{
 		try 
 		{
 			CtrlSesion.getInstancia().LoginUser(txtUsuario.getText(), new String(txtPasswordField.getPassword()));
 		}
 		catch (Exception e)
 		{
-			textArea.setText(e.getMessage());
+			throw e;
 		}
 	}
 	

@@ -111,9 +111,9 @@ public class InicioDeUsuario extends JFrame {
 			JMenuItem mntmNewMenuItem = new JMenuItem("Alta de Lista");
 			mntmNewMenuItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					AltaLista darDeAltaLista;
+					AltaModLista darDeAltaLista;
 					try {
-						darDeAltaLista = new AltaLista();
+						darDeAltaLista = new AltaModLista(0);
 						darDeAltaLista.setVisible(true);
 					} catch (Exception ex) {
 						// TODO Auto-generated catch block
@@ -126,21 +126,16 @@ public class InicioDeUsuario extends JFrame {
 		
 		
 		
-		JMenuItem mntmBajaDeLista = new JMenuItem("Baja de Lista");
+		JMenuItem mntmBajaDeLista = new JMenuItem("Buscar Listas");
 		mntmBajaDeLista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(InicioDeUsuario.this, "No disponible", "Mensaje", JOptionPane.WARNING_MESSAGE);
+				BuscarListas bl = new BuscarListas();
+				bl.setLocationRelativeTo(null);
+				bl.setVisible(true);
 			}
 		});
 		mnAdministrar.add(mntmBajaDeLista);
 		
-		JMenuItem mntmModificacinDeLista = new JMenuItem("Modificaci\u00F3n de Lista");
-		mntmModificacinDeLista.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(InicioDeUsuario.this, "No disponible", "Mensaje", JOptionPane.WARNING_MESSAGE);
-			}
-		});
-		mnAdministrar.add(mntmModificacinDeLista);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

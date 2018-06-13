@@ -7,14 +7,17 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import Controladores.CtrlABMListas;
+import Controladores.CtrlABMUsuarios;
 import Negocio.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -26,7 +29,7 @@ import javax.swing.JList;
 import java.awt.List;
 import javax.swing.JComboBox;
 
-public class AltaLista extends JFrame {
+public class AltaModLista extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldAgasajo;
@@ -39,29 +42,16 @@ public class AltaLista extends JFrame {
 	private JLabel lblNewLabel_3;
 	private JLabel mensaje;
 	private JTextField textFieldFechaInicio;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AltaLista frame = new AltaLista();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			}
-		});
-	}
-
+	private JTextArea textAreaMsgError;
+	
+	private int listaMod = 0;
+	
 	/**
 	 * Create the frame.
 	 * @throws Exception 
 	 */
-	public AltaLista() throws Exception {
+	public AltaModLista(int listaMod) throws Exception {
+		this.listaMod = listaMod;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 615, 372);
 		contentPane = new JPanel();
@@ -130,11 +120,18 @@ public class AltaLista extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
 					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
-					CtrlABMListas.getInstancia().crearLista(formatter.parse(textFieldAgasajo.getText()), Integer.parseInt(textFieldMonto.getText()), formatter.parse(textFieldFechaFin.getText()), textFieldMail.getText(), formatter.parse(textFieldFechaInicio.getText()), textFieldUsuario.getText());
-					
 					mensaje.setForeground(Color.BLUE);
-				    mensaje.setText("Lista guardada correctamente!");
+					
+					if(listaMod == 0)
+					{
+						CtrlABMListas.getInstancia().crearLista(formatter.parse(textFieldAgasajo.getText()), Integer.parseInt(textFieldMonto.getText()), formatter.parse(textFieldFechaFin.getText()), textFieldMail.getText(), formatter.parse(textFieldFechaInicio.getText()), textFieldUsuario.getText());
+					    mensaje.setText("Lista guardada correctamente!");
+					}
+					else 
+					{
+						CtrlABMListas.getInstancia().modificarLista(listaMod,formatter.parse(textFieldAgasajo.getText()), Integer.parseInt(textFieldMonto.getText()), formatter.parse(textFieldFechaFin.getText()), textFieldMail.getText(), formatter.parse(textFieldFechaInicio.getText()));						
+					    mensaje.setText("Lista Modificada correctamente!");
+					}			
 				}catch(Exception ex) {
 					mensaje.setForeground(Color.RED);
 					mensaje.setText(ex.getMessage());
@@ -149,7 +146,7 @@ public class AltaLista extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				AltaLista.this.dispose();
+				AltaModLista.this.dispose();
 			}
 		});
 		btnCancelar.setBounds(237, 299, 89, 23);
@@ -183,6 +180,50 @@ public class AltaLista extends JFrame {
 		for (Usuario item : lista) {
 			comboBoxUsers.addItem(item.getUsuario());
 		}
-		contentPane.add(comboBoxUsers);
+		contentPane.add(comboBoxUsers);	
+		
+		textAreaMsgError = new JTextArea();
+		textAreaMsgError.setForeground(Color.RED);
+		textAreaMsgError.setBounds(126, 229, 271, 47);		
+	    textAreaMsgError.setWrapStyleWord(true);
+	    textAreaMsgError.setLineWrap(true);
+	    textAreaMsgError.setOpaque(false);
+	    textAreaMsgError.setEditable(false);
+	    textAreaMsgError.setFocusable(false);
+	    textAreaMsgError.setBackground(UIManager.getColor("Label.background"));
+	    textAreaMsgError.setFont(UIManager.getFont("Label.font"));
+	    textAreaMsgError.setBorder(UIManager.getBorder("Label.border"));
+		contentPane.add(textAreaMsgError);
+		
+		setearVistaModificacion();
+		
+	}
+	
+	private void setearVistaModificacion()
+	{
+		try
+		{
+			if(this.listaMod != 0)
+			{
+				String[] lista = CtrlABMListas.getInstancia().buscarListaParaModificar(this.listaMod);
+			
+				if(lista != null)
+				{
+					textFieldAgasajo.setText(lista[0]);
+					textFieldMonto.setText(lista[1]);
+					textFieldFechaFin.setText(lista[2]);
+					textFieldMail.setText(lista[3]);
+					textFieldFechaInicio.setText(lista[4]);
+					textFieldUsuario.setText(lista[5]);
+					textFieldUsuario.setEnabled(false);
+				}
+				else 
+					throw new Exception("La lista a Modificar no existe");
+			}
+		}
+		catch(Exception e)
+		{
+			textAreaMsgError.setText(e.getMessage());
+		}
 	}
 }

@@ -43,17 +43,8 @@ public class Usuario {
 	public void AltaUsuario(String usuario, String contrasena, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
-		{
-			Vector<TipoUsuario> v = TipoUsuario.getInstancia().obtenerTiposDeUsuario();
-			TipoUsuario tu = null;
-			
-			for(int i=0;i<v.size();i++)
-			{
-				if (v.elementAt(i).getId() == idTipoUsuario)
-					tu = v.elementAt(i);
-			}
-			
-			ADMPersistenciaUsuarios.getInstancia().altaUsuario(usuario,contrasena,nombre,tu.getId(),fechaNacimiento,mail);
+		{			
+			ADMPersistenciaUsuarios.getInstancia().altaUsuario(usuario,contrasena,nombre,obtenerTipoUsuario(idTipoUsuario).getId(),fechaNacimiento,mail);
 		}
 		catch(Exception e)
 		{
@@ -61,7 +52,22 @@ public class Usuario {
 		}
 	}	
 	
-	public void modificarUsuario(String usuario, String contrasena, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void modificarUsuario(String usuario, String contrasena,String passConfirmada, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	{
+		try
+		{
+			if (!this.validarContrasena(contrasena, passConfirmada))
+				throw new Exception("Las contrasenas no coinciden");
+					
+			ADMPersistenciaUsuarios.getInstancia().modificarUsuario(usuario, contrasena, nombre, obtenerTipoUsuario(idTipoUsuario), fechaNacimiento, mail);
+		}
+		catch(Exception e) 
+		{
+			throw e;
+		}
+	}
+	
+	private TipoUsuario obtenerTipoUsuario(int idTipoUsuario) throws Exception
 	{
 		try
 		{
@@ -71,15 +77,17 @@ public class Usuario {
 			for(int i=0;i<v.size();i++)
 			{
 				if (v.elementAt(i).getId() == idTipoUsuario)
+				{
 					tu = v.elementAt(i);
+					return tu;
+				}
 			}
-			
-			ADMPersistenciaUsuarios.getInstancia().modificarUsuario(usuario, contrasena, nombre, tu, fechaNacimiento, mail);
 		}
-		catch(Exception e) 
+		catch (Exception e)
 		{
 			throw e;
 		}
+		return null;
 	}
 	
 	public void eliminarUsuario(String usuario) throws Exception

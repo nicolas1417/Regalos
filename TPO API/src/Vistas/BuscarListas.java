@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -51,7 +52,7 @@ public class BuscarListas extends JFrame {
 	 */
 	public BuscarListas() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 300);
+		setBounds(100, 100, 700, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -86,7 +87,7 @@ public class BuscarListas extends JFrame {
 
 		// creamos un scroll y le añadomos la tabla
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 10, 574, 150);
+		scrollPane.setBounds(10, 10, 664, 150);
 		scrollPane.setViewportView(table);
 		getContentPane().add(scrollPane);
 		
@@ -110,26 +111,35 @@ public class BuscarListas extends JFrame {
 		contentPane.add(textAreaMsgError);
 		
 		textFieldLista = new JTextField();
-		textFieldLista.setBounds(95, 168, 176, 20);
+		textFieldLista.setBounds(95, 168, 271, 20);
 		contentPane.add(textFieldLista);
 		textFieldLista.setColumns(10);
 		
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnModificar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(!textFieldLista.getText().equals(""))
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				try
 				{
-					AltaModUsuario altaModUsuario = new AltaModUsuario(textFieldLista.getText()); 
-					
-					altaModUsuario.setLocationRelativeTo(null);
-					altaModUsuario.setVisible(true);	
+					if(!textFieldLista.getText().equals(""))
+					{
+						
+							AltaModLista altaModLista;
+							altaModLista = new AltaModLista(Integer.parseInt(textFieldLista.getText()));
+							altaModLista.setLocationRelativeTo(null);
+							altaModLista.setVisible(true);	
+					}
+						else
+							textAreaMsgError.setText("No ha ingresado un usuario para modificar");	
 				}
-				else
-					textAreaMsgError.setText("No ha ingresado un usuario para modificar");
+				catch (Exception e) 
+				{
+					textAreaMsgError.setText(e.getMessage());	
+				} 
 			}
 		});
-		btnModificar.setBounds(290, 167, 86, 23);
+		btnModificar.setBounds(376, 167, 86, 23);
 		contentPane.add(btnModificar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
@@ -140,7 +150,7 @@ public class BuscarListas extends JFrame {
 				{
 					if(!textFieldLista.getText().equals(""))
 					{
-						//CtrlABMUsuarios.getInstancia().eliminarUsuario(textFieldLista.getText());
+						CtrlABMListas.getInstancia().eliminarLista(Integer.parseInt(textFieldLista.getText()));
 						textAreaMsgError.setForeground(Color.BLUE);
 						textAreaMsgError.setText("Usuario Eliminado Correctamente");	
 					}
@@ -156,7 +166,7 @@ public class BuscarListas extends JFrame {
 				}
 			}
 		});
-		btnEliminar.setBounds(395, 167, 86, 23);
+		btnEliminar.setBounds(472, 167, 86, 23);
 		contentPane.add(btnEliminar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -166,7 +176,7 @@ public class BuscarListas extends JFrame {
 			}
 		});
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnCancelar.setBounds(498, 167, 86, 23);
+		btnCancelar.setBounds(568, 167, 86, 23);
 		contentPane.add(btnCancelar);
 	}
 

@@ -37,13 +37,19 @@ public class Lista {
 	/*Constructor de la lista, deberia decirse quien es el administrador, que fecha
 	 * de inicio y fin tiene, monto que tiene que poner cada uno, nombre del agasajado
 	 * */
-	public Lista(UsuarioDeLista admin, Date FechaInicio, Date FechaFin, String agasajado){
+	public Lista(int idLista, String nombreAgasajado, Date fechaAgasajo,int montoParticipante, int montoRecaudado,Date FechaInicio, Date FechaFin, boolean estado, String mail, UsuarioDeLista admin)
+	{
+		this.idLista = idLista;
+		this.fechaAgasajo = fechaAgasajo;
+		this.montoPorParticipante = montoParticipante;
+		this.montoRecaudado = montoRecaudado;
 		this.administrador = admin;
 		this.fechaInicio = FechaInicio;
 		this.fechaFin = FechaFin;
-		this.nombreAgasajado = agasajado;
-		this.estado = true;//La lista está activa
-		this.mail = agasajado + "@regalo.com";//Hay que crear un mail para la lista
+		this.nombreAgasajado = nombreAgasajado;
+		this.estado = estado;
+		this.mail = mail;
+		this.administrador = admin;
 	}
 	
 	public void agregarParticipante(UsuarioDeLista nuevo){
@@ -84,8 +90,30 @@ public class Lista {
 		}
 	}
 	
-	public void cerrarLista(){
-		this.estado = false;
+	public void cerrarLista() throws Exception
+	{
+		try
+		{
+			this.estado = false;
+			ADMPersistenciaListas.getInstancia().eliminarLista(this.idLista);
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+		
+	}
+	
+	public void modificarLista(int idLista, java.util.Date fechaAga, int montoPart, java.util.Date fechaF, String correo, java.util.Date fechaI) throws Exception
+	{
+		try
+		{
+			ADMPersistenciaListas.getInstancia().modificarLista(idLista, fechaAga, montoPart, fechaF, correo, fechaI);
+		}
+		catch(Exception e)
+		{
+			
+		}
 	}
 	
 	public int getIdLista()
@@ -125,6 +153,21 @@ public class Lista {
 
 	public String getDescEstado()
 	{
-		return estado ? "Activa" : "Ihabilitada";
+		return estado ? "Activa" : "Inhabilitada";
+	}
+	
+	public boolean getEstado()
+	{
+		return this.estado;
+	}
+	
+	public String getMail()
+	{
+		return this.mail;
+	}
+	
+	public UsuarioDeLista getAdmin()
+	{
+		return this.administrador;
 	}
 }

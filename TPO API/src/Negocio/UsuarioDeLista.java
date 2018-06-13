@@ -35,4 +35,9 @@ public class UsuarioDeLista {
 	public void bajaUsuario(){
 		this.estado = false;
 	}
+	
+	public Usuario getUsuario()
+	{
+		return this.usuario;
+	}
 }

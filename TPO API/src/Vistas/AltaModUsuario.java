@@ -36,11 +36,6 @@ public class AltaModUsuario extends JFrame {
 	
 	private String[] s = null;
 	private String usuarioMod = "";
-	
-	public void SetUsuarioMod(String usuarioMod)
-	{
-		usuarioMod = this.usuarioMod;
-	}
 
 	/**
 	 * Create the frame.
@@ -210,7 +205,7 @@ public class AltaModUsuario extends JFrame {
 			{
 				String[] usuario = CtrlABMUsuarios.getInstancia().buscarUsuarioParaModificar(this.usuarioMod);
 			
-				if(!usuario.equals(""))
+				if(usuario != null)
 				{
 					textFieldUsuario.setText(usuario[0]);
 					textFieldUsuario.setEnabled(false);
