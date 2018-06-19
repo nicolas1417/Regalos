@@ -86,6 +86,12 @@ public class LogIn extends JFrame {
 	    textArea.setBorder(UIManager.getBorder("Label.border"));
 		contentPane.add(textArea);
 		
+		JLabel avisoInicio = new JLabel("");
+		avisoInicio.setBackground(Color.ORANGE);
+		avisoInicio.setHorizontalAlignment(SwingConstants.CENTER);
+		avisoInicio.setBounds(139, 223, 182, 20);
+		contentPane.add(avisoInicio);
+		
 		JLabel lblIngreseContrasea = new JLabel("Contrase\u00F1a:");
 		lblIngreseContrasea.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblIngreseContrasea.setBounds(49, 103, 80, 14);
@@ -94,9 +100,10 @@ public class LogIn extends JFrame {
 		JButton btnIngresar = new JButton("Ingresar");
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				avisoInicio.setText("Iniciando...");
+				setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 				try
 				{
-					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 					iniciarSesion();
 					cambiarDeVentana();
 				}
@@ -114,28 +121,20 @@ public class LogIn extends JFrame {
 		txtPasswordField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				try
-				{
-					if(e.getKeyCode()==KeyEvent.VK_ENTER) {
-						setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+					avisoInicio.setText("Iniciando...");
+					try {
 						iniciarSesion();
 						cambiarDeVentana();
+					} catch (Exception ex) {
+						textArea.setText(ex.getMessage());
 					}
-				}
-				catch(Exception ex)
-				{
-					textArea.setText(ex.getMessage());
 				}
 			}
 		});
 		txtPasswordField.setBounds(139, 100, 182, 20);
-		contentPane.add(txtPasswordField);	
-		
-		JProgressBar progressBar = new JProgressBar();
-		progressBar.setBounds(139, 223, 182, 16);
-		progressBar.setValue(0);
-		progressBar.setStringPainted(true);
-		contentPane.add(progressBar);
+		contentPane.add(txtPasswordField);
 		
 		
 	}

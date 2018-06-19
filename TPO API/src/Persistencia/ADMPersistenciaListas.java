@@ -31,25 +31,26 @@ private static ADMPersistenciaListas instancia;
 		return instancia;
 	}
 	
-	public void altaLista(java.util.Date fechaAgasajo, int montoParticipante, java.util.Date fechaFin, String mail, java.util.Date fechaInicio, String usuario) throws Exception 
+	public void altaLista(java.util.Date fechaAgasajo, int montoParticipante, java.util.Date fechaFin, String mail, java.util.Date fechaInicio, String agasajado) throws Exception 
 	{
 		
 		Connection con = DataAccess.getConexion().getInstanciaDB();
 		PreparedStatement s;
 		try {
-			s = con.prepareStatement("INSERT INTO LISTA (fecha,montoPorParticipante,montoRecaudado,fechaInicio,fechaFin,estado,mail,usuarioAdmin) VALUES (?,?,?,?,?,?,?,?)");
+			s = con.prepareStatement("INSERT INTO LISTA (nombreAgasajado,fechaAgasajo,montoPorParticipante,montoRecaudado,fechaInicio,fechaFin,estado,mail) VALUES (?,?,?,?,?,?,?,?)");
+			s.setString(1, agasajado);
 			DateFormat daf = new SimpleDateFormat("yyyy-M-d");
 			String fechaParaSQL = daf.format(fechaAgasajo);
-			s.setDate(1, java.sql.Date.valueOf(fechaParaSQL));
-			s.setInt(2, montoParticipante);
-			s.setInt(3, 0);
+			s.setDate(2, java.sql.Date.valueOf(fechaParaSQL));
+			s.setInt(3, montoParticipante);
+			s.setInt(4, 0);
 			String fechaIParaSQL = daf.format(fechaInicio);
-			s.setDate(4, java.sql.Date.valueOf(fechaIParaSQL));
+			s.setDate(5, java.sql.Date.valueOf(fechaIParaSQL));
 			String fechaFParaSQL = daf.format(fechaFin);
-			s.setDate(5, java.sql.Date.valueOf(fechaFParaSQL));
-			s.setInt(6, 1);
-			s.setString(7, mail);
-			s.setString(8, usuario);
+			s.setDate(6, java.sql.Date.valueOf(fechaFParaSQL));
+			s.setInt(7, 1);
+			s.setString(8, mail);
+			
 			
 			s.execute();
 			DataAccess.getConexion().cerrarConexion();

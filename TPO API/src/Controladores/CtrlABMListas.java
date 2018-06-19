@@ -39,11 +39,11 @@ public class CtrlABMListas {
 		 * sobrecarga.*/
 	}		
 	
-	public void crearLista(java.util.Date fechaAga, int montoPart, java.util.Date fechaF, String correo, java.util.Date fechaI, String user) throws Exception
+	public void crearLista(java.util.Date fechaAga, int montoPart, java.util.Date fechaF, String correo, java.util.Date fechaI, String agasajado) throws Exception
 	{
 		try
 		{
-			Lista.getInstancia().altaListas(fechaAga,montoPart,fechaF,correo,fechaI,user);		
+			Lista.getInstancia().altaListas(fechaAga,montoPart,fechaF,correo,fechaI,agasajado);		
 		}
 		catch(Exception e)
 		{

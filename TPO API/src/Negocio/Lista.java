@@ -66,11 +66,11 @@ public class Lista {
 		
 	}
 	
-	public void altaListas(java.util.Date fechaAga, int montoParticipante, java.util.Date fechaF, String mail, java.util.Date fechaI, String usuario) throws Exception
+	public void altaListas(java.util.Date fechaAga, int montoParticipante, java.util.Date fechaF, String mail, java.util.Date fechaI, String agasajado) throws Exception
 	{
 		try
 		{
-			ADMPersistenciaListas.getInstancia().altaLista(fechaAga,montoParticipante,fechaF,mail,fechaI,usuario);
+			ADMPersistenciaListas.getInstancia().altaLista(fechaAga,montoParticipante,fechaF,mail,fechaI,agasajado);
 		}
 		catch(Exception e)
 		{

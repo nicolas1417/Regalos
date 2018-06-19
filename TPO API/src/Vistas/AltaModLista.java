@@ -38,7 +38,7 @@ public class AltaModLista extends JFrame {
 	private JTextField textFieldFechaFin;
 	private JLabel lblNewLabel_2;
 	private JTextField textFieldMail;
-	private JTextField textFieldUsuario;
+	private JTextField textFieldAgasajado;
 	private JLabel lblNewLabel_3;
 	private JLabel mensaje;
 	private JTextField textFieldFechaInicio;
@@ -101,14 +101,14 @@ public class AltaModLista extends JFrame {
 		contentPane.add(textFieldMail);
 		textFieldMail.setColumns(10);
 		
-		textFieldUsuario = new JTextField();
-		textFieldUsuario.setBounds(176, 195, 117, 20);
-		contentPane.add(textFieldUsuario);
-		textFieldUsuario.setColumns(10);
+		textFieldAgasajado = new JTextField();
+		textFieldAgasajado.setBounds(176, 195, 117, 20);
+		contentPane.add(textFieldAgasajado);
+		textFieldAgasajado.setColumns(10);
 		
-		lblNewLabel_3 = new JLabel("Usuario:");
+		lblNewLabel_3 = new JLabel("Nombre del agasajado:");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_3.setBounds(92, 198, 75, 14);
+		lblNewLabel_3.setBounds(10, 198, 157, 14);
 		contentPane.add(lblNewLabel_3);
 		
 		mensaje = new JLabel("");
@@ -124,7 +124,7 @@ public class AltaModLista extends JFrame {
 					
 					if(listaMod == 0)
 					{
-						CtrlABMListas.getInstancia().crearLista(formatter.parse(textFieldAgasajo.getText()), Integer.parseInt(textFieldMonto.getText()), formatter.parse(textFieldFechaFin.getText()), textFieldMail.getText(), formatter.parse(textFieldFechaInicio.getText()), textFieldUsuario.getText());
+						CtrlABMListas.getInstancia().crearLista(formatter.parse(textFieldAgasajo.getText()), Integer.parseInt(textFieldMonto.getText()), formatter.parse(textFieldFechaFin.getText()), textFieldMail.getText(), formatter.parse(textFieldFechaInicio.getText()), textFieldAgasajado.getText());
 					    mensaje.setText("Lista guardada correctamente!");
 					}
 					else 
@@ -214,8 +214,8 @@ public class AltaModLista extends JFrame {
 					textFieldFechaFin.setText(lista[2]);
 					textFieldMail.setText(lista[3]);
 					textFieldFechaInicio.setText(lista[4]);
-					textFieldUsuario.setText(lista[5]);
-					textFieldUsuario.setEnabled(false);
+					textFieldAgasajado.setText(lista[5]);
+					textFieldAgasajado.setEnabled(false);
 				}
 				else 
 					throw new Exception("La lista a Modificar no existe");
