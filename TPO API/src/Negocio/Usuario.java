@@ -16,14 +16,14 @@ public class Usuario {
 	private boolean estado;
 	private TipoUsuario tipoUsuario;
 	
-	private static Usuario instancia;
+	/*private static Usuario instancia;
 	
 	public static Usuario getInstancia()
 	{
 		if (instancia == null)
 			instancia = new Usuario();
 		return instancia;
-	}
+	}*/
 	
 	public Usuario()
 	{

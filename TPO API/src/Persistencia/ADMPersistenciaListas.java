@@ -95,7 +95,7 @@ private static ADMPersistenciaListas instancia;
 				String mailUsuario = result.getString(16);
 				int estadoUsuario = result.getInt(17);
 				
-				TipoUsuario tu = new TipoUsuario(idTipoUsuario,codTipoUsuario);
+				//TipoUsuario tu = new TipoUsuario(idTipoUsuario,codTipoUsuario);
 				
 				Usuario u = new Usuario(nombre,user,contrasena,fecha_nac,estadoUsuario==1,mailUsuario,tu);
 				

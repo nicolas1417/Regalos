@@ -43,7 +43,8 @@ public class CtrlABMListas {
 	{
 		try
 		{
-			Lista.getInstancia().altaListas(fechaAga,montoPart,fechaF,correo,fechaI,agasajado);		
+			Lista nueva = new Lista();
+			nueva.altaListas(fechaAga,montoPart,fechaF,correo,fechaI,agasajado);		
 		}
 		catch(Exception e)
 		{
@@ -80,19 +81,21 @@ public class CtrlABMListas {
 	}
 	
 	public void agregarParticipante(UsuarioDeLista participante){
-		Lista.getInstancia().agregarParticipante(participante);
+		Lista obj = new Lista();
+		obj.agregarParticipante(participante);
 	}
 	
 	public Vector<Usuario> buscarUsuarios() throws Exception
 	{
-		return Usuario.getInstancia().buscarUsuarios();
+		Usuario obj = new Usuario();
+		return obj.buscarUsuarios();
 	}
 	
-	public Object[][] buscarListas(Usuario usuario) throws Exception
+	/*public Object[][] buscarListas(Usuario usuario) throws Exception
 	{
 		try
 		{
-			Vector<Lista> v = Lista.getInstancia().buscarListas(usuario.getUsuario());
+			//Vector<Lista> v = Lista.this.buscarListas(usuario.getUsuario());
 			
 			Object[][] data = new Object[v.size()][8]; 
 			
@@ -116,7 +119,7 @@ public class CtrlABMListas {
 		{
 			throw e;
 		}
-	}
+	}*/
 	
 	private void agregarLista(Lista l) 
 	{

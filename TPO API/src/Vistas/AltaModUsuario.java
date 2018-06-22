@@ -104,10 +104,10 @@ public class AltaModUsuario extends JFrame {
 			e.printStackTrace();
 		}
 		
-		for( int i=0; i<s.length ; i ++ )
+		/*for( int i=0; i<s.length ; i ++ )
 		{			
-			comboBoxTipo.addItem(s[i]);
-		}
+			//comboBoxTipo.addItem(s[i]);
+		}*/
 		
 		JLabel lblTipo = new JLabel("Tipo:");
 		lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 11));

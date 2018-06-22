@@ -63,7 +63,7 @@ public class BuscarUsuarios extends JFrame {
 		Object[][] data = null;
 		try
 		{
-			data = CtrlABMUsuarios.getInstancia().buscarUsuarios();
+			//data = CtrlABMUsuarios.getInstancia().buscarUsuarios();
 		}
 		catch(Exception e)
 		{

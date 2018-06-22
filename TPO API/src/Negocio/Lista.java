@@ -19,19 +19,19 @@ public class Lista {
 	public String mail;
 	public UsuarioDeLista administrador;
 	
-	private static Lista instancia;
+	//private static Lista instancia;
 	
 	public Lista()
 	{
 		
 	}
 	
-	public static Lista getInstancia()
+	/*public static Lista getInstancia()
 	{
 		if (instancia == null)
 			instancia = new Lista();
 		return instancia;
-	}
+	}*/
 	
 	
 	/*Constructor de la lista, deberia decirse quien es el administrador, que fecha

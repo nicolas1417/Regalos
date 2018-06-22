@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import Negocio.TipoUsuario;
@@ -28,23 +31,19 @@ private static ADMPersistenciaUsuarios instancia;
 		return instancia;
 	}
 	
-	public Vector<TipoUsuario> obtenerTiposDeUsuario() throws Exception
-	{
-		Vector<TipoUsuario> vTiposUsuarios = new Vector<TipoUsuario>();
+	public List<String> obtenerTiposDeUsuario() throws Exception
+	{ //Cambiado para que retorne una lista con dos strings Admin y común.
+		List<String> vTiposUsuarios = new ArrayList<String>();
 		try
 		{
 			
 			Connection con = DataAccess.getConexion().getInstanciaDB();
-			PreparedStatement s = con.prepareStatement("select * from tipousuario");
+			PreparedStatement s = con.prepareStatement("select codigo from tipousuario");
 	
 			ResultSet result = s.executeQuery();
 			
-			while (result.next()) 
-			{
-				TipoUsuario tu = new TipoUsuario(result.getInt(1),result.getString(2));
-				
-				vTiposUsuarios.add(tu);
-			}
+			for(int i=0; result.next(); i++)
+				vTiposUsuarios.add(result.getString(i));
 			
 			if( vTiposUsuarios.size() == 0)
 				throw new Exception("No existen tipos de usuario");	
@@ -132,7 +131,7 @@ private static ADMPersistenciaUsuarios instancia;
 			String mail = result.getString(7);
 			int estado = result.getInt(8);
 			
-			TipoUsuario tu = new TipoUsuario(idTipoUsuario,codTipoUsuario);
+			TipoUsuario tu = new TipoUsuario();
 			
 			Usuario u = new Usuario(nombre,user,contrasena,fecha_nac,estado==1,mail,tu);			
 			
@@ -167,7 +166,7 @@ private static ADMPersistenciaUsuarios instancia;
 				String mail = result.getString(7);
 				int estado = result.getInt(8);
 				
-				TipoUsuario tu = new TipoUsuario(idTipoUsuario,codTipoUsuario);
+				TipoUsuario tu = new TipoUsuario();
 				
 				Usuario u = new Usuario(nombre,user,contrasena,fecha_nac,estado==1,mail,tu);
 				
@@ -194,7 +193,7 @@ private static ADMPersistenciaUsuarios instancia;
 					
 			s.setString(1, contrasena);
 			s.setString(2, nombre);
-			s.setInt(3, tipoUsuario.getId());
+			s.setInt(3, 0);//Revisar!!!
 			
 			DateFormat df = new SimpleDateFormat("yyyy-M-d");
 			String fechaParaSQL = df.format(fechaNacimiento);
@@ -230,5 +229,4 @@ private static ADMPersistenciaUsuarios instancia;
 			throw e;
 		}
 	}
-
 }

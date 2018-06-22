@@ -28,11 +28,15 @@ public class CtrlABMUsuarios {
 	{
 		try
 		{
-			return Usuario.getInstancia().obtenerTiposDeUsuario();
+			TipoUsuario obj = new TipoUsuario();
+			return 
 		}
 		catch (Exception e) 
 		{
 			throw e;
+		}
+		finally{
+			return null;
 		}
 	}
 	
@@ -40,7 +44,8 @@ public class CtrlABMUsuarios {
 	{
 		try
 		{
-			Usuario.getInstancia().AltaUsuario(usuario,contrasena,nombre,idTipoUsuario,fechaNacimiento,mail);
+			Usuario nuevo = new Usuario();
+			nuevo.AltaUsuario(usuario,contrasena,nombre,idTipoUsuario,fechaNacimiento,mail);
 		}
 		catch(Exception e)
 		{
@@ -52,7 +57,7 @@ public class CtrlABMUsuarios {
 	{
 		try
 		{
-			Usuario.getInstancia().validarAltaUsuario(usuario,password,passConfirmada);
+			//Usuario.getInstancia().validarAltaUsuario(usuario,password,passConfirmada);
 		}
 		catch(Exception e)
 		{
@@ -60,7 +65,7 @@ public class CtrlABMUsuarios {
 		}
 	}
 	
-	public Object[][] buscarUsuarios() throws Exception
+	/*public Object[][] buscarUsuarios() throws Exception
 	{
 		try
 		{
@@ -85,7 +90,7 @@ public class CtrlABMUsuarios {
 		{
 			throw e;
 		}
-	}
+	}*/
 	
 	private void agregarUsuario(Usuario u)
 	{
@@ -125,7 +130,7 @@ public class CtrlABMUsuarios {
 	{
 		try
 		{	
-			Usuario.getInstancia().modificarUsuario(usuario, contrasena,passConfirmada, nombre, idTipoUsuario, fechaNacimiento, mail);
+			//Usuario.getInstancia().modificarUsuario(usuario, contrasena,passConfirmada, nombre, idTipoUsuario, fechaNacimiento, mail);
 		}
 		catch(Exception e) 
 		{
@@ -137,7 +142,7 @@ public class CtrlABMUsuarios {
 	{
 		try
 		{
-			Usuario.getInstancia().eliminarUsuario(usuario);
+			//Usuario.getInstancia().eliminarUsuario(usuario);
 		}
 		catch(Exception e) 
 		{

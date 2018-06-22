@@ -1,5 +1,6 @@
 package Negocio;
 
+import java.util.List;
 import java.util.Vector;
 
 import Persistencia.ADMPersistenciaUsuarios;
@@ -7,27 +8,29 @@ import Persistencia.ADMPersistenciaUsuarios;
 public class TipoUsuario {
 	private int id;
 	private String codigo;
-	private static TipoUsuario instancia;
+	private List<String> tipos;
+	//private static TipoUsuario instancia;
 	
-	public TipoUsuario()
-	{
-		
-	}
-	
-	public static TipoUsuario getInstancia()
+	/*public static TipoUsuario getInstancia()
 	{
 		if (instancia == null)
 			instancia = new TipoUsuario();
 		return instancia;
-	}
+	}*/
 	
-	public TipoUsuario(int id, String codigo)
+	/*El id es el indice del vector y el nombre del tipo es el contenido de la
+	 * posición*/
+	
+	public TipoUsuario()
 	{
-		this.id = id;
-		this.codigo = codigo;
+		try {
+			tipos = ADMPersistenciaUsuarios.getInstancia().obtenerTiposDeUsuario();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public Vector<TipoUsuario> obtenerTiposDeUsuario() throws Exception
+	/*public  obtenerTiposDeUsuario() throws Exception
 	{
 		try
 		{
@@ -37,15 +40,8 @@ public class TipoUsuario {
 		{
 			throw e;
 		}
+	}*/
+	public List<String> getTipos(){
+		return this.tipos;
 	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-	
-	public int getId() {
-		return id;
-	}
-	
-	
 }

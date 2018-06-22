@@ -61,7 +61,7 @@ public class BuscarListas extends JFrame {
 		Object[][] data = null;
 		try
 		{
-			data = CtrlABMListas.getInstancia().buscarListas(CtrlSesion.getInstancia().getUsuarioLogueado());
+			//data = CtrlABMListas.getInstancia().buscarListas(CtrlSesion.getInstancia().getUsuarioLogueado());
 		}
 		catch(Exception e)
 		{

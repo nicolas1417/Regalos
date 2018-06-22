@@ -6,14 +6,14 @@ public class UsuarioDeLista {
 	private Usuario usuario;
 	
 	
-	private static UsuarioDeLista instancia;
+	/*private static UsuarioDeLista instancia;
 	
 	public static UsuarioDeLista getInstancia()
 	{
 		if (instancia == null)
 			instancia = new UsuarioDeLista();
 		return instancia;
-	}
+	}*/
 	
 	public UsuarioDeLista()
 	{
