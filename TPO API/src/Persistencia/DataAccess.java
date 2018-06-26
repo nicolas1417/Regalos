@@ -5,32 +5,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.Vector;
 
-public class DataAccess {
-	private static DataAccess dataAccess;
-	private Connection instanciaDB;
+public final class DataAccess {	
 	
-	private DataAccess(){		
-		instanciaDB = Conectar();			
-	}
-	
-	public static DataAccess getConexion()
-	{
-		if (dataAccess== null)
-			dataAccess = new DataAccess();
-		return dataAccess;
-	}
-	
-	private Connection Conectar() 
+	public static Connection Conectar() 
 	{
 		try 
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String dbConnectString = getConfiguracion();
-            Connection con = DriverManager.getConnection (dbConnectString);
             
-            return con;
+            return DriverManager.getConnection(dbConnectString);
 		}
 		catch (SQLException e)
 		{
@@ -46,7 +31,7 @@ public class DataAccess {
 		}
 	}
 	
-	private String getConfiguracion()
+	private static String getConfiguracion()
 	{
 		String configuracion = "ConfigBD.txt";
 	    Properties propiedades;
@@ -68,34 +53,5 @@ public class DataAccess {
 	    }
 		return connectionString;
 	}
-
-	public Connection getInstanciaDB() {
-		if (instanciaDB != null)
-		{
-			try 
-			{
-				if (!instanciaDB.isClosed())
-					return instanciaDB;	
-				else return Conectar();
-			} 
-			catch (SQLException e) 
-			{
-				e.printStackTrace();
-			}
-		}
-		
-		return instanciaDB;
-	}
 	
-	public void cerrarConexion()
-	{
-		try 
-		{
-			instanciaDB.close();
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-	}	
 }

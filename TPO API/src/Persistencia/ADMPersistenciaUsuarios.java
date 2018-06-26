@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import Negocio.TipoUsuario;
 import Negocio.Usuario;
 
 public class ADMPersistenciaUsuarios {
-	
+	private Connection laConexion = DataAccess.Conectar();
 private static ADMPersistenciaUsuarios instancia;
 	
 	private ADMPersistenciaUsuarios()
@@ -36,11 +37,13 @@ private static ADMPersistenciaUsuarios instancia;
 		List<String> vTiposUsuarios = new ArrayList<String>();
 		try
 		{
-			
-			Connection con = DataAccess.getConexion().getInstanciaDB();
-			PreparedStatement s = con.prepareStatement("select codigo from tipousuario");
+			String laConsulta = "select codigo from tipousuario";
+			Statement stmtConsulta = laConexion.createStatement();
+
+			//Connection con = DataAccess.getConexion().getInstanciaDB();
+			//PreparedStatement s = con.prepareStatement("select codigo from tipousuario");
 	
-			ResultSet result = s.executeQuery();
+			ResultSet result = stmtConsulta.executeQuery(laConsulta);
 			
 			for(int i=0; result.next(); i++)
 				vTiposUsuarios.add(result.getString(i));
@@ -48,7 +51,8 @@ private static ADMPersistenciaUsuarios instancia;
 			if( vTiposUsuarios.size() == 0)
 				throw new Exception("No existen tipos de usuario");	
 			
-			DataAccess.getConexion().cerrarConexion();
+			//DataAccess.cerrarConexion();
+			
 		}
 		catch(Exception e)
 		{
@@ -57,28 +61,32 @@ private static ADMPersistenciaUsuarios instancia;
 		return vTiposUsuarios;
 	}
 	
-	public void altaUsuario(String usuario, String contrasena, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void altaUsuario(String usuario, String contrasena, String nombre,boolean idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
-		Connection con = DataAccess.getConexion().getInstanciaDB();
-		PreparedStatement s;
+		//Connection con = DataAccess.getConexion().getInstanciaDB();
+		//PreparedStatement s;
 		try 
 		{
-			s = con.prepareStatement("INSERT INTO USUARIO (usuario,contrasena,nombre,tipo,fechaNacimiento,mail) VALUES (?,?,?,?,?,?)");
-			
-			s.setString(1,usuario);
-			s.setString(2, contrasena);
-			s.setString(3, nombre);
-			s.setInt(4, idTipoUsuario);
-			
+			int tipo;
+			if(idTipoUsuario)
+				tipo = 1;
+			else
+				tipo = 0;
 			DateFormat df = new SimpleDateFormat("yyyy-M-d");
 			String fechaParaSQL = df.format(fechaNacimiento);
-			s.setDate(5, java.sql.Date.valueOf(fechaParaSQL));
+			String laConsulta = "INSERT INTO USUARIO (usuario,contrasena,nombre,tipo,fechaNacimiento,mail) VALUES (" + usuario + "," + contrasena + "," + nombre + "," + tipo + "," + java.sql.Date.valueOf(fechaParaSQL) + "," + mail + ")";
+			Statement stmtConsulta = laConexion.createStatement();
+			stmtConsulta.executeQuery(laConsulta);
 			
-			s.setString(6, mail);
+			//s = con.prepareStatement("INSERT INTO USUARIO (usuario,contrasena,nombre,tipo,fechaNacimiento,mail) VALUES (?,?,?,?,?,?)");
 			
-			s.execute();
+			//s.setDate(5, java.sql.Date.valueOf(fechaParaSQL));
 			
-			DataAccess.getConexion().cerrarConexion();
+			//s.setString(6, mail);
+			
+			//s.execute();
+			
+			//DataAccess.getConexion().cerrarConexion();
 		} 
 		catch (Exception e) 
 		{
@@ -86,7 +94,7 @@ private static ADMPersistenciaUsuarios instancia;
 		}
 	}
 	
-	public boolean validarUsuario(String usuario)
+	/*public boolean validarUsuario(String usuario)
 	{	
 		try
 		{
@@ -104,38 +112,43 @@ private static ADMPersistenciaUsuarios instancia;
 			e.printStackTrace();
 		}
 		
-		DataAccess.getConexion().cerrarConexion();
+		//DataAccess.getConexion().cerrarConexion();
 		return true;
-	}
+	}*/
 	
 	public Usuario LoginUser(String usuario, String password) throws Exception
 	{
 		try
 		{
-			
-			Connection con = DataAccess.getConexion().getInstanciaDB();
-			PreparedStatement s = con.prepareStatement("select u.usuario,u.contrasena,u.nombre,tu.id,tu.codigo,u.fechaNacimiento,u.mail,u.estado from usuario u, tipousuario tu where u.tipo = tu.id AND usuario = ? AND contrasena = ?");
-			s.setString(1,usuario);
-			s.setString(2, password);
-			ResultSet result = s.executeQuery();
-			
-			if (!result.next())
+			String laConsulta = "select u.usuario,u.contrasena,u.nombre,tu.id,tu.codigo,u.fechaNacimiento,u.mail,u.estado from usuario u, tipousuario tu where u.tipo = tu.id AND usuario = " + usuario + "AND contrasena = " + password;
+			//Connection con = DataAccess.getConexion().getInstanciaDB();
+			//PreparedStatement s = con.prepareStatement("select u.usuario,u.contrasena,u.nombre,tu.id,tu.codigo,u.fechaNacimiento,u.mail,u.estado from usuario u, tipousuario tu where u.tipo = tu.id AND usuario = ? AND contrasena = ?");
+			//s.setString(1,usuario);
+			//s.setString(2, password);
+			//ResultSet result = s.executeQuery();
+			Statement stmtConsulta = laConexion.createStatement();
+			ResultSet rs = stmtConsulta.executeQuery(laConsulta);
+			if (!rs.next())
 				throw new Exception("El usuario o contraseña ingresada es incorrecta");	
 						
-			String user = result.getString(1);
-			String contrasena = result.getString(2);
-			String nombre = result.getString(3);
-			int idTipoUsuario = result.getInt(4);
-			String codTipoUsuario = result.getString(5);
-			Date fecha_nac = result.getDate(6);
-			String mail = result.getString(7);
-			int estado = result.getInt(8);
+			String user = rs.getString(1);
+			String contrasena = rs.getString(2);
+			String nombre = rs.getString(3);
+			int idTipoUsuario = rs.getInt(4);
+			String codTipoUsuario = rs.getString(5);
+			Date fecha_nac = rs.getDate(6);
+			String mail = rs.getString(7);
+			int estado = rs.getInt(8);
+			boolean tipoDeUsuario;
+			if(idTipoUsuario > 0)
+				tipoDeUsuario = true;
+			else
+				tipoDeUsuario = false;
+			//TipoUsuario tu = new TipoUsuario();
 			
-			TipoUsuario tu = new TipoUsuario();
+			Usuario u = new Usuario(nombre,user,contrasena,fecha_nac,estado==1,mail,tipoDeUsuario);			
 			
-			Usuario u = new Usuario(nombre,user,contrasena,fecha_nac,estado==1,mail,tu);			
-			
-			DataAccess.getConexion().cerrarConexion();
+//			DataAccess.getConexion().cerrarConexion();
 			
 			return u;
 		}
@@ -145,7 +158,7 @@ private static ADMPersistenciaUsuarios instancia;
 		}
 	}
 	
-	public Vector<Usuario> buscarUsuarios() throws Exception
+	/*public Vector<Usuario> buscarUsuarios() throws Exception
 	{
 		Vector<Usuario> v = new Vector<Usuario>();
 		try
@@ -228,5 +241,5 @@ private static ADMPersistenciaUsuarios instancia;
 		{
 			throw e;
 		}
-	}
+	}*/
 }

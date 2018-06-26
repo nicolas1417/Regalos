@@ -14,7 +14,7 @@ public class Usuario {
 	private String usuario;
 	private String password;
 	private boolean estado;
-	private TipoUsuario tipoUsuario;
+	private boolean tipoUsuario;
 	
 	/*private static Usuario instancia;
 	
@@ -30,7 +30,7 @@ public class Usuario {
 		
 	}
 		
-	public Usuario(String nombre, String usuario, String pass, Date nacimiento,boolean estado, String mail,TipoUsuario tu){		
+	public Usuario(String nombre, String usuario, String pass, Date nacimiento,boolean estado, String mail,boolean tu){		
 		this.nombre = nombre;
 		this.usuario = usuario;
 		this.password = pass;
@@ -40,11 +40,11 @@ public class Usuario {
 		this.tipoUsuario = tu;
 	}
 	
-	public void AltaUsuario(String usuario, String contrasena, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void AltaUsuario(String usuario, String contrasena, String nombre,boolean tipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
 		{			
-			ADMPersistenciaUsuarios.getInstancia().altaUsuario(usuario,contrasena,nombre,obtenerTipoUsuario(idTipoUsuario).getId(),fechaNacimiento,mail);
+			ADMPersistenciaUsuarios.getInstancia().altaUsuario(usuario,contrasena,nombre,tipoUsuario,fechaNacimiento,mail);
 		}
 		catch(Exception e)
 		{
@@ -52,7 +52,7 @@ public class Usuario {
 		}
 	}	
 	
-	public void modificarUsuario(String usuario, String contrasena,String passConfirmada, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	/*public void modificarUsuario(String usuario, String contrasena,String passConfirmada, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
 		{
@@ -65,32 +65,9 @@ public class Usuario {
 		{
 			throw e;
 		}
-	}
+	}*/
 	
-	private TipoUsuario obtenerTipoUsuario(int idTipoUsuario) throws Exception
-	{
-		try
-		{
-			Vector<TipoUsuario> v = TipoUsuario.getInstancia().obtenerTiposDeUsuario();
-			TipoUsuario tu = null;
-			
-			for(int i=0;i<v.size();i++)
-			{
-				if (v.elementAt(i).getId() == idTipoUsuario)
-				{
-					tu = v.elementAt(i);
-					return tu;
-				}
-			}
-		}
-		catch (Exception e)
-		{
-			throw e;
-		}
-		return null;
-	}
-	
-	public void eliminarUsuario(String usuario) throws Exception
+	/*public void eliminarUsuario(String usuario) throws Exception
 	{
 		try
 		{
@@ -116,14 +93,14 @@ public class Usuario {
 		{
 			throw e;
 		}
-	}
+	}*/
 	
 	public boolean validarContrasena(String password, String passConfirmada) 
 	{
 		return (password.equals(passConfirmada));
 	}
 	
-	public Vector<Usuario> buscarUsuarios() throws Exception
+	/*public Vector<Usuario> buscarUsuarios() throws Exception
 	{
 		try
 		{
@@ -133,27 +110,7 @@ public class Usuario {
 		{
 			throw e;
 		}
-	}
-	
-	public String[] obtenerTiposDeUsuario() throws Exception
-	{
-		try
-		{
-			Vector<TipoUsuario> v = TipoUsuario.getInstancia().obtenerTiposDeUsuario();
-			String[] s = new String[v.size()];
-			
-			for(int i=0;i<v.size();i++)
-			{
-				s[i] = v.elementAt(i).getCodigo();
-			}
-			
-			return s;
-		}
-		catch (Exception e) 
-		{
-			throw e;
-		}
-	}
+	}*/
 
 	public String getNombre() {
 		return nombre;
@@ -167,12 +124,8 @@ public class Usuario {
 		return fechaNacimiento;
 	}
 	
-	public String getCodTipo() {
-		return tipoUsuario.getCodigo();
-	}
-	
-	public int getIdTipo() {
-		return tipoUsuario.getId();
+	public boolean getTipo() {
+		return this.tipoUsuario;
 	}
 	
 	public String getMail() {
