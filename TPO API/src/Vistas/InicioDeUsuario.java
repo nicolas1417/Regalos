@@ -84,7 +84,7 @@ public class InicioDeUsuario extends JFrame {
 		/*
 		 * Si el usuario es administrador se muestran estos controles sino no.
 		 * */
-		if(CtrlSesion.getInstancia().getUsuarioLogueado().getIdTipo() == 1) {
+		if(CtrlSesion.getInstancia().getUsuarioLogueado().getTipo()) {
 			JMenuItem mntmAltaDeUsuario = new JMenuItem("Alta de Usuario");
 			mntmAltaDeUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

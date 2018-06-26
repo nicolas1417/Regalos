@@ -113,15 +113,15 @@ public class Usuario {
 	}*/
 
 	public String getNombre() {
-		return nombre;
+		return this.nombre;
 	}
 	
 	public String getUsuario() {
-		return usuario;
+		return this.usuario;
 	}
 	
 	public Date getFechaNac() {
-		return fechaNacimiento;
+		return this.fechaNacimiento;
 	}
 	
 	public boolean getTipo() {
@@ -129,7 +129,7 @@ public class Usuario {
 	}
 	
 	public String getMail() {
-		return mail;
+		return this.mail;
 	}
 	
 	public String getDescEstado() {
@@ -137,6 +137,6 @@ public class Usuario {
 	}
 	
 	public boolean getEstado() {
-		return estado;
+		return this.estado;
 	}	
 }

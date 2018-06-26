@@ -120,7 +120,7 @@ private static ADMPersistenciaUsuarios instancia;
 	{
 		try
 		{
-			String laConsulta = "select u.usuario,u.contrasena,u.nombre,tu.id,tu.codigo,u.fechaNacimiento,u.mail,u.estado from usuario u, tipousuario tu where u.tipo = tu.id AND usuario = " + usuario + "AND contrasena = " + password;
+			String laConsulta = "select u.usuario,u.contrasena,u.nombre,u.fechaNacimiento,u.mail,u.estado,u.tipo from usuario u where usuario = '" + usuario + "' AND contrasena = '" + password + "'";
 			//Connection con = DataAccess.getConexion().getInstanciaDB();
 			//PreparedStatement s = con.prepareStatement("select u.usuario,u.contrasena,u.nombre,tu.id,tu.codigo,u.fechaNacimiento,u.mail,u.estado from usuario u, tipousuario tu where u.tipo = tu.id AND usuario = ? AND contrasena = ?");
 			//s.setString(1,usuario);
@@ -134,11 +134,18 @@ private static ADMPersistenciaUsuarios instancia;
 			String user = rs.getString(1);
 			String contrasena = rs.getString(2);
 			String nombre = rs.getString(3);
-			int idTipoUsuario = rs.getInt(4);
-			String codTipoUsuario = rs.getString(5);
-			Date fecha_nac = rs.getDate(6);
-			String mail = rs.getString(7);
-			int estado = rs.getInt(8);
+			Date fecha_nac = rs.getDate(4);
+			String mail = rs.getString(5);
+			int estado = rs.getInt(6);
+			int idTipoUsuario = rs.getInt(7);
+			//String codTipoUsuario = rs.getString(5);
+			
+			boolean estadoB;
+			if(estado > 0)
+				estadoB = true;
+			else
+				estadoB = false;
+			
 			boolean tipoDeUsuario;
 			if(idTipoUsuario > 0)
 				tipoDeUsuario = true;
@@ -146,7 +153,7 @@ private static ADMPersistenciaUsuarios instancia;
 				tipoDeUsuario = false;
 			//TipoUsuario tu = new TipoUsuario();
 			
-			Usuario u = new Usuario(nombre,user,contrasena,fecha_nac,estado==1,mail,tipoDeUsuario);			
+			Usuario u = new Usuario(nombre, user, contrasena, fecha_nac, estadoB, mail, tipoDeUsuario);			
 			
 //			DataAccess.getConexion().cerrarConexion();
 			
