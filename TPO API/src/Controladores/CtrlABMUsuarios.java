@@ -1,6 +1,7 @@
 package Controladores;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -16,6 +17,7 @@ public class CtrlABMUsuarios {
 	
 	private static CtrlABMUsuarios instancia;
 	private Vector<Usuario> usuarios;
+	private 
 	
 	public static CtrlABMUsuarios getInstancia()
 	{
@@ -24,23 +26,7 @@ public class CtrlABMUsuarios {
 		return instancia;
 	}
 	
-	public String[] obtenerTiposDeUsuario() throws Exception
-	{
-		try
-		{
-			TipoUsuario obj = new TipoUsuario();
-			return 
-		}
-		catch (Exception e) 
-		{
-			throw e;
-		}
-		finally{
-			return null;
-		}
-	}
-	
-	public void crearUsuario(String usuario, String contrasena, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void crearUsuario(String usuario, String contrasena, String nombre,boolean idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
 		{
@@ -112,7 +98,7 @@ public class CtrlABMUsuarios {
 					s[1] = u.getNombre();
 					s[2] = u.getFechaNac().toString();
 					s[3] = u.getMail();
-					s[4] = String.valueOf(u.getIdTipo());
+					s[4] = String.valueOf(u.getTipoEnNumero());
 					
 					return s;
 				}					
@@ -126,10 +112,12 @@ public class CtrlABMUsuarios {
 		}
 	}
 	
-	public void modificarUsuario(String usuario, String contrasena,String passConfirmada, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void modificarUsuario(String usuario, String contrasena,String passConfirmada, String nombre,boolean TipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
 		{	
+			//fechaNac = textFieldFechaNac.getText();
+			Usuario obj = new Usuario(nombre, usuario, textFieldPassword.getText(), fechaNac, true, textFieldMail.getText(), tipoUsuario);
 			//Usuario.getInstancia().modificarUsuario(usuario, contrasena,passConfirmada, nombre, idTipoUsuario, fechaNacimiento, mail);
 		}
 		catch(Exception e) 

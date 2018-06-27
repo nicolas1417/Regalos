@@ -5,18 +5,22 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.util.Date;
 import java.util.Vector;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import Controladores.CtrlABMUsuarios;
+import Negocio.Usuario;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -95,19 +99,11 @@ public class AltaModUsuario extends JFrame {
 		
 		comboBoxTipo = new JComboBox<String>();
 		comboBoxTipo.setBounds(126, 102, 172, 20);
+		comboBoxTipo.addItem("Participante");
+		comboBoxTipo.addItem("Administrador");
 		contentPane.add(comboBoxTipo);
+				
 		
-		try {
-			s = CtrlABMUsuarios.getInstancia().obtenerTiposDeUsuario();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		/*for( int i=0; i<s.length ; i ++ )
-		{			
-			//comboBoxTipo.addItem(s[i]);
-		}*/
 		
 		JLabel lblTipo = new JLabel("Tipo:");
 		lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -153,24 +149,37 @@ public class AltaModUsuario extends JFrame {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnGuardar.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
+				if(camposCompletados()) {
+				boolean tipoUsuario;
+				if(comboBoxTipo.getSelectedIndex() > 0)
+					tipoUsuario = true;
+				else
+					tipoUsuario = false;
 				try
 				{
-					int idTipoUsuario = comboBoxTipo.getSelectedIndex();
+					Date fechaNac = new SimpleDateFormat("dd/MM/yyyy").parse(textFieldFechaNac.getText());
 					if (usuarioMod.equals(""))
 					{
-					    CtrlABMUsuarios.getInstancia().validarAltaUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldConfPass.getText());				    
-					    CtrlABMUsuarios.getInstancia().crearUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldNombre.getText(),idTipoUsuario+1,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
-					    
-					    textAreaMsgError.setForeground(Color.BLUE);
-					    textAreaMsgError.setText("Usuario guardado correctamente!");
+						if (comprobarPasswords(textFieldConfPass.getText(), textFieldPassword.getText())) {
+							//CtrlABMUsuarios.getInstancia().validarAltaUsuario(textFieldUsuario.getText(), textFieldPassword.getText(), textFieldConfPass.getText());
+							CtrlABMUsuarios.getInstancia().crearUsuario(textFieldUsuario.getText(), textFieldPassword.getText(), textFieldNombre.getText(), tipoUsuario, fechaNac, textFieldMail.getText());
+
+							textAreaMsgError.setForeground(Color.BLUE);
+							textAreaMsgError.setText("Usuario guardado correctamente!");
+						}else {
+							JOptionPane.showMessageDialog(AltaModUsuario.this, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 					else
-					{						
-						CtrlABMUsuarios.getInstancia().modificarUsuario(textFieldUsuario.getText(),textFieldPassword.getText(),textFieldConfPass.getText(),textFieldNombre.getText(),idTipoUsuario+1,new Date(textFieldFechaNac.getText()), textFieldMail.getText());
-						textAreaMsgError.setForeground(Color.BLUE);
-					    textAreaMsgError.setText("Usuario Modificado correctamente!");
+					{
+						if (comprobarPasswords(textFieldConfPass.getText(), textFieldPassword.getText())) {
+							CtrlABMUsuarios.getInstancia().modificarUsuario(textFieldUsuario.getText(), textFieldPassword.getText(), textFieldConfPass.getText(), textFieldNombre.getText(), tipoUsuario, fechaNac, textFieldMail.getText());
+							textAreaMsgError.setForeground(Color.BLUE);
+							textAreaMsgError.setText("Usuario Modificado correctamente!");
+						}else {
+							JOptionPane.showMessageDialog(AltaModUsuario.this, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				}
 				catch(Exception e)
@@ -179,6 +188,9 @@ public class AltaModUsuario extends JFrame {
 					textAreaMsgError.setText(e.getMessage());
 				}
 				
+			}else {
+				JOptionPane.showMessageDialog(AltaModUsuario.this, "Complete los campos en blanco", "Error", JOptionPane.WARNING_MESSAGE);
+			}
 			}
 		});
 		btnGuardar.setBounds(127, 181, 80, 23);
@@ -223,5 +235,19 @@ public class AltaModUsuario extends JFrame {
 		{
 			textAreaMsgError.setText(e.getMessage());
 		}
+	}
+	
+	private boolean comprobarPasswords(String cad1, String cad2) {
+		if(cad1.equals(cad2))
+			return true;
+		else
+			return false;
+	}
+	
+	private boolean camposCompletados() {
+		if(textFieldNombre.getText().isEmpty() || textFieldUsuario.getText().isEmpty() || textFieldPassword.getText().isEmpty() || textFieldConfPass.getText().isEmpty() || textFieldFechaNac.getText().isEmpty() || textFieldMail.getText().isEmpty())
+			return false;
+		else
+			return true;
 	}
 }

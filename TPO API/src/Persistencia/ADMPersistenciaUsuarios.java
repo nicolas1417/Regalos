@@ -64,9 +64,9 @@ private static ADMPersistenciaUsuarios instancia;
 	public void altaUsuario(String usuario, String contrasena, String nombre,boolean idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		//Connection con = DataAccess.getConexion().getInstanciaDB();
-		//PreparedStatement s;
-		try 
-		{
+		PreparedStatement s;
+		try {
+			laConexion = DataAccess.Conectar();
 			int tipo;
 			if(idTipoUsuario)
 				tipo = 1;
@@ -74,10 +74,15 @@ private static ADMPersistenciaUsuarios instancia;
 				tipo = 0;
 			DateFormat df = new SimpleDateFormat("yyyy-M-d");
 			String fechaParaSQL = df.format(fechaNacimiento);
-			String laConsulta = "INSERT INTO USUARIO (usuario,contrasena,nombre,tipo,fechaNacimiento,mail) VALUES (" + usuario + "," + contrasena + "," + nombre + "," + tipo + "," + java.sql.Date.valueOf(fechaParaSQL) + "," + mail + ")";
-			Statement stmtConsulta = laConexion.createStatement();
-			stmtConsulta.executeQuery(laConsulta);
-			
+			String laConsulta = "INSERT INTO USUARIO (usuario,contrasena,nombre,tipo,fechaNacimiento,mail) VALUES ('" + usuario + "','" + contrasena + "','" + nombre + "'," + tipo + "," + java.sql.Date.valueOf(fechaParaSQL) + ",'" + mail + "')";
+			s = laConexion.prepareStatement(laConsulta);
+			//Statement stmtConsulta = laConexion.prepareStatement(laConsulta);
+			//stmtConsulta.execute();
+			s.execute();
+			laConexion.close();
+		}catch(Exception ex) {
+			throw ex;
+		}
 			//s = con.prepareStatement("INSERT INTO USUARIO (usuario,contrasena,nombre,tipo,fechaNacimiento,mail) VALUES (?,?,?,?,?,?)");
 			
 			//s.setDate(5, java.sql.Date.valueOf(fechaParaSQL));
@@ -87,11 +92,6 @@ private static ADMPersistenciaUsuarios instancia;
 			//s.execute();
 			
 			//DataAccess.getConexion().cerrarConexion();
-		} 
-		catch (Exception e) 
-		{
-			throw e;
-		}
 	}
 	
 	/*public boolean validarUsuario(String usuario)
@@ -156,7 +156,7 @@ private static ADMPersistenciaUsuarios instancia;
 			Usuario u = new Usuario(nombre, user, contrasena, fecha_nac, estadoB, mail, tipoDeUsuario);			
 			
 //			DataAccess.getConexion().cerrarConexion();
-			
+			laConexion.close();
 			return u;
 		}
 		catch (Exception e)
