@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Vector;
 
 import Negocio.Lista;
-import Negocio.TipoUsuario;
 import Negocio.Usuario;
 import Negocio.UsuarioDeLista;
 

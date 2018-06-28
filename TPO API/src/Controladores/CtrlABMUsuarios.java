@@ -1,13 +1,9 @@
 package Controladores;
 
-import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Vector;
 
 import Negocio.Usuario;
-import Persistencia.ADMPersistenciaUsuarios;
 
 
 public class CtrlABMUsuarios {

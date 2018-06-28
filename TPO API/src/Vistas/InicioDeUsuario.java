@@ -1,6 +1,5 @@
 package Vistas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,19 +7,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controladores.CtrlSesion;
-import Negocio.Usuario;
 
 import javax.swing.JMenuBar;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import java.awt.List;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.JDialog;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -28,6 +20,10 @@ import javax.swing.JSeparator;
 
 public class InicioDeUsuario extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**

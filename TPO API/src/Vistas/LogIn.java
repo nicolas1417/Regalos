@@ -22,7 +22,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JProgressBar;
 
 public class LogIn extends JFrame {
 

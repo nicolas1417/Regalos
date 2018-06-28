@@ -1,11 +1,7 @@
 package Vistas;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.util.Date;
-import java.util.Vector;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JFrame;
@@ -20,7 +16,6 @@ import javax.swing.UIManager;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import Controladores.CtrlABMUsuarios;
-import Negocio.Usuario;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -28,6 +23,10 @@ import java.awt.Font;
 
 public class AltaModUsuario extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldUsuario;
 	private JTextField textFieldPassword;
@@ -38,13 +37,13 @@ public class AltaModUsuario extends JFrame {
 	private JComboBox<String> comboBoxTipo;
 	private JTextArea textAreaMsgError;
 	
-	private String[] s = null;
 	private String usuarioMod = "";
 
 	/**
 	 * Create the frame.
 	 */
 	public AltaModUsuario(String usuarioMod) {
+		setResizable(false);
 		setTitle("Alta de usuario");
 		this.usuarioMod = usuarioMod;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -61,7 +60,7 @@ public class AltaModUsuario extends JFrame {
 		contentPane.add(lblUsuario);
 		
 		textFieldUsuario = new JTextField();
-		textFieldUsuario.setBounds(126, 6, 172, 20);
+		textFieldUsuario.setBounds(126, 6, 306, 20);
 		contentPane.add(textFieldUsuario);
 		textFieldUsuario.setColumns(10);
 		
@@ -72,7 +71,7 @@ public class AltaModUsuario extends JFrame {
 		contentPane.add(lblContrasena);
 		
 		textFieldPassword = new JTextField();
-		textFieldPassword.setBounds(126, 30, 172, 20);
+		textFieldPassword.setBounds(126, 30, 306, 20);
 		contentPane.add(textFieldPassword);
 		textFieldPassword.setColumns(10);
 		
@@ -83,7 +82,7 @@ public class AltaModUsuario extends JFrame {
 		contentPane.add(lblConfirmarContrasea);
 		
 		textFieldConfPass = new JTextField();
-		textFieldConfPass.setBounds(126, 54, 172, 20);
+		textFieldConfPass.setBounds(126, 54, 306, 20);
 		contentPane.add(textFieldConfPass);
 		textFieldConfPass.setColumns(10);
 		
@@ -94,12 +93,12 @@ public class AltaModUsuario extends JFrame {
 		contentPane.add(lblNombre);
 		
 		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(126, 79, 172, 20);
+		textFieldNombre.setBounds(126, 79, 306, 20);
 		contentPane.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
 		comboBoxTipo = new JComboBox<String>();
-		comboBoxTipo.setBounds(126, 102, 172, 20);
+		comboBoxTipo.setBounds(126, 102, 306, 20);
 		comboBoxTipo.addItem("Participante");
 		comboBoxTipo.addItem("Administrador");
 		contentPane.add(comboBoxTipo);
@@ -119,7 +118,7 @@ public class AltaModUsuario extends JFrame {
 		contentPane.add(lblFechaDeNacimiento);
 		
 		textFieldFechaNac = new JTextField();
-		textFieldFechaNac.setBounds(126, 127, 172, 20);
+		textFieldFechaNac.setBounds(126, 127, 306, 20);
 		contentPane.add(textFieldFechaNac);
 		textFieldFechaNac.setColumns(10);
 		
@@ -130,13 +129,13 @@ public class AltaModUsuario extends JFrame {
 		contentPane.add(lblMail);
 		
 		textFieldMail = new JTextField();
-		textFieldMail.setBounds(126, 153, 172, 20);
+		textFieldMail.setBounds(126, 153, 306, 20);
 		contentPane.add(textFieldMail);
 		textFieldMail.setColumns(10);
 		
 		textAreaMsgError = new JTextArea();
 		textAreaMsgError.setForeground(Color.RED);
-		textAreaMsgError.setBounds(126, 207, 271, 47);		
+		textAreaMsgError.setBounds(84, 181, 271, 47);		
 	    textAreaMsgError.setWrapStyleWord(true);
 	    textAreaMsgError.setLineWrap(true);
 	    textAreaMsgError.setOpaque(false);
@@ -194,18 +193,8 @@ public class AltaModUsuario extends JFrame {
 			}
 			}
 		});
-		btnGuardar.setBounds(127, 181, 80, 23);
+		btnGuardar.setBounds(175, 239, 100, 23);
 		contentPane.add(btnGuardar);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AltaModUsuario.this.dispose();
-			}
-		});
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnCancelar.setBounds(217, 181, 80, 23);
-		contentPane.add(btnCancelar);
 		
 		setearVistaModificacion();
 	}

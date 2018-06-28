@@ -1,14 +1,10 @@
 package Controladores;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Vector;
 
 import Negocio.Lista;
-import Negocio.TipoUsuario;
 import Negocio.Usuario;
 import Negocio.UsuarioDeLista;
-import Persistencia.ADMPersistenciaUsuarios;
 
 public class CtrlABMListas {
 

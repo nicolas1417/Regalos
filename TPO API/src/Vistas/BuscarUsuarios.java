@@ -26,6 +26,10 @@ import java.awt.Font;
 
 public class BuscarUsuarios extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldUsuario;
 
@@ -52,6 +56,7 @@ public class BuscarUsuarios extends JFrame {
 	 * Create the frame.
 	 */
 	public BuscarUsuarios() {
+		setTitle("Modificar o eliminar usuarios");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -160,15 +165,5 @@ public class BuscarUsuarios extends JFrame {
 		});
 		btnEliminar.setBounds(324, 167, 86, 23);
 		contentPane.add(btnEliminar);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BuscarUsuarios.this.dispose();
-			}
-		});
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnCancelar.setBounds(324, 200, 86, 23);
-		contentPane.add(btnCancelar);
 	}
 }

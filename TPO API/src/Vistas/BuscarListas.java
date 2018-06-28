@@ -1,6 +1,5 @@
 package Vistas;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -19,15 +18,17 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import Controladores.CtrlABMListas;
-import Controladores.CtrlSesion;
 
 public class BuscarListas extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldLista;
 
@@ -51,7 +52,8 @@ public class BuscarListas extends JFrame {
 	 * Create the frame.
 	 */
 	public BuscarListas() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Modificar o eliminar listas");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 700, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -168,16 +170,6 @@ public class BuscarListas extends JFrame {
 		});
 		btnEliminar.setBounds(472, 167, 86, 23);
 		contentPane.add(btnEliminar);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BuscarListas.this.dispose();
-			}
-		});
-		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnCancelar.setBounds(568, 167, 86, 23);
-		contentPane.add(btnCancelar);
 	}
 
 }
