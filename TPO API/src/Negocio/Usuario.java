@@ -67,7 +67,7 @@ public class Usuario {
 		}
 	}*/
 	
-	/*public void eliminarUsuario(String usuario) throws Exception
+	public void eliminarUsuario(String usuario) throws Exception
 	{
 		try
 		{
@@ -79,7 +79,7 @@ public class Usuario {
 		}
 	}
 	
-	public void validarAltaUsuario(String usuario, String password, String passConfirmada) throws Exception
+	/*public void validarAltaUsuario(String usuario, String password, String passConfirmada) throws Exception
 	{
 		try
 		{

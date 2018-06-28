@@ -50,11 +50,12 @@ public class CtrlABMUsuarios {
 		}
 	}
 	
-	/*public Object[][] buscarUsuarios() throws Exception
+	public Object[][] buscarUsuarios() throws Exception
 	{
+		Usuario obj = new Usuario();
 		try
 		{
-			Vector<Usuario> v = Usuario.getInstancia().buscarUsuarios();
+			Vector<Usuario> v = obj.buscarUsuarios();
 			
 			Object[][] data = new Object[v.size()][5]; 
 			
@@ -62,7 +63,7 @@ public class CtrlABMUsuarios {
 			{
 				data[i][0] = v.elementAt(i).getUsuario();
 				data[i][1] = v.elementAt(i).getNombre();
-				data[i][2] = v.elementAt(i).getCodTipo();
+				data[i][2] = v.elementAt(i).getTipoEnNumero();
 				data[i][3] = v.elementAt(i).getMail();
 				data[i][4] = v.elementAt(i).getDescEstado();
 				
@@ -75,7 +76,7 @@ public class CtrlABMUsuarios {
 		{
 			throw e;
 		}
-	}*/
+	}
 	
 	private void agregarUsuario(Usuario u)
 	{
@@ -127,9 +128,10 @@ public class CtrlABMUsuarios {
 	
 	public void eliminarUsuario(String usuario) throws Exception
 	{
+		Usuario obj = new Usuario();
 		try
 		{
-			//Usuario.getInstancia().eliminarUsuario(usuario);
+			obj.eliminarUsuario(usuario);
 		}
 		catch(Exception e) 
 		{

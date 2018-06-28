@@ -45,6 +45,7 @@ public class AltaModUsuario extends JFrame {
 	 * Create the frame.
 	 */
 	public AltaModUsuario(String usuarioMod) {
+		setTitle("Alta de usuario");
 		this.usuarioMod = usuarioMod;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

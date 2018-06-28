@@ -51,6 +51,7 @@ public class AltaModLista extends JFrame {
 	 * @throws Exception 
 	 */
 	public AltaModLista(int listaMod) throws Exception {
+		setTitle("Alta de listas");
 		this.listaMod = listaMod;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 615, 372);

@@ -74,24 +74,15 @@ private static ADMPersistenciaUsuarios instancia;
 				tipo = 0;
 			DateFormat df = new SimpleDateFormat("yyyy-M-d");
 			String fechaParaSQL = df.format(fechaNacimiento);
-			String laConsulta = "INSERT INTO USUARIO (usuario,contrasena,nombre,tipo,fechaNacimiento,mail) VALUES ('" + usuario + "','" + contrasena + "','" + nombre + "'," + tipo + "," + java.sql.Date.valueOf(fechaParaSQL) + ",'" + mail + "')";
+			String laConsulta = "INSERT INTO USUARIO (usuario,contrasena,nombre,tipo,fechaNacimiento,mail,estado) VALUES ('" + usuario + "','" + contrasena + "','" + nombre + "'," + tipo + "," + java.sql.Date.valueOf(fechaParaSQL) + ",'" + mail + "',1)";
 			s = laConexion.prepareStatement(laConsulta);
-			//Statement stmtConsulta = laConexion.prepareStatement(laConsulta);
+			//tatement stmtConsulta = laConexion.prepareStatement(laConsulta);
 			//stmtConsulta.execute();
 			s.execute();
 			laConexion.close();
 		}catch(Exception ex) {
 			throw ex;
 		}
-			//s = con.prepareStatement("INSERT INTO USUARIO (usuario,contrasena,nombre,tipo,fechaNacimiento,mail) VALUES (?,?,?,?,?,?)");
-			
-			//s.setDate(5, java.sql.Date.valueOf(fechaParaSQL));
-			
-			//s.setString(6, mail);
-			
-			//s.execute();
-			
-			//DataAccess.getConexion().cerrarConexion();
 	}
 	
 	/*public boolean validarUsuario(String usuario)
@@ -225,23 +216,23 @@ private static ADMPersistenciaUsuarios instancia;
 		{
 			throw e;
 		}
-	}
+	}*/
 	
 	public void eliminarUsuario(String usuario) throws Exception
 	{
-		Connection con = DataAccess.getConexion().getInstanciaDB();
+		laConexion = DataAccess.Conectar();
 		PreparedStatement s;
 		try
 		{
-			s = con.prepareStatement("UPDATE usuario SET estado = 0 where USUARIO = ?");
+			s = laConexion.prepareStatement("UPDATE usuario SET estado = 0 where USUARIO = ?");
 			s.setString(1,usuario);
 			s.execute();
 			
-			DataAccess.getConexion().cerrarConexion();
+			laConexion.close();
 		}
 		catch(Exception e) 
 		{
 			throw e;
 		}
-	}*/
+	}
 }
