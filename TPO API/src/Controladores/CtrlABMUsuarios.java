@@ -17,7 +17,6 @@ public class CtrlABMUsuarios {
 	
 	private static CtrlABMUsuarios instancia;
 	private Vector<Usuario> usuarios;
-	private 
 	
 	public static CtrlABMUsuarios getInstancia()
 	{
@@ -117,7 +116,7 @@ public class CtrlABMUsuarios {
 		try
 		{	
 			//fechaNac = textFieldFechaNac.getText();
-			Usuario obj = new Usuario(nombre, usuario, textFieldPassword.getText(), fechaNac, true, textFieldMail.getText(), tipoUsuario);
+			Usuario obj = new Usuario(nombre, usuario, contrasena, fechaNacimiento, true, mail, TipoUsuario);
 			//Usuario.getInstancia().modificarUsuario(usuario, contrasena,passConfirmada, nombre, idTipoUsuario, fechaNacimiento, mail);
 		}
 		catch(Exception e) 

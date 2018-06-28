@@ -17,6 +17,7 @@ import java.util.Calendar;
 
 public class ADMPersistenciaListas {
 
+	private Connection laConexion;
 private static ADMPersistenciaListas instancia;
 	
 	private ADMPersistenciaListas()
@@ -34,10 +35,10 @@ private static ADMPersistenciaListas instancia;
 	public void altaLista(java.util.Date fechaAgasajo, int montoParticipante, java.util.Date fechaFin, String mail, java.util.Date fechaInicio, String agasajado) throws Exception 
 	{
 		
-		Connection con = DataAccess.getConexion().getInstanciaDB();
 		PreparedStatement s;
 		try {
-			s = con.prepareStatement("INSERT INTO LISTA (nombreAgasajado,fechaAgasajo,montoPorParticipante,montoRecaudado,fechaInicio,fechaFin,estado,mail) VALUES (?,?,?,?,?,?,?,?)");
+			laConexion = DataAccess.Conectar();
+			s = laConexion.prepareStatement("INSERT INTO LISTA (nombreAgasajado,fechaAgasajo,montoPorParticipante,montoRecaudado,fechaInicio,fechaFin,estado,mail) VALUES (?,?,?,?,?,?,?,?)");
 			s.setString(1, agasajado);
 			DateFormat daf = new SimpleDateFormat("yyyy-M-d");
 			String fechaParaSQL = daf.format(fechaAgasajo);
@@ -53,7 +54,7 @@ private static ADMPersistenciaListas instancia;
 			
 			
 			s.execute();
-			DataAccess.getConexion().cerrarConexion();
+			laConexion.close();
 		}catch(Exception ex){
 			ex.printStackTrace();
 			throw ex;
@@ -65,8 +66,8 @@ private static ADMPersistenciaListas instancia;
 		Vector<Lista> v = new Vector<Lista>();
 		try
 		{
-			Connection con = DataAccess.getConexion().getInstanciaDB();
-			PreparedStatement s = con.prepareStatement("SELECT l.idLista,l.nombreAgasajado, l.fechaAgasajo, l.montoPorParticipante, l.montoRecaudado, l.fechaInicio, l.fechaFin,l.mail, l.estado, u.usuario, u.contrasena, u.nombre,tu.id, tu.codigo, u.fechaNacimiento, u.mail, u.estado FROM TIPOUSUARIO tu, USUARIO u, USUARIODELISTA ul, LISTA l WHERE u.usuario = ? AND u.tipo = 1 AND u.tipo = tu.id AND u.usuario = ul.usuario AND ul.idLista = l.idLista;");		
+			laConexion = DataAccess.Conectar();
+			PreparedStatement s = laConexion.prepareStatement("SELECT l.idLista,l.nombreAgasajado, l.fechaAgasajo, l.montoPorParticipante, l.montoRecaudado, l.fechaInicio, l.fechaFin,l.mail, l.estado, u.usuario, u.contrasena, u.nombre,tu.id, tu.codigo, u.fechaNacimiento, u.mail, u.estado FROM TIPOUSUARIO tu, USUARIO u, USUARIODELISTA ul, LISTA l WHERE u.usuario = ? AND u.tipo = 1 AND u.tipo = tu.id AND u.usuario = ul.usuario AND ul.idLista = l.idLista;");		
 			
 			s.setString(1,usuario);
 			
@@ -94,10 +95,14 @@ private static ADMPersistenciaListas instancia;
 				Date fecha_nac = result.getDate(15);
 				String mailUsuario = result.getString(16);
 				int estadoUsuario = result.getInt(17);
-				
+				boolean tipousuario;
+				if(idTipoUsuario > 0)
+					tipousuario = true;
+				else
+					tipousuario = false;
 				//TipoUsuario tu = new TipoUsuario(idTipoUsuario,codTipoUsuario);
 				
-				Usuario u = new Usuario(nombre,user,contrasena,fecha_nac,estadoUsuario==1,mailUsuario,tu);
+				Usuario u = new Usuario(nombre,user,contrasena,fecha_nac,estadoUsuario==1,mailUsuario,tipousuario);
 				
 				UsuarioDeLista ul = new UsuarioDeLista(u, true, true);
 						
@@ -106,7 +111,7 @@ private static ADMPersistenciaListas instancia;
 				v.add(l);
 			}										
 			
-			DataAccess.getConexion().cerrarConexion();
+			laConexion.close();
 					
 			return v;
 		}
@@ -118,12 +123,12 @@ private static ADMPersistenciaListas instancia;
 	
 	public void modificarLista(int idLista, java.util.Date fechaAga, int montoPart, java.util.Date fechaF, String correo, java.util.Date fechaI) throws Exception
 	{
-		Connection con = DataAccess.getConexion().getInstanciaDB();
+		laConexion = DataAccess.Conectar();
 		PreparedStatement s;
 		
 		try
 		{
-			s = con.prepareStatement("UPDATE LISTA SET fechaAgasajo = ?,montoPorParticipante = ?,fechaFin = ?, mail = ?, fechaInicio = ? WHERE idLista = ?");
+			s = laConexion.prepareStatement("UPDATE LISTA SET fechaAgasajo = ?,montoPorParticipante = ?,fechaFin = ?, mail = ?, fechaInicio = ? WHERE idLista = ?");
 			DateFormat daf = new SimpleDateFormat("yyyy-M-d");
 			String fechaParaSQL = daf.format(fechaAga);
 			s.setDate(1, java.sql.Date.valueOf(fechaParaSQL));
@@ -137,7 +142,7 @@ private static ADMPersistenciaListas instancia;
 						
 			s.execute();
 			
-			DataAccess.getConexion().cerrarConexion();
+			laConexion.close();
 		}
 		catch(Exception e)
 		{
@@ -147,15 +152,15 @@ private static ADMPersistenciaListas instancia;
 	
 	public void eliminarLista(int idLista) throws Exception
 	{
-		Connection con = DataAccess.getConexion().getInstanciaDB();
+		laConexion = DataAccess.Conectar();
 		PreparedStatement s;
 		try
 		{
-			s = con.prepareStatement("UPDATE lista SET estado = 0 where idlista = ?");
+			s = laConexion.prepareStatement("UPDATE lista SET estado = 0 where idlista = ?");
 			s.setInt(1,idLista);
 			s.execute();
 			
-			DataAccess.getConexion().cerrarConexion();
+			laConexion.close();
 		}
 		catch(Exception e) 
 		{

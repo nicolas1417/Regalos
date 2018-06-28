@@ -100,7 +100,7 @@ public class Usuario {
 		return (password.equals(passConfirmada));
 	}
 	
-	/*public Vector<Usuario> buscarUsuarios() throws Exception
+	public Vector<Usuario> buscarUsuarios() throws Exception
 	{
 		try
 		{
@@ -110,7 +110,7 @@ public class Usuario {
 		{
 			throw e;
 		}
-	}*/
+	}
 
 	public String getNombre() {
 		return this.nombre;
