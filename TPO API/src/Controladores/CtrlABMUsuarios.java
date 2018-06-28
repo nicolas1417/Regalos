@@ -117,8 +117,13 @@ public class CtrlABMUsuarios {
 		try
 		{	
 			//fechaNac = textFieldFechaNac.getText();
-			Usuario obj = new Usuario(nombre, usuario, contrasena, fechaNacimiento, true, mail, TipoUsuario);
-			//Usuario.getInstancia().modificarUsuario(usuario, contrasena,passConfirmada, nombre, idTipoUsuario, fechaNacimiento, mail);
+			int idTipoUsuario;
+			if(TipoUsuario)
+				idTipoUsuario = 1;
+			else
+				idTipoUsuario = 0;
+			Usuario obj = new Usuario();
+			obj.modificarUsuario(usuario, contrasena,passConfirmada, nombre, idTipoUsuario, fechaNacimiento, mail);
 		}
 		catch(Exception e) 
 		{

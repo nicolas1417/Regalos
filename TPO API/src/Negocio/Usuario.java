@@ -52,20 +52,20 @@ public class Usuario {
 		}
 	}	
 	
-	/*public void modificarUsuario(String usuario, String contrasena,String passConfirmada, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void modificarUsuario(String usuario, String contrasena,String passConfirmada, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
 		{
-			if (!this.validarContrasena(contrasena, passConfirmada))
-				throw new Exception("Las contrasenas no coinciden");
+			//if (!this.validarContrasena(contrasena, passConfirmada))
+				//throw new Exception("Las contrasenas no coinciden");
 					
-			ADMPersistenciaUsuarios.getInstancia().modificarUsuario(usuario, contrasena, nombre, obtenerTipoUsuario(idTipoUsuario), fechaNacimiento, mail);
+			ADMPersistenciaUsuarios.getInstancia().modificarUsuario(usuario, contrasena, nombre, idTipoUsuario, fechaNacimiento, mail);
 		}
 		catch(Exception e) 
 		{
 			throw e;
 		}
-	}*/
+	}
 	
 	public void eliminarUsuario(String usuario) throws Exception
 	{

@@ -18,7 +18,7 @@ import Negocio.Usuario;
 
 public class ADMPersistenciaUsuarios {
 	private Connection laConexion;
-private static ADMPersistenciaUsuarios instancia;
+	private static ADMPersistenciaUsuarios instancia;
 	
 	private ADMPersistenciaUsuarios()
 	{
@@ -76,7 +76,7 @@ private static ADMPersistenciaUsuarios instancia;
 			String fechaParaSQL = df.format(fechaNacimiento);
 			String laConsulta = "INSERT INTO USUARIO (usuario,contrasena,nombre,tipo,fechaNacimiento,mail,estado) VALUES ('" + usuario + "','" + contrasena + "','" + nombre + "'," + tipo + "," + java.sql.Date.valueOf(fechaParaSQL) + ",'" + mail + "',1)";
 			s = laConexion.prepareStatement(laConsulta);
-			//tatement stmtConsulta = laConexion.prepareStatement(laConsulta);
+			//statement stmtConsulta = laConexion.prepareStatement(laConsulta);
 			//stmtConsulta.execute();
 			s.execute();
 			laConexion.close();
@@ -188,18 +188,18 @@ private static ADMPersistenciaUsuarios instancia;
 			throw e;
 		}
 	}
-	/*
-	public void modificarUsuario(String usuario, String contrasena, String nombre,TipoUsuario tipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	
+	public void modificarUsuario(String usuario, String contrasena, String nombre,int tipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
-		Connection con = DataAccess.getConexion().getInstanciaDB();
+		laConexion = DataAccess.Conectar();
 		PreparedStatement s;
 		try
 		{
-			s = con.prepareStatement("UPDATE usuario SET contrasena = ?,nombre = ?,tipo = ?,fechaNacimiento = ?,mail = ? WHERE usuario = ?");
+			s = laConexion.prepareStatement("UPDATE usuario SET contrasena = ?,nombre = ?,tipo = ?,fechaNacimiento = ?,mail = ? WHERE usuario = ?");
 					
 			s.setString(1, contrasena);
 			s.setString(2, nombre);
-			s.setInt(3, 0);//Revisar!!!
+			s.setInt(3, tipoUsuario);
 			
 			DateFormat df = new SimpleDateFormat("yyyy-M-d");
 			String fechaParaSQL = df.format(fechaNacimiento);
@@ -210,13 +210,13 @@ private static ADMPersistenciaUsuarios instancia;
 			
 			s.execute();
 			
-			DataAccess.getConexion().cerrarConexion();
+			laConexion.close();
 		}
 		catch(Exception e) 
 		{
 			throw e;
 		}
-	}*/
+	}
 	
 	public void eliminarUsuario(String usuario) throws Exception
 	{
