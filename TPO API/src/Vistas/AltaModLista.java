@@ -32,7 +32,7 @@ public class AltaModLista extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textFieldAgasajo;
+	private JTextField textFieldFechaAgasajo;
 	private JTextField textFieldMonto;
 	private JLabel lblFechaFin;
 	private JTextField textFieldFechaFin;
@@ -43,6 +43,7 @@ public class AltaModLista extends JFrame {
 	private JLabel mensaje;
 	private JTextField textFieldFechaInicio;
 	private JTextArea textAreaMsgError;
+	private List<String> usuariosParaAgregar;
 	
 	private int listaMod = 0;
 	
@@ -68,13 +69,13 @@ public class AltaModLista extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Fecha del agasajo:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(10, 40, 135, 14);
+		lblNewLabel.setBounds(10, 198, 135, 14);
 		contentPane.add(lblNewLabel);
 		
-		textFieldAgasajo = new JTextField();
-		textFieldAgasajo.setBounds(155, 37, 100, 20);
-		contentPane.add(textFieldAgasajo);
-		textFieldAgasajo.setColumns(10);
+		textFieldFechaAgasajo = new JTextField();
+		textFieldFechaAgasajo.setBounds(155, 195, 100, 20);
+		contentPane.add(textFieldFechaAgasajo);
+		textFieldFechaAgasajo.setColumns(10);
 		
 		textFieldMonto = new JTextField();
 		textFieldMonto.setBounds(155, 68, 100, 20);
@@ -90,11 +91,11 @@ public class AltaModLista extends JFrame {
 		
 		lblFechaFin = new JLabel("Fecha fin:");
 		lblFechaFin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFechaFin.setBounds(10, 102, 135, 14);
+		lblFechaFin.setBounds(10, 167, 135, 14);
 		contentPane.add(lblFechaFin);
 		
 		textFieldFechaFin = new JTextField();
-		textFieldFechaFin.setBounds(155, 99, 100, 20);
+		textFieldFechaFin.setBounds(155, 164, 100, 20);
 		contentPane.add(textFieldFechaFin);
 		textFieldFechaFin.setColumns(10);
 		
@@ -109,13 +110,13 @@ public class AltaModLista extends JFrame {
 		textFieldMail.setColumns(10);
 		
 		textFieldAgasajado = new JTextField();
-		textFieldAgasajado.setBounds(155, 195, 174, 20);
+		textFieldAgasajado.setBounds(155, 37, 174, 20);
 		contentPane.add(textFieldAgasajado);
 		textFieldAgasajado.setColumns(10);
 		
 		lblNewLabel_3 = new JLabel("Nombre del agasajado:");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_3.setBounds(10, 198, 135, 14);
+		lblNewLabel_3.setBounds(10, 40, 135, 14);
 		contentPane.add(lblNewLabel_3);
 		
 		mensaje = new JLabel("");
@@ -131,20 +132,19 @@ public class AltaModLista extends JFrame {
 					
 					if(listaMod == 0)
 					{
-						CtrlABMListas.getInstancia().crearLista(formatter.parse(textFieldAgasajo.getText()), Integer.parseInt(textFieldMonto.getText()), formatter.parse(textFieldFechaFin.getText()), textFieldMail.getText(), formatter.parse(textFieldFechaInicio.getText()), textFieldAgasajado.getText());
+						//Crea la lista junto con los usuarios de lista que se seleccionaron
+						CtrlABMListas.getInstancia().crearLista(textFieldAgasajado.getText(), Integer.parseInt(textFieldMonto.getText()), formatter.parse(textFieldFechaInicio.getText()), textFieldMail.getText(), formatter.parse(textFieldFechaFin.getText()) , formatter.parse(textFieldFechaAgasajo.getText()));
 					    mensaje.setText("Lista guardada correctamente!");
 					}
 					else 
 					{
-						CtrlABMListas.getInstancia().modificarLista(listaMod,formatter.parse(textFieldAgasajo.getText()), Integer.parseInt(textFieldMonto.getText()), formatter.parse(textFieldFechaFin.getText()), textFieldMail.getText(), formatter.parse(textFieldFechaInicio.getText()));						
+						CtrlABMListas.getInstancia().modificarLista(listaMod,formatter.parse(textFieldFechaAgasajo.getText()), Integer.parseInt(textFieldMonto.getText()), formatter.parse(textFieldFechaFin.getText()), textFieldMail.getText(), formatter.parse(textFieldFechaInicio.getText()));						
 					    mensaje.setText("Lista Modificada correctamente!");
 					}			
 				}catch(Exception ex) {
 					mensaje.setForeground(Color.RED);
 					mensaje.setText(ex.getMessage());
 				}
-				
-				
 			}
 		});
 		btnGuardar.setBounds(250, 311, 100, 23);
@@ -152,11 +152,11 @@ public class AltaModLista extends JFrame {
 		
 		JLabel lblNewLabel_4 = new JLabel("Fecha de inicio:");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_4.setBounds(10, 164, 135, 14);
+		lblNewLabel_4.setBounds(10, 102, 135, 14);
 		contentPane.add(lblNewLabel_4);
 		
 		textFieldFechaInicio = new JTextField();
-		textFieldFechaInicio.setBounds(155, 161, 100, 20);
+		textFieldFechaInicio.setBounds(155, 99, 100, 20);
 		contentPane.add(textFieldFechaInicio);
 		textFieldFechaInicio.setColumns(10);
 		
@@ -170,8 +170,9 @@ public class AltaModLista extends JFrame {
 				//Clic botón agregar
 				List<String> lista = new ArrayList<String>();
 				lista = listNueva.getSelectedValuesList();
+				usuariosParaAgregar = new ArrayList<String>();
 				for(String item : lista) {
-					System.out.println(item);
+					usuariosParaAgregar.add(item);
 				}
 			}
 		});
@@ -213,7 +214,7 @@ public class AltaModLista extends JFrame {
 			
 				if(lista != null)
 				{
-					textFieldAgasajo.setText(lista[0]);
+					textFieldFechaAgasajo.setText(lista[0]);
 					textFieldMonto.setText(lista[1]);
 					textFieldFechaFin.setText(lista[2]);
 					textFieldMail.setText(lista[3]);

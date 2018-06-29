@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.Date;
 import java.util.Vector;
 
+import Controladores.CtrlSesion;
 import Negocio.Lista;
 import Negocio.Usuario;
 import Negocio.UsuarioDeLista;
@@ -31,25 +32,27 @@ private static ADMPersistenciaListas instancia;
 		return instancia;
 	}
 	
-	public void altaLista(java.util.Date fechaAgasajo, int montoParticipante, java.util.Date fechaFin, String mail, java.util.Date fechaInicio, String agasajado) throws Exception 
+	public void altaLista(String nombreAgasajado, int montoParticipante, java.util.Date fechaInicio, String mail, java.util.Date fechaFin, java.util.Date fechaDelAgasajo) throws Exception 
 	{
-		
 		PreparedStatement s;
 		try {
-			laConexion = DataAccess.Conectar();
-			s = laConexion.prepareStatement("INSERT INTO LISTA (nombreAgasajado,fechaAgasajo,montoPorParticipante,montoRecaudado,fechaInicio,fechaFin,estado,mail) VALUES (?,?,?,?,?,?,?,?)");
-			s.setString(1, agasajado);
 			DateFormat daf = new SimpleDateFormat("yyyy-M-d");
-			String fechaParaSQL = daf.format(fechaAgasajo);
-			s.setDate(2, java.sql.Date.valueOf(fechaParaSQL));
-			s.setInt(3, montoParticipante);
-			s.setInt(4, 0);
-			String fechaIParaSQL = daf.format(fechaInicio);
-			s.setDate(5, java.sql.Date.valueOf(fechaIParaSQL));
-			String fechaFParaSQL = daf.format(fechaFin);
-			s.setDate(6, java.sql.Date.valueOf(fechaFParaSQL));
-			s.setInt(7, 1);
-			s.setString(8, mail);
+			
+			
+			laConexion = DataAccess.Conectar();
+			s = laConexion.prepareStatement("INSERT INTO LISTA (fecha, montoPorParticipante, montoRecaudado, fechaInicio, fechaFin, estado, mail, usuarioAdmin, nombreAgasajado) VALUES(?,?,?,?,?,?,?,?,?)");
+			String fechaAgaParaSQL = daf.format(fechaDelAgasajo);
+			s.setDate(1, java.sql.Date.valueOf(fechaAgaParaSQL));			
+			s.setInt(2, montoParticipante);
+			s.setInt(3, 0);
+			String fechaIniParaSQL = daf.format(fechaInicio);
+			s.setDate(4, java.sql.Date.valueOf(fechaIniParaSQL));
+			String fechaFinParaSQL = daf.format(fechaFin);
+			s.setDate(5, java.sql.Date.valueOf(fechaFinParaSQL));
+			s.setInt(6, 1);
+			s.setString(7, mail);
+			s.setString(8, CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());//Usuario en la sesión
+			s.setString(9, nombreAgasajado);
 			
 			
 			s.execute();
