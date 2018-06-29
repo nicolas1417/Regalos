@@ -2,6 +2,7 @@ package Persistencia;
 
 import java.sql.Connection;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import Controladores.CtrlSesion;
@@ -11,6 +12,8 @@ import Negocio.UsuarioDeLista;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,7 +35,7 @@ private static ADMPersistenciaListas instancia;
 		return instancia;
 	}
 	
-	public void altaLista(String nombreAgasajado, int montoParticipante, java.util.Date fechaInicio, String mail, java.util.Date fechaFin, java.util.Date fechaDelAgasajo) throws Exception 
+	public void altaLista(String nombreAgasajado, int montoParticipante, java.util.Date fechaInicio, String mail, java.util.Date fechaFin, java.util.Date fechaDelAgasajo, List<String> usuarios) throws Exception 
 	{
 		PreparedStatement s;
 		try {
@@ -54,13 +57,44 @@ private static ADMPersistenciaListas instancia;
 			s.setString(8, CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());//Usuario en la sesión
 			s.setString(9, nombreAgasajado);
 			
-			
 			s.execute();
 			laConexion.close();
+					
 		}catch(Exception ex){
 			ex.printStackTrace();
 			throw ex;
 		}
+		PreparedStatement s2;
+		try {
+			String numId = obtenerUltimoId();	
+			for(String item : usuarios) {
+				laConexion = DataAccess.Conectar();
+				//.clearParameters();
+				s2 = laConexion.prepareStatement("INSERT INTO USUARIODELISTA(usuario, idlista, estado) VALUES(?,?,?)");
+				s2.setString(1, item);
+				s2.setInt(2, Integer.parseInt(numId));
+				s2.setInt(3, 1);
+				s2.execute();
+				laConexion.close();
+			}
+		}catch (Exception ex) {
+			
+		}
+		
+	}
+	
+	private String obtenerUltimoId() throws SQLException {
+		PreparedStatement s;
+		laConexion = DataAccess.Conectar();
+		s = laConexion.prepareStatement("select idLista from lista order by idLista Desc");
+		//String laConsulta = "";
+		//Statement stmtConsulta = laConexion.createStatement();
+		//ResultSet rs = stmtConsulta.executeQuery(laConsulta);
+		//String res = rs.getString(1);
+		ResultSet rs = s.executeQuery();
+		String res = rs.getString(0);
+		laConexion.close();
+		return res;
 	}
 	
 	public Vector<Lista> buscarListas(String usuario) throws Exception

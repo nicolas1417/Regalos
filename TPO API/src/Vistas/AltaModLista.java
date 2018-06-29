@@ -43,7 +43,7 @@ public class AltaModLista extends JFrame {
 	private JLabel mensaje;
 	private JTextField textFieldFechaInicio;
 	private JTextArea textAreaMsgError;
-	private List<String> usuariosParaAgregar;
+	private List<String> usuariosParaAgregar = null;
 	
 	private int listaMod = 0;
 	
@@ -133,7 +133,7 @@ public class AltaModLista extends JFrame {
 					if(listaMod == 0)
 					{
 						//Crea la lista junto con los usuarios de lista que se seleccionaron
-						CtrlABMListas.getInstancia().crearLista(textFieldAgasajado.getText(), Integer.parseInt(textFieldMonto.getText()), formatter.parse(textFieldFechaInicio.getText()), textFieldMail.getText(), formatter.parse(textFieldFechaFin.getText()) , formatter.parse(textFieldFechaAgasajo.getText()));
+						CtrlABMListas.getInstancia().crearLista(textFieldAgasajado.getText(), Integer.parseInt(textFieldMonto.getText()), formatter.parse(textFieldFechaInicio.getText()), textFieldMail.getText(), formatter.parse(textFieldFechaFin.getText()) , formatter.parse(textFieldFechaAgasajo.getText()), usuariosParaAgregar);
 					    mensaje.setText("Lista guardada correctamente!");
 					}
 					else 

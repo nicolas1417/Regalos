@@ -1,5 +1,6 @@
 package Controladores;
 
+import java.util.List;
 import java.util.Vector;
 
 import Negocio.Lista;
@@ -35,12 +36,12 @@ public class CtrlABMListas {
 		 * sobrecarga.*/
 	}		
 	
-	public void crearLista(String nombreAgasajado, int montoPart, java.util.Date fechaInicio, String correo, java.util.Date fechaFin, java.util.Date fechaAgasajo) throws Exception
+	public void crearLista(String nombreAgasajado, int montoPart, java.util.Date fechaInicio, String correo, java.util.Date fechaFin, java.util.Date fechaAgasajo, List<String> usuarios) throws Exception
 	{
 		try
 		{
 			Lista nueva = new Lista();
-			nueva.altaListas(nombreAgasajado,montoPart,fechaInicio,correo,fechaFin,fechaAgasajo);		
+			nueva.altaListas(nombreAgasajado,montoPart,fechaInicio,correo,fechaFin,fechaAgasajo, usuarios);		
 		}
 		catch(Exception e)
 		{
