@@ -82,6 +82,17 @@ public class CtrlABMListas {
 		obj.agregarParticipante(participante);
 	}
 	
+	public Vector<Usuario> buscarUsuariosParticipantes() throws Exception
+	{
+		Usuario obj = new Usuario();
+		return obj.buscarUsuariosParticipantes();
+	}
+	
+	public List<String> buscarMisListas(){
+		Lista obj = new Lista();
+		return obj.buscarMisListas();
+	}
+	
 	public Vector<Usuario> buscarUsuarios() throws Exception
 	{
 		Usuario obj = new Usuario();

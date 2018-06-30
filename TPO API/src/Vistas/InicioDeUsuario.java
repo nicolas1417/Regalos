@@ -2,21 +2,27 @@ package Vistas;
 
 import java.awt.EventQueue;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Controladores.CtrlABMListas;
 import Controladores.CtrlSesion;
+import Negocio.Usuario;
 
 import javax.swing.JMenuBar;
 import javax.swing.JLabel;
-import java.awt.List;
+import javax.swing.JList;
+
+import java.util.List;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
+import javax.swing.ListSelectionModel;
 
 public class InicioDeUsuario extends JFrame {
 
@@ -25,6 +31,7 @@ public class InicioDeUsuario extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private List<String> misListas;
 
 	/**
 	 * Launch the application.
@@ -145,11 +152,17 @@ public class InicioDeUsuario extends JFrame {
 		lblMisListas.setBounds(0, 22, 119, 14);
 		contentPane.add(lblMisListas);
 		
-		List list = new List();
-		list.setBounds(0, 42, 235, 200);
-		contentPane.add(list);
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		JList<String> listMisListas = new JList<String>(model);
+		listMisListas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		/*misListas = CtrlABMListas.getInstancia().buscarMisListas();
+		for (String item : misListas) {
+			model.addElement(item);
+		}*/
+		listMisListas.setBounds(0, 42, 235, 200);
+		contentPane.add(listMisListas);
 		
-		List list_1 = new List();
+		JList list_1 = new JList();
 		list_1.setBounds(241, 42, 191, 200);
 		contentPane.add(list_1);
 		

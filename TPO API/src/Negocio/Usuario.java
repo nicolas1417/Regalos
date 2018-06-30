@@ -111,6 +111,18 @@ public class Usuario {
 			throw e;
 		}
 	}
+	
+	public Vector<Usuario> buscarUsuariosParticipantes() throws Exception
+	{
+		try
+		{
+			return ADMPersistenciaUsuarios.getInstancia().buscarUsuariosParticipantes();
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
 
 	public String getNombre() {
 		return this.nombre;

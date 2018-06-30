@@ -83,18 +83,33 @@ private static ADMPersistenciaListas instancia;
 		
 	}
 	
+	public List<String> buscarMisListas(){
+		return null;
+	}
+	
 	private String obtenerUltimoId() throws SQLException {
-		PreparedStatement s;
-		laConexion = DataAccess.Conectar();
-		s = laConexion.prepareStatement("select idLista from lista order by idLista Desc");
-		//String laConsulta = "";
-		//Statement stmtConsulta = laConexion.createStatement();
-		//ResultSet rs = stmtConsulta.executeQuery(laConsulta);
-		//String res = rs.getString(1);
-		ResultSet rs = s.executeQuery();
-		String res = rs.getString(0);
-		laConexion.close();
-		return res;
+		try
+		{
+			PreparedStatement s;
+			laConexion = DataAccess.Conectar();
+			s = laConexion.prepareStatement("select MAX(idLista) from lista");
+			//String laConsulta = "";
+			//Statement stmtConsulta = laConexion.createStatement();
+			//ResultSet rs = stmtConsulta.executeQuery(laConsulta);
+			//String res = rs.getString(1);
+			ResultSet rs = s.executeQuery();
+			
+			rs.next();			
+			String res = rs.getString(1);
+			
+			laConexion.close();
+			
+			return res;
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
 	}
 	
 	public Vector<Lista> buscarListas(String usuario) throws Exception

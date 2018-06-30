@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Vector;
 
 import Persistencia.ADMPersistenciaListas;
+import Persistencia.ADMPersistenciaUsuarios;
 
 public class Lista {
 	public int idLista;
@@ -71,6 +72,17 @@ public class Lista {
 		try
 		{
 			ADMPersistenciaListas.getInstancia().altaLista(nameAgasajado,montoParticipante,fechaIni,mail,fechaF,fechaAgasajo, usuarios);
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+	
+	public List<String> buscarMisListas(){
+		try
+		{
+			return ADMPersistenciaListas.getInstancia().buscarMisListas();
 		}
 		catch(Exception e)
 		{

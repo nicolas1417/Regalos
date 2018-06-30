@@ -179,7 +179,7 @@ public class AltaModLista extends JFrame {
 		btnAgregar.setBounds(427, 227, 89, 23);
 		contentPane.add(btnAgregar);
 		Vector<Usuario> lista = new Vector<Usuario>();
-		lista = CtrlABMListas.getInstancia().buscarUsuarios();
+		lista = CtrlABMListas.getInstancia().buscarUsuariosParticipantes();
 		for (Usuario item : lista) {
 			model.addElement(item.getUsuario());
 		}
