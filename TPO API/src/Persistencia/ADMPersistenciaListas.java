@@ -35,7 +35,7 @@ private static ADMPersistenciaListas instancia;
 		return instancia;
 	}
 	
-	public void altaLista(String nombreAgasajado, int montoParticipante, java.util.Date fechaInicio, String mail, java.util.Date fechaFin, java.util.Date fechaDelAgasajo, List<String> usuarios) throws Exception 
+	public void altaLista(String nombreAgasajado, int montoParticipante, java.util.Date fechaInicio, String mail, java.util.Date fechaFin, java.util.Date fechaDelAgasajo, List<String> usuarios, Usuario logueado) throws Exception 
 	{
 		PreparedStatement s;
 		try {
@@ -54,7 +54,7 @@ private static ADMPersistenciaListas instancia;
 			s.setDate(5, java.sql.Date.valueOf(fechaFinParaSQL));
 			s.setInt(6, 1);
 			s.setString(7, mail);
-			s.setString(8, CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());//Usuario en la sesión
+			s.setString(8, logueado.getUsuario());//Usuario en la sesión
 			s.setString(9, nombreAgasajado);
 			
 			s.execute();

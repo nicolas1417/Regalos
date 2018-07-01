@@ -68,11 +68,11 @@ public class Lista {
 		
 	}
 	
-	public void altaListas(String nameAgasajado, int montoParticipante, java.util.Date fechaIni, String mail, java.util.Date fechaF, java.util.Date fechaAgasajo, List<String> usuarios) throws Exception
+	public void altaListas(String nameAgasajado, int montoParticipante, java.util.Date fechaIni, String mail, java.util.Date fechaF, java.util.Date fechaAgasajo, List<String> usuarios, Usuario logueado) throws Exception
 	{
 		try
 		{
-			ADMPersistenciaListas.getInstancia().altaLista(nameAgasajado,montoParticipante,fechaIni,mail,fechaF,fechaAgasajo, usuarios);
+			ADMPersistenciaListas.getInstancia().altaLista(nameAgasajado,montoParticipante,fechaIni,mail,fechaF,fechaAgasajo, usuarios, logueado);
 		}
 		catch(Exception e)
 		{

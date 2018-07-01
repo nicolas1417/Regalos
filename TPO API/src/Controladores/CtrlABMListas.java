@@ -42,7 +42,9 @@ public class CtrlABMListas {
 		try
 		{
 			Lista nueva = new Lista();
-			nueva.altaListas(nombreAgasajado,montoPart,fechaInicio,correo,fechaFin,fechaAgasajo, usuarios);		
+			Usuario logueado;
+			logueado = CtrlSesion.getInstancia().getUsuarioLogueado();
+			nueva.altaListas(nombreAgasajado,montoPart,fechaInicio,correo,fechaFin,fechaAgasajo, usuarios, logueado);		
 		}
 		catch(Exception e)
 		{
