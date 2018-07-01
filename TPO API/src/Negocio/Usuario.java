@@ -16,14 +16,6 @@ public class Usuario {
 	private boolean estado;
 	private boolean tipoUsuario;
 	
-	/*private static Usuario instancia;
-	
-	public static Usuario getInstancia()
-	{
-		if (instancia == null)
-			instancia = new Usuario();
-		return instancia;
-	}*/
 	
 	public Usuario()
 	{
@@ -55,10 +47,7 @@ public class Usuario {
 	public void modificarUsuario(String usuario, String contrasena,String passConfirmada, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
-		{
-			//if (!this.validarContrasena(contrasena, passConfirmada))
-				//throw new Exception("Las contrasenas no coinciden");
-					
+		{					
 			ADMPersistenciaUsuarios.getInstancia().modificarUsuario(usuario, contrasena, nombre, idTipoUsuario, fechaNacimiento, mail);
 		}
 		catch(Exception e) 
@@ -78,22 +67,6 @@ public class Usuario {
 			throw e;
 		}
 	}
-	
-	/*public void validarAltaUsuario(String usuario, String password, String passConfirmada) throws Exception
-	{
-		try
-		{
-			if (!ADMPersistenciaUsuarios.getInstancia().validarUsuario(usuario))
-				throw new Exception("Usuario ya existe");
-			
-			if(!validarContrasena(password,passConfirmada))
-				throw new Exception("Las contrasenas no coinciden");
-		}
-		catch (Exception e)
-		{
-			throw e;
-		}
-	}*/
 	
 	public boolean validarContrasena(String password, String passConfirmada) 
 	{

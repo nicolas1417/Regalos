@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import Controladores.CtrlSesion;
 import Persistencia.ADMPersistenciaListas;
 import Persistencia.ADMPersistenciaUsuarios;
 
@@ -108,6 +109,31 @@ public class Lista {
 		{
 			this.estado = false;
 			ADMPersistenciaListas.getInstancia().eliminarLista(this.idLista);
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+		
+	}
+	
+	public Vector<String> NotificarRegalos(Date fecha) throws Exception
+	{
+		try
+		{
+			Vector<Lista> v = buscarListas(CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
+			Vector<String> mails = new Vector<String>();
+			
+			for(int i=0;i<v.size();i++)
+			{
+				if(v.elementAt(i).getFechaFin().compareTo(fecha) <= 0)
+				{
+					v.elementAt(0).cerrarLista();
+					mails.add(v.elementAt(i).getMail());			
+				}
+			}
+			
+			return mails;
 		}
 		catch(Exception e)
 		{

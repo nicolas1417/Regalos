@@ -1,5 +1,6 @@
 package Controladores;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -171,4 +172,8 @@ public class CtrlABMListas {
 		return null;
 	}
 	
+	public Vector<String> notificarRegalos(Date fecha)
+	{
+		return CtrlABMListas.getInstancia().notificarRegalos(fecha);
+	}
 }

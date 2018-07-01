@@ -32,19 +32,7 @@ public class CtrlABMUsuarios {
 		{
 			throw e;
 		}
-	}
-	
-	public void validarAltaUsuario(String usuario, String password, String passConfirmada) throws Exception
-	{
-		try
-		{
-			//Usuario.getInstancia().validarAltaUsuario(usuario,password,passConfirmada);
-		}
-		catch(Exception e)
-		{
-			throw e;
-		}
-	}
+	}	
 	
 	public Object[][] buscarUsuarios() throws Exception
 	{

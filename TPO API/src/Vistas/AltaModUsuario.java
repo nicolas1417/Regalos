@@ -162,7 +162,6 @@ public class AltaModUsuario extends JFrame {
 					if (usuarioMod.equals(""))
 					{
 						if (comprobarPasswords(textFieldConfPass.getText(), textFieldPassword.getText())) {
-							//CtrlABMUsuarios.getInstancia().validarAltaUsuario(textFieldUsuario.getText(), textFieldPassword.getText(), textFieldConfPass.getText());
 							CtrlABMUsuarios.getInstancia().crearUsuario(textFieldUsuario.getText(), textFieldPassword.getText(), textFieldNombre.getText(), tipoUsuario, fechaNac, textFieldMail.getText());
 
 							textAreaMsgError.setForeground(Color.BLUE);
