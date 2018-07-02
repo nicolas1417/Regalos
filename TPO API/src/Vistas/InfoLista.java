@@ -9,8 +9,16 @@ import Vistas.InicioDeUsuario;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controladores.CtrlABMListas;
+import Controladores.CtrlSesion;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class InfoLista extends JFrame {
 
@@ -44,7 +52,7 @@ public class InfoLista extends JFrame {
 		setResizable(false);
 		setTitle("Informaci\u00F3n de lista seleccionada");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 331);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -131,6 +139,15 @@ public class InfoLista extends JFrame {
 		PagoRealizado.setBounds(160, 211, 274, 14);
 		contentPane.add(PagoRealizado);
 		
+		JLabel lblMiEstadoEn = new JLabel("Mi estado en la lista:");
+		lblMiEstadoEn.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblMiEstadoEn.setBounds(10, 236, 140, 14);
+		contentPane.add(lblMiEstadoEn);
+		
+		JLabel EstadoUsuarioEnLista = new JLabel("----");
+		EstadoUsuarioEnLista.setBounds(160, 236, 274, 14);
+		contentPane.add(EstadoUsuarioEnLista);
+		
 		FechaAgasajo.setText(InicioDeUsuario.listaSeleccionada.get(1));
 		MontoParticipante.setText(InicioDeUsuario.listaSeleccionada.get(2));
 		MontoRecaudado.setText(InicioDeUsuario.listaSeleccionada.get(3));
@@ -141,9 +158,33 @@ public class InfoLista extends JFrame {
 		}else {
 			EstadoLista.setText("Inactiva");
 		}
-		//EstadoLista.setText(InicioDeUsuario.listaSeleccionada.get(6));
 		MailLista.setText(InicioDeUsuario.listaSeleccionada.get(7));
 		NombreAgasajado.setText(InicioDeUsuario.listaSeleccionada.get(8));
+		if(InicioDeUsuario.listaSeleccionada.get(13).equals("1")) 
+			EstadoUsuarioEnLista.setText("Activo");
+		else
+			EstadoUsuarioEnLista.setText("Dado de baja");
+			 		
+		JButton btnDarmeDeBaja = new JButton("Darme de baja de esta lista");
+		btnDarmeDeBaja.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				boolean baja = false;
+					try {
+						baja = CtrlABMListas.getInstancia().bajaParticipante(InicioDeUsuario.listaSeleccionada.get(0), CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				if(baja) 
+					JOptionPane.showMessageDialog(InfoLista.this, "Usted se ha dado de baja de la lista", "Baja exitosa", JOptionPane.INFORMATION_MESSAGE);
+				else
+					JOptionPane.showMessageDialog(InfoLista.this, "No se pudo procesar la baja", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		btnDarmeDeBaja.setBounds(10, 269, 205, 23);
+		contentPane.add(btnDarmeDeBaja);
+		
+		
 		if(InicioDeUsuario.listaSeleccionada.get(9).equals("1")){
 			PagoRealizado.setText("Pagado");
 		}else {

@@ -108,6 +108,11 @@ public class CtrlABMListas {
 		return obj.buscarUsuarios();
 	}
 	
+	public boolean bajaParticipante(String id, String usuario) throws Exception {
+		Lista obj = new Lista();
+		return obj.bajaParticipante(id, usuario);
+	}
+	
 	public Object[][] buscarListas(Usuario usuario) throws Exception
 	{
 		try

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import Controladores.CtrlSesion;
 import Negocio.Lista;
 import Negocio.Usuario;
 import Negocio.UsuarioDeLista;
@@ -94,6 +95,18 @@ public class ADMPersistenciaListas {
 		}catch (Exception ex) {
 			
 		}		
+	}
+	
+	public boolean bajaParticipante(String id, String usuario) throws Exception {
+		try {
+			PreparedStatement s;
+			laConexion = DataAccess.Conectar();
+			s = laConexion.prepareStatement("update USUARIODELISTA SET estado = 0 WHERE idLista = " + id + " AND usuario = '" + usuario + "'");
+			s.execute();
+			return true;
+		}catch(Exception ex) {
+			throw ex;
+		}
 	}
 	
 	public List<List<String>> buscarMisListas(String logueado) throws SQLException {

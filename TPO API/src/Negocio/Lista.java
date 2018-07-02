@@ -91,6 +91,10 @@ public class Lista {
 		}
 	}
 	
+	public boolean bajaParticipante(String id, String usuario) throws Exception {
+		return ADMPersistenciaListas.getInstancia().bajaParticipante(id, usuario);
+	}
+	
 	public Vector<Lista> buscarListas(String usuario) throws Exception
 	{
 		try
