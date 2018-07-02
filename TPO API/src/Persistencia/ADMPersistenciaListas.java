@@ -34,70 +34,81 @@ public class ADMPersistenciaListas {
 	
 	public void altaLista(String nombreAgasajado, int montoParticipante, java.util.Date fechaInicio, String mail, java.util.Date fechaFin, java.util.Date fechaDelAgasajo, List<String> usuarios, Usuario logueado) throws Exception 
 	{
-		PreparedStatement s;
+		PreparedStatement insertLista;
+		PreparedStatement insertUsuarioDeLista;
+		int idLista = 0;
 		try {
 			DateFormat daf = new SimpleDateFormat("yyyy-M-d");
 			
+			laConexion = DataAccess.Conectar();
+			
+			insertLista = laConexion.prepareStatement("INSERT INTO LISTA (fechaAgasajo, montoPorParticipante, montoRecaudado, fechaInicio, fechaFin, estado, mail, nombreAgasajado) VALUES(?,?,?,?,?,?,?,?)");
+			String fechaAgaParaSQL = daf.format(fechaDelAgasajo);
+			insertLista.setDate(1, java.sql.Date.valueOf(fechaAgaParaSQL));			
+			insertLista.setInt(2, montoParticipante);
+			insertLista.setInt(3, 0);
+			String fechaIniParaSQL = daf.format(fechaInicio);
+			insertLista.setDate(4, java.sql.Date.valueOf(fechaIniParaSQL));
+			String fechaFinParaSQL = daf.format(fechaFin);
+			insertLista.setDate(5, java.sql.Date.valueOf(fechaFinParaSQL));
+			insertLista.setInt(6, 1);
+			insertLista.setString(7, mail);
+			insertLista.setString(8, nombreAgasajado);
+			
+			insertLista.execute();
+					
+			laConexion.close();
+			
+			idLista = obtenerUltimoId();
 			
 			laConexion = DataAccess.Conectar();
-			s = laConexion.prepareStatement("INSERT INTO LISTA (fechaAgasajo, montoPorParticipante, montoRecaudado, fechaInicio, fechaFin, estado, mail, usuarioAdmin, nombreAgasajado) VALUES(?,?,?,?,?,?,?,?,?)");
-			String fechaAgaParaSQL = daf.format(fechaDelAgasajo);
-			s.setDate(1, java.sql.Date.valueOf(fechaAgaParaSQL));			
-			s.setInt(2, montoParticipante);
-			s.setInt(3, 0);
-			String fechaIniParaSQL = daf.format(fechaInicio);
-			s.setDate(4, java.sql.Date.valueOf(fechaIniParaSQL));
-			String fechaFinParaSQL = daf.format(fechaFin);
-			s.setDate(5, java.sql.Date.valueOf(fechaFinParaSQL));
-			s.setInt(6, 1);
-			s.setString(7, mail);
-			s.setString(8, logueado.getUsuario());//Usuario en la sesión
-			s.setString(9, nombreAgasajado);
 			
-			s.execute();
+			insertUsuarioDeLista = laConexion.prepareStatement("INSERT INTO USUARIODELISTA (USUARIO,IDLISTA,ESTADO,PAGADO) VALUES (?,?,?,?)");
+			
+			insertUsuarioDeLista.setString(1, logueado.getUsuario());
+			insertUsuarioDeLista.setInt(2, idLista);
+			insertUsuarioDeLista.setInt(3, 1);
+			insertUsuarioDeLista.setInt(4, 1);
+			
+			insertUsuarioDeLista.execute();
+			
 			laConexion.close();
-					
 		}catch(Exception ex){
 			ex.printStackTrace();
 			throw ex;
 		}
+		
 		PreparedStatement s2;
 		try {
-			String numId = obtenerUltimoId();	
+				
 			for(String item : usuarios) {
 				laConexion = DataAccess.Conectar();
-				//.clearParameters();
 				s2 = laConexion.prepareStatement("INSERT INTO USUARIODELISTA(usuario, idlista, estado) VALUES(?,?,?)");
 				s2.setString(1, item);
-				s2.setInt(2, Integer.parseInt(numId));
+				s2.setInt(2,idLista);
 				s2.setInt(3, 1);
 				s2.execute();
 				laConexion.close();
 			}
 		}catch (Exception ex) {
 			
-		}
-		
+		}		
 	}
 	
 	public List<String> buscarMisListas(){
 		return null;
 	}
 	
-	private String obtenerUltimoId() throws SQLException {
+	private int obtenerUltimoId() throws SQLException {
 		try
 		{
 			PreparedStatement s;
 			laConexion = DataAccess.Conectar();
 			s = laConexion.prepareStatement("select MAX(idLista) from lista");
-			//String laConsulta = "";
-			//Statement stmtConsulta = laConexion.createStatement();
-			//ResultSet rs = stmtConsulta.executeQuery(laConsulta);
-			//String res = rs.getString(1);
 			ResultSet rs = s.executeQuery();
 			
 			rs.next();			
-			String res = rs.getString(1);
+			int res = rs.getInt(1);
 			
 			laConexion.close();
 			
