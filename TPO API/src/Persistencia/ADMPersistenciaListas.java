@@ -43,7 +43,7 @@ private static ADMPersistenciaListas instancia;
 			
 			
 			laConexion = DataAccess.Conectar();
-			s = laConexion.prepareStatement("INSERT INTO LISTA (fecha, montoPorParticipante, montoRecaudado, fechaInicio, fechaFin, estado, mail, usuarioAdmin, nombreAgasajado) VALUES(?,?,?,?,?,?,?,?,?)");
+			s = laConexion.prepareStatement("INSERT INTO LISTA (fechaAgasajo, montoPorParticipante, montoRecaudado, fechaInicio, fechaFin, estado, mail, usuarioAdmin, nombreAgasajado) VALUES(?,?,?,?,?,?,?,?,?)");
 			String fechaAgaParaSQL = daf.format(fechaDelAgasajo);
 			s.setDate(1, java.sql.Date.valueOf(fechaAgaParaSQL));			
 			s.setInt(2, montoParticipante);
