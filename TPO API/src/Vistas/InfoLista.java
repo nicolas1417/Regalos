@@ -27,7 +27,18 @@ public class InfoLista extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	JLabel NombreAgasajado = new JLabel("----");
+	JLabel FechaAgasajo = new JLabel("----");
+	JLabel MontoParticipante = new JLabel("----");
+	JLabel MontoRecaudado = new JLabel("----");
+	JLabel FechaInicio = new JLabel("----");
+	JLabel FechaFin = new JLabel("----");
+	JLabel EstadoLista = new JLabel("----");
+	JLabel MailLista = new JLabel("----");
+	JLabel PagoRealizado = new JLabel("----");
+	JLabel EstadoUsuarioEnLista = new JLabel("----");
+	JButton btnDarmeDeBaja = new JButton("Darme de baja de esta lista");
+	
 	/**
 	 * Launch the application.
 	 */
@@ -88,7 +99,7 @@ public class InfoLista extends JFrame {
 		lblFechaDeFin.setBounds(10, 136, 140, 14);
 		contentPane.add(lblFechaDeFin);
 		
-		JLabel lblEstado = new JLabel("Estado de la lista: ");
+		JLabel lblEstado = new JLabel("Estado de la lista:");
 		lblEstado.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblEstado.setBounds(10, 161, 140, 14);
 		contentPane.add(lblEstado);
@@ -103,39 +114,30 @@ public class InfoLista extends JFrame {
 		lblPagoRealizado.setBounds(10, 211, 140, 14);
 		contentPane.add(lblPagoRealizado);
 		
-		JLabel NombreAgasajado = new JLabel("----");
 		NombreAgasajado.setBounds(160, 11, 274, 14);
 		contentPane.add(NombreAgasajado);
 		
-		JLabel FechaAgasajo = new JLabel("----");
 		FechaAgasajo.setBounds(160, 36, 274, 14);
 		contentPane.add(FechaAgasajo);
 		
-		JLabel MontoParticipante = new JLabel("----");
 		MontoParticipante.setBounds(160, 61, 274, 14);
 		contentPane.add(MontoParticipante);
 		
-		JLabel MontoRecaudado = new JLabel("----");
 		MontoRecaudado.setBounds(160, 86, 274, 14);
 		contentPane.add(MontoRecaudado);
 		
-		JLabel FechaInicio = new JLabel("----");
 		FechaInicio.setBounds(160, 111, 274, 14);
 		contentPane.add(FechaInicio);
 		
-		JLabel FechaFin = new JLabel("----");
 		FechaFin.setBounds(160, 136, 274, 14);
 		contentPane.add(FechaFin);
 		
-		JLabel EstadoLista = new JLabel("----");
 		EstadoLista.setBounds(160, 161, 274, 14);
 		contentPane.add(EstadoLista);
 		
-		JLabel MailLista = new JLabel("----");
 		MailLista.setBounds(160, 186, 274, 14);
 		contentPane.add(MailLista);
 		
-		JLabel PagoRealizado = new JLabel("----");
 		PagoRealizado.setBounds(160, 211, 274, 14);
 		contentPane.add(PagoRealizado);
 		
@@ -144,10 +146,50 @@ public class InfoLista extends JFrame {
 		lblMiEstadoEn.setBounds(10, 236, 140, 14);
 		contentPane.add(lblMiEstadoEn);
 		
-		JLabel EstadoUsuarioEnLista = new JLabel("----");
 		EstadoUsuarioEnLista.setBounds(160, 236, 274, 14);
 		contentPane.add(EstadoUsuarioEnLista);
 		
+		setearEtiquetas();
+		
+		btnDarmeDeBaja.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				if (btnDarmeDeBaja.isEnabled()) {
+					boolean baja = false;
+					try {
+						baja = CtrlABMListas.getInstancia().bajaParticipante(InicioDeUsuario.listaSeleccionada.get(0),
+								CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					if (baja) {
+						JOptionPane.showMessageDialog(InfoLista.this, "Usted se ha dado de baja de la lista",
+								"Baja exitosa", JOptionPane.INFORMATION_MESSAGE);
+						try {
+							InicioDeUsuario.misListas = CtrlABMListas.getInstancia().buscarMisListas();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						InicioDeUsuario.listaSeleccionada.set(12, "0");
+						setearEtiquetas();
+					} else
+						JOptionPane.showMessageDialog(InfoLista.this, "No se pudo procesar la baja", "Error",
+								JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnDarmeDeBaja.setBounds(10, 269, 205, 23);
+		contentPane.add(btnDarmeDeBaja);
+		
+		if(InicioDeUsuario.listaSeleccionada.get(9).equals("1")){
+			PagoRealizado.setText("Pagado");
+		}else {
+			PagoRealizado.setText("Pago pendiente");
+		}
+		
+	}
+	
+	private void setearEtiquetas() {
 		FechaAgasajo.setText(InicioDeUsuario.listaSeleccionada.get(1));
 		MontoParticipante.setText(InicioDeUsuario.listaSeleccionada.get(2));
 		MontoRecaudado.setText(InicioDeUsuario.listaSeleccionada.get(3));
@@ -160,36 +202,13 @@ public class InfoLista extends JFrame {
 		}
 		MailLista.setText(InicioDeUsuario.listaSeleccionada.get(7));
 		NombreAgasajado.setText(InicioDeUsuario.listaSeleccionada.get(8));
-		if(InicioDeUsuario.listaSeleccionada.get(13).equals("1")) 
+		if(InicioDeUsuario.listaSeleccionada.get(12).equals("1")) {
 			EstadoUsuarioEnLista.setText("Activo");
-		else
-			EstadoUsuarioEnLista.setText("Dado de baja");
-			 		
-		JButton btnDarmeDeBaja = new JButton("Darme de baja de esta lista");
-		btnDarmeDeBaja.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				boolean baja = false;
-					try {
-						baja = CtrlABMListas.getInstancia().bajaParticipante(InicioDeUsuario.listaSeleccionada.get(0), CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				if(baja) 
-					JOptionPane.showMessageDialog(InfoLista.this, "Usted se ha dado de baja de la lista", "Baja exitosa", JOptionPane.INFORMATION_MESSAGE);
-				else
-					JOptionPane.showMessageDialog(InfoLista.this, "No se pudo procesar la baja", "Error", JOptionPane.ERROR_MESSAGE);
-			}
-		});
-		btnDarmeDeBaja.setBounds(10, 269, 205, 23);
-		contentPane.add(btnDarmeDeBaja);
-		
-		
-		if(InicioDeUsuario.listaSeleccionada.get(9).equals("1")){
-			PagoRealizado.setText("Pagado");
-		}else {
-			PagoRealizado.setText("Pago pendiente");
+			btnDarmeDeBaja.setEnabled(true);
 		}
-		//PagoRealizado.setText(InicioDeUsuario.listaSeleccionada.get(9));
+		else {
+			EstadoUsuarioEnLista.setText("Dado de baja");
+			btnDarmeDeBaja.setEnabled(false);
+		}
 	}
 }
