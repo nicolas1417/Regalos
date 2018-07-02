@@ -40,6 +40,9 @@ public class InicioDeUsuario extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					ThreadCerrarLista hiloNotificarRegalos = new ThreadCerrarLista();
+					hiloNotificarRegalos.start();
+					
 					InicioDeUsuario frame = new InicioDeUsuario();
 					frame.setVisible(true);
 				} catch (Exception e) {

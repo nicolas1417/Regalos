@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Date;
 import java.util.Vector;
+import Controladores.CtrlMail;
 
 import Controladores.CtrlABMListas;
 
@@ -17,13 +18,30 @@ public class ThreadCerrarLista extends Thread{
 	
 	public void run ()
 	{
-		ejecutarRutina();
+		try {
+			ejecutarRutina();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	private void ejecutarRutina()
+	private void ejecutarRutina() throws Exception
 	{
-		Date fecha;
-		
-		//Vector<String> mails = CtrlABMListas.getInstancia().notificarRegalos(fecha);	
+		try
+		{
+			Date fecha = new Date();
+			
+			Vector<String> mails = CtrlABMListas.getInstancia().notificarRegalos(fecha);
+			
+			for(int i=0;i<mails.size();i++)
+			{
+				CtrlMail.getInstancia().sendEmail(mails.elementAt(i), "Notificacion Regalos", "Prueba");
+			}	
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
 	}
 }

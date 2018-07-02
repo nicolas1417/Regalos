@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-import Controladores.CtrlSesion;
 import Negocio.Lista;
 import Negocio.Usuario;
 import Negocio.UsuarioDeLista;
@@ -13,15 +12,13 @@ import Negocio.UsuarioDeLista;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class ADMPersistenciaListas {
 
 	private Connection laConexion;
-private static ADMPersistenciaListas instancia;
+	private static ADMPersistenciaListas instancia;
 	
 	private ADMPersistenciaListas()
 	{
@@ -118,7 +115,7 @@ private static ADMPersistenciaListas instancia;
 		try
 		{
 			laConexion = DataAccess.Conectar();
-			PreparedStatement s = laConexion.prepareStatement("SELECT l.idLista,l.nombreAgasajado, l.fechaAgasajo, l.montoPorParticipante, l.montoRecaudado, l.fechaInicio, l.fechaFin,l.mail, l.estado, u.usuario, u.contrasena, u.nombre,tu.id, tu.codigo, u.fechaNacimiento, u.mail, u.estado FROM TIPOUSUARIO tu, USUARIO u, USUARIODELISTA ul, LISTA l WHERE u.usuario = ? AND u.tipo = 1 AND u.tipo = tu.id AND u.usuario = ul.usuario AND ul.idLista = l.idLista;");		
+			PreparedStatement s = laConexion.prepareStatement("SELECT l.idLista,l.nombreAgasajado, l.fechaAgasajo, l.montoPorParticipante, l.montoRecaudado, l.fechaInicio, l.fechaFin,l.mail, l.estado, u.usuario, u.contrasena, u.nombre,u.tipo, u.fechaNacimiento, u.mail, u.estado FROM USUARIO u, USUARIODELISTA ul, LISTA l WHERE u.usuario = ? AND u.tipo = 1 AND u.usuario = ul.usuario AND ul.idLista = l.idLista;");		
 			
 			s.setString(1,usuario);
 			
@@ -142,16 +139,14 @@ private static ADMPersistenciaListas instancia;
 				String contrasena = result.getString(11);
 				String nombre = result.getString(12);
 				int idTipoUsuario = result.getInt(13);
-				String codTipoUsuario = result.getString(14);
-				Date fecha_nac = result.getDate(15);
-				String mailUsuario = result.getString(16);
-				int estadoUsuario = result.getInt(17);
+				Date fecha_nac = result.getDate(14);
+				String mailUsuario = result.getString(15);
+				int estadoUsuario = result.getInt(16);
 				boolean tipousuario;
 				if(idTipoUsuario > 0)
 					tipousuario = true;
 				else
-					tipousuario = false;
-				//TipoUsuario tu = new TipoUsuario(idTipoUsuario,codTipoUsuario);
+					tipousuario = false;				
 				
 				Usuario u = new Usuario(nombre,user,contrasena,fecha_nac,estadoUsuario==1,mailUsuario,tipousuario);
 				

@@ -117,7 +117,7 @@ public class Lista {
 		
 	}
 	
-	public Vector<String> NotificarRegalos(Date fecha) throws Exception
+	public Vector<String> notificarRegalos(Date fecha) throws Exception
 	{
 		try
 		{
@@ -150,7 +150,7 @@ public class Lista {
 		}
 		catch(Exception e)
 		{
-			
+			throw e;
 		}
 	}
 	
