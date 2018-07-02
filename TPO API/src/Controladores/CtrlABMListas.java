@@ -102,11 +102,12 @@ public class CtrlABMListas {
 		return obj.buscarUsuarios();
 	}
 	
-	/*public Object[][] buscarListas(Usuario usuario) throws Exception
+	public Object[][] buscarListas(Usuario usuario) throws Exception
 	{
 		try
 		{
-			//Vector<Lista> v = Lista.this.buscarListas(usuario.getUsuario());
+			Lista objLista = new Lista();
+			Vector<Lista> v = objLista.buscarListas(usuario.getUsuario());
 			
 			Object[][] data = new Object[v.size()][8]; 
 			
@@ -130,7 +131,7 @@ public class CtrlABMListas {
 		{
 			throw e;
 		}
-	}*/
+	}
 	
 	private void agregarLista(Lista l) 
 	{
@@ -174,8 +175,16 @@ public class CtrlABMListas {
 		return null;
 	}
 	
-	public Vector<String> notificarRegalos(Date fecha)
+	public Vector<String> notificarRegalos(Date fecha) throws Exception
 	{
-		return CtrlABMListas.getInstancia().notificarRegalos(fecha);
+		try
+		{
+			Lista objLista = new Lista();
+			return objLista.notificarRegalos(fecha);
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
 	}
 }

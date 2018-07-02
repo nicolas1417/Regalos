@@ -22,6 +22,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import Controladores.CtrlABMListas;
+import Controladores.CtrlSesion;
 
 public class BuscarListas extends JFrame {
 
@@ -63,7 +64,7 @@ public class BuscarListas extends JFrame {
 		Object[][] data = null;
 		try
 		{
-			//data = CtrlABMListas.getInstancia().buscarListas(CtrlSesion.getInstancia().getUsuarioLogueado());
+			data = CtrlABMListas.getInstancia().buscarListas(CtrlSesion.getInstancia().getUsuarioLogueado());
 		}
 		catch(Exception e)
 		{
