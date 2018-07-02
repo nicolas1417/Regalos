@@ -1,5 +1,6 @@
 package Controladores;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -175,12 +176,57 @@ public class CtrlABMListas {
 		return null;
 	}
 	
-	public Vector<String> notificarRegalos(Date fecha) throws Exception
+	public void avisoCierre() throws Exception
+	{
+		try
+		{
+			Calendar calendario = Calendar.getInstance();
+			Date fecha = new Date();
+			calendario.setTime(fecha);
+			calendario.add(Calendar.DAY_OF_WEEK, 7);
+			
+			Lista objLista = new Lista();
+			Vector<Lista> listasParaNotificar = objLista.avisoCierre(fecha);
+			
+			for(int i=0;i<listasParaNotificar.size();i++)
+			{
+				Lista l = listasParaNotificar.elementAt(i);
+				
+				for(int j=0;j<l.participantes.size();j++)
+					if (!l.participantes.get(j).getPagoRealizado())
+						CtrlMail.getInstancia().EnviarEmailAvisoCierre(l.participantes.get(j).getUsuario().getMail());
+				
+			}	
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+	
+	public void notificarRegalos() throws Exception
 	{
 		try
 		{
 			Lista objLista = new Lista();
-			return objLista.notificarRegalos(fecha);
+			Vector<Lista> listasParaNotificar = objLista.notificarRegalos(new Date());
+			
+			for(int i=0;i<listasParaNotificar.size();i++)
+			{
+				Lista l = listasParaNotificar.elementAt(i);
+				String participantes = null;
+				
+				for(int j=0;j<l.participantes.size();j++)
+				{
+					UsuarioDeLista ul = l.participantes.get(j);
+					
+					participantes = participantes + ul.getUsuario().getNombre() + ", ";
+				}
+				
+				participantes = participantes.substring(0, participantes.length()-2);
+				
+				CtrlMail.getInstancia().EnviarEmailNotificarRegalos(l.getMail(),participantes);	
+			}			
 		}
 		catch(Exception e)
 		{

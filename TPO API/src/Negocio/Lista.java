@@ -117,23 +117,47 @@ public class Lista {
 		
 	}
 	
-	public Vector<String> notificarRegalos(Date fecha) throws Exception
+	public Vector<Lista> notificarRegalos(Date fecha) throws Exception
 	{
 		try
 		{
 			Vector<Lista> v = buscarListas(CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
-			Vector<String> mails = new Vector<String>();
+			Vector<Lista> listasParaNotificar = new Vector<Lista>();
 			
 			for(int i=0;i<v.size();i++)
 			{
 				if(v.elementAt(i).getEstado() && v.elementAt(i).getFechaFin().compareTo(fecha) <= 0)
 				{
 					v.elementAt(i).cerrarLista();
-					mails.add(v.elementAt(i).getMail());			
+					listasParaNotificar.add(v.elementAt(i));			
 				}
 			}
 			
-			return mails;
+			return listasParaNotificar;
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+		
+	}
+	
+	public Vector<Lista> avisoCierre(Date fecha) throws Exception
+	{
+		try
+		{
+			Vector<Lista> v = buscarListas(CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
+			Vector<Lista> listasParaNotificar = new Vector<Lista>();
+			
+			for(int i=0;i<v.size();i++)
+			{
+				if(v.elementAt(i).getEstado() && v.elementAt(i).getFechaFin().compareTo(fecha) <= 0)
+				{
+					listasParaNotificar.add(v.elementAt(i));			
+				}
+			}
+			
+			return listasParaNotificar;
 		}
 		catch(Exception e)
 		{

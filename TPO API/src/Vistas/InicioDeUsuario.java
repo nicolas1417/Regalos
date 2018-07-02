@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import Controladores.CtrlABMListas;
 import Controladores.CtrlSesion;
 import Negocio.Usuario;
+import Servicios.AvisoCierre;
+import Servicios.AvisoRegalo;
 
 import javax.swing.JMenuBar;
 import javax.swing.JLabel;
@@ -54,14 +56,28 @@ public class InicioDeUsuario extends JFrame {
 	 */
 	public InicioDeUsuario() {
 		
-		ThreadCerrarLista hiloNotificarRegalos = null;
-		try {
-			hiloNotificarRegalos = new ThreadCerrarLista();
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
+		AvisoRegalo hiloNotificarRegalos = null;
+		try 
+		{
+			hiloNotificarRegalos = new AvisoRegalo();
+		}
+		catch (InterruptedException e1) 
+		{
 			e1.printStackTrace();
 		}
 		hiloNotificarRegalos.start();
+		
+		AvisoCierre hiloAvisoCierre = null;
+		
+		try
+		{
+			hiloAvisoCierre = new AvisoCierre();
+		}
+		catch(InterruptedException e1)
+		{
+			e1.printStackTrace();
+		}
+		hiloAvisoCierre.start();
 		
 		setTitle("P\u00E1gina de inicio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

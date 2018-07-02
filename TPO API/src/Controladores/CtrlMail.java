@@ -26,7 +26,7 @@ public class CtrlMail {
 	
 	public CtrlMail()
 	{
-		
+		getConfiguracion();
 	}
 	
 	private void init() {
@@ -41,9 +41,8 @@ public class CtrlMail {
 		session = Session.getDefaultInstance(sessionProperties);
 	}
 	
-	public void sendEmail(String mail)
+	public void EnviarEmailNotificarRegalos(String mail,String participantes)
 	{
-		getConfiguracion();
 		init();
 		try
 		{
@@ -51,7 +50,29 @@ public class CtrlMail {
 			message.setFrom(new InternetAddress((String)sessionProperties.get("mail.smtp.mail.sender")));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
 			message.setSubject(propiedadesMail.getProperty("AsuntoNotificarRegalos"));
-			message.setText(propiedadesMail.getProperty("MensajeNotificarRegalos"));
+			message.setText(propiedadesMail.getProperty("MensajeNotificarRegalos") + participantes + "\n" + propiedadesMail.getProperty("Saludo"));
+			Transport t = session.getTransport("smtp");
+			t.connect((String)sessionProperties.get("mail.smtp.user"), propiedadesMail.getProperty("PasswordMailApp"));
+			t.sendMessage(message, message.getAllRecipients());
+			t.close();
+		}
+		catch(MessagingException me)
+		{
+			me.printStackTrace();
+		}
+	}
+	
+	
+	public void EnviarEmailAvisoCierre(String mail)
+	{
+		init();
+		try
+		{
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress((String)sessionProperties.get("mail.smtp.mail.sender")));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
+			message.setSubject(propiedadesMail.getProperty("AsuntoAvisoCierre"));
+			message.setText(propiedadesMail.getProperty("MensajeAvisoCierre") + propiedadesMail.getProperty("Saludo"));
 			Transport t = session.getTransport("smtp");
 			t.connect((String)sessionProperties.get("mail.smtp.user"), propiedadesMail.getProperty("PasswordMailApp"));
 			t.sendMessage(message, message.getAllRecipients());

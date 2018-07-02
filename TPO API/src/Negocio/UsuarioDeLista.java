@@ -4,17 +4,7 @@ public class UsuarioDeLista {
 	private boolean pagoRealizado;
 	private boolean estado;
 	private Usuario usuario;
-	
-	
-	/*private static UsuarioDeLista instancia;
-	
-	public static UsuarioDeLista getInstancia()
-	{
-		if (instancia == null)
-			instancia = new UsuarioDeLista();
-		return instancia;
-	}*/
-	
+		
 	public UsuarioDeLista()
 	{
 		
@@ -39,5 +29,10 @@ public class UsuarioDeLista {
 	public Usuario getUsuario()
 	{
 		return this.usuario;
+	}
+	
+	public boolean getPagoRealizado()
+	{
+		return this.pagoRealizado;
 	}
 }
