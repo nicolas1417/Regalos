@@ -9,7 +9,6 @@ import javax.swing.border.EmptyBorder;
 
 import Controladores.CtrlABMListas;
 import Controladores.CtrlSesion;
-import Negocio.Usuario;
 import Servicios.AvisoCierre;
 import Servicios.AvisoRegalo;
 
@@ -17,6 +16,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -25,6 +25,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class InicioDeUsuario extends JFrame {
 
@@ -33,7 +35,8 @@ public class InicioDeUsuario extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private List<String> misListas;
+	public static List<List<String>> misListas;
+	public static List<String> listaSeleccionada;
 
 	/**
 	 * Launch the application.
@@ -53,8 +56,9 @@ public class InicioDeUsuario extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws Exception 
 	 */
-	public InicioDeUsuario() {
+	public InicioDeUsuario() throws Exception {
 		
 		AvisoRegalo hiloNotificarRegalos = null;
 		try 
@@ -180,11 +184,24 @@ public class InicioDeUsuario extends JFrame {
 		
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		JList<String> listMisListas = new JList<String>(model);
+		listMisListas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				String seleccionada = listMisListas.getSelectedValue();
+				//List<String> listaCompleta = new ArrayList<String>();
+				for(List<String> item : misListas) {
+					if(seleccionada.equals(item.get(8)))
+						listaSeleccionada = item;
+				}
+				InfoLista obj = new InfoLista();
+				obj.setVisible(true);
+			}
+		});
 		listMisListas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		/*misListas = CtrlABMListas.getInstancia().buscarMisListas();
-		for (String item : misListas) {
-			model.addElement(item);
-		}*/
+		misListas = CtrlABMListas.getInstancia().buscarMisListas();
+		for (List<String> item : misListas) {
+			model.addElement(item.get(8));
+		}
 		listMisListas.setBounds(0, 42, 235, 200);
 		contentPane.add(listMisListas);
 		

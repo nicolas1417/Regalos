@@ -92,9 +92,14 @@ public class CtrlABMListas {
 		return obj.buscarUsuariosParticipantes();
 	}
 	
-	public List<String> buscarMisListas(){
+	public List<List<String>> buscarMisListas() throws Exception{
 		Lista obj = new Lista();
-		return obj.buscarMisListas();
+		String logueado = obtenerLogueado();
+		return obj.buscarMisListas(logueado);
+	}
+	
+	private String obtenerLogueado() {
+		return CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario();
 	}
 	
 	public Vector<Usuario> buscarUsuarios() throws Exception

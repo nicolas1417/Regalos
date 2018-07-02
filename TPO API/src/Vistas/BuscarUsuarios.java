@@ -56,9 +56,10 @@ public class BuscarUsuarios extends JFrame {
 	 * Create the frame.
 	 */
 	public BuscarUsuarios() {
+		setResizable(false);
 		setTitle("Modificar o eliminar usuarios");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 625, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -93,7 +94,7 @@ public class BuscarUsuarios extends JFrame {
 
 		// creamos un scroll y le añadomos la tabla
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 10, 400, 150);
+		scrollPane.setBounds(10, 10, 589, 150);
 		scrollPane.setViewportView(table);
 		getContentPane().add(scrollPane);
 		

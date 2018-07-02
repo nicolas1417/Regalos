@@ -80,10 +80,10 @@ public class Lista {
 		}
 	}
 	
-	public List<String> buscarMisListas(){
+	public List<List<String>> buscarMisListas(String logueado) throws Exception{
 		try
 		{
-			return ADMPersistenciaListas.getInstancia().buscarMisListas();
+			return ADMPersistenciaListas.getInstancia().buscarMisListas(logueado);
 		}
 		catch(Exception e)
 		{

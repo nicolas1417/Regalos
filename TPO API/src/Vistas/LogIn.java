@@ -150,8 +150,13 @@ public class LogIn extends JFrame {
 	}
 	
 	public void cambiarDeVentana() {
-		InicioDeUsuario inicio = new InicioDeUsuario();
-		inicio.setVisible(true);
+		InicioDeUsuario inicio;
+		try {
+			inicio = new InicioDeUsuario();
+			inicio.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		LogIn.this.dispose();
 	}
 }

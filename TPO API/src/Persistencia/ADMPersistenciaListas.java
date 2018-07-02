@@ -1,6 +1,7 @@
 package Persistencia;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -68,7 +69,7 @@ public class ADMPersistenciaListas {
 			insertUsuarioDeLista.setString(1, logueado.getUsuario());
 			insertUsuarioDeLista.setInt(2, idLista);
 			insertUsuarioDeLista.setInt(3, 1);
-			insertUsuarioDeLista.setInt(4, 1);
+			insertUsuarioDeLista.setInt(4, 0);
 			
 			insertUsuarioDeLista.execute();
 			
@@ -95,8 +96,38 @@ public class ADMPersistenciaListas {
 		}		
 	}
 	
-	public List<String> buscarMisListas(){
-		return null;
+	public List<List<String>> buscarMisListas(String logueado) throws SQLException {
+		List<List<String>> res = new ArrayList<List<String>>();
+		try {
+			PreparedStatement s;
+			laConexion = DataAccess.Conectar();
+			s = laConexion.prepareStatement("select * from LISTA INNER JOIN USUARIODELISTA ON USUARIODELISTA.idLista=LISTA.idLista where usuario = '" + logueado + "';");
+			ResultSet rs = s.executeQuery();
+			int i = 0;
+			while(rs.next()) {
+				List<String> subLista = new ArrayList<String>();
+				subLista.add(rs.getString(1));
+				subLista.add(rs.getString(2));
+				subLista.add(rs.getString(3));
+				subLista.add(rs.getString(4));
+				subLista.add(rs.getString(5));
+				subLista.add(rs.getString(6));
+				subLista.add(rs.getString(7));
+				subLista.add(rs.getString(8));
+				subLista.add(rs.getString(9));
+				subLista.add(rs.getString(10));
+				subLista.add(rs.getString(11));
+				subLista.add(rs.getString(12));
+				subLista.add(rs.getString(13));
+				subLista.add(rs.getString(14));
+				res.add(i, subLista);
+				i++;
+			}
+			return res;
+			
+		}catch(Exception ex) {
+			throw ex;
+		}
 	}
 	
 	private int obtenerUltimoId() throws SQLException {
