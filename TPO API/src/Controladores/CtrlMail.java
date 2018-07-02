@@ -1,5 +1,6 @@
 package Controladores;
 
+import java.io.FileInputStream;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -12,8 +13,8 @@ public class CtrlMail {
 	
 	private static CtrlMail instancia;
 	
-	private final Properties properties = new Properties();
-	private String password;
+	private final Properties sessionProperties = new Properties();
+	private final Properties propiedadesMail = new Properties();
 	private Session session;
 	
 	public static CtrlMail getInstancia()
@@ -30,28 +31,29 @@ public class CtrlMail {
 	
 	private void init() {
 
-		properties.put("mail.smtp.host", "smtp.gmail.com");
-		properties.put("mail.smtp.starttls.enable", "true");
-		properties.put("mail.smtp.port",25);
-		properties.put("mail.smtp.mail.sender","lucio.tzikas@gmail.com");
-		properties.put("mail.smtp.user", "lucio.tzikas");
-		properties.put("mail.smtp.auth", "true");
+		sessionProperties.put("mail.smtp.host", "smtp.gmail.com");
+		sessionProperties.put("mail.smtp.starttls.enable", "true");
+		sessionProperties.put("mail.smtp.port",25);
+		sessionProperties.put("mail.smtp.mail.sender",propiedadesMail.getProperty("MailApp"));
+		sessionProperties.put("mail.smtp.user", propiedadesMail.getProperty("User"));
+		sessionProperties.put("mail.smtp.auth", "true");
 
-		session = Session.getDefaultInstance(properties);
+		session = Session.getDefaultInstance(sessionProperties);
 	}
 	
-	public void sendEmail(String mail, String sujeto, String mensaje)
+	public void sendEmail(String mail)
 	{
+		getConfiguracion();
 		init();
 		try
 		{
 			MimeMessage message = new MimeMessage(session);
-			message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));
+			message.setFrom(new InternetAddress((String)sessionProperties.get("mail.smtp.mail.sender")));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
-			message.setSubject(sujeto);
-			message.setText(mensaje);
+			message.setSubject(propiedadesMail.getProperty("AsuntoNotificarRegalos"));
+			message.setText(propiedadesMail.getProperty("MensajeNotificarRegalos"));
 			Transport t = session.getTransport("smtp");
-			t.connect((String)properties.get("mail.smtp.user"), "evaristegalois");
+			t.connect((String)sessionProperties.get("mail.smtp.user"), propiedadesMail.getProperty("PasswordMailApp"));
 			t.sendMessage(message, message.getAllRecipients());
 			t.close();
 		}
@@ -59,5 +61,22 @@ public class CtrlMail {
 		{
 			me.printStackTrace();
 		}
+	}
+	
+	private void getConfiguracion()
+	{
+		String configuracion = "ConfigMail.txt";
+	   
+		try 
+		{
+			FileInputStream f = new FileInputStream(configuracion);	 
+		    propiedadesMail.load(f);
+		    f.close();    		   
+		}
+		catch (Exception e) 
+	    {
+			System.out.println("Mensaje Error: " + e.getMessage());
+			System.out.println("Stack Trace: " + e.getStackTrace());
+	    }
 	}
 }

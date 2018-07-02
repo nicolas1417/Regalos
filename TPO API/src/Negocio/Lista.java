@@ -126,9 +126,9 @@ public class Lista {
 			
 			for(int i=0;i<v.size();i++)
 			{
-				if(v.elementAt(i).getFechaFin().compareTo(fecha) <= 0)
+				if(v.elementAt(i).getEstado() && v.elementAt(i).getFechaFin().compareTo(fecha) <= 0)
 				{
-					v.elementAt(0).cerrarLista();
+					v.elementAt(i).cerrarLista();
 					mails.add(v.elementAt(i).getMail());			
 				}
 			}

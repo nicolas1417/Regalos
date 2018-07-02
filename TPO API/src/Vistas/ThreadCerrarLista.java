@@ -36,7 +36,7 @@ public class ThreadCerrarLista extends Thread{
 			
 			for(int i=0;i<mails.size();i++)
 			{
-				CtrlMail.getInstancia().sendEmail(mails.elementAt(i), "Notificacion Regalos", "Prueba");
+				CtrlMail.getInstancia().sendEmail(mails.elementAt(i));
 			}	
 		}
 		catch(Exception e)

@@ -40,9 +40,6 @@ public class InicioDeUsuario extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ThreadCerrarLista hiloNotificarRegalos = new ThreadCerrarLista();
-					hiloNotificarRegalos.start();
-					
 					InicioDeUsuario frame = new InicioDeUsuario();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -56,6 +53,16 @@ public class InicioDeUsuario extends JFrame {
 	 * Create the frame.
 	 */
 	public InicioDeUsuario() {
+		
+		ThreadCerrarLista hiloNotificarRegalos = null;
+		try {
+			hiloNotificarRegalos = new ThreadCerrarLista();
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		hiloNotificarRegalos.start();
+		
 		setTitle("P\u00E1gina de inicio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

@@ -1,0 +1,5 @@
+MailApp=apitpo2018@gmail.com
+User=apitpo2018
+PasswordMailApp=aplicacionesinteractivas1
+AsuntoNotificarRegalos=Aviso de Regalo
+MensajeNotificarRegalos=Estimado, hemos cerrado su lista de regalos pues ha llegado a su fin. Ya puede retirar su premio. Saluda Atte, APITPO2018.
