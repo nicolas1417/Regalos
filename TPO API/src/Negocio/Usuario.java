@@ -113,11 +113,8 @@ public class Usuario {
 		return this.tipoUsuario;
 	}
 	
-	public int getTipoEnNumero() {
-		if(this.tipoUsuario)
-			return 1;
-		else
-			return 0;
+	public String getDescTipo() {
+		return this.tipoUsuario ? "Administrador" : "Participante";
 	}
 	
 	public String getMail() {

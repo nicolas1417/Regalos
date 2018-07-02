@@ -47,7 +47,7 @@ public class CtrlABMUsuarios {
 			{
 				data[i][0] = v.elementAt(i).getUsuario();
 				data[i][1] = v.elementAt(i).getNombre();
-				data[i][2] = v.elementAt(i).getTipoEnNumero();
+				data[i][2] = v.elementAt(i).getDescTipo();
 				data[i][3] = v.elementAt(i).getMail();
 				data[i][4] = v.elementAt(i).getDescEstado();
 				
@@ -82,7 +82,7 @@ public class CtrlABMUsuarios {
 					s[1] = u.getNombre();
 					s[2] = u.getFechaNac().toString();
 					s[3] = u.getMail();
-					s[4] = String.valueOf(u.getTipoEnNumero());
+					s[4] = u.getTipo() ?"1":"0";
 					
 					return s;
 				}					

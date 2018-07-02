@@ -214,7 +214,7 @@ public class AltaModUsuario extends JFrame {
 					textFieldNombre.setText(usuario[1]);
 					textFieldFechaNac.setText(usuario[2]);
 					textFieldMail.setText(usuario[3]);
-					comboBoxTipo.setSelectedIndex(Integer.parseInt(usuario[4])-1);	
+					comboBoxTipo.setSelectedIndex(Integer.parseInt(usuario[4]));	
 				}
 				else 
 					throw new Exception("El usuario a Modificar no existe");
