@@ -68,11 +68,6 @@ public class Usuario {
 		}
 	}
 	
-	public boolean validarContrasena(String password, String passConfirmada) 
-	{
-		return (password.equals(passConfirmada));
-	}
-	
 	public Vector<Usuario> buscarUsuarios() throws Exception
 	{
 		try

@@ -99,12 +99,35 @@ public class Lista {
 	{
 		try
 		{
-			return ADMPersistenciaListas.getInstancia().buscarListas(usuario);
+			Vector<Lista> listas = ADMPersistenciaListas.getInstancia().buscarListas(usuario);
+			
+			for(Lista l : listas)
+			{
+				List<UsuarioDeLista> lul = obtenerParticipantes(l.getIdLista());
+				
+				l.participantes = lul;
+			}
+			
+			return listas;
 		}
 		catch(Exception e)
 		{
 			throw e;
 		}
+	}
+	
+	public List<UsuarioDeLista> obtenerParticipantes(int idLista) throws Exception
+	{
+		List<UsuarioDeLista> participantes = null;
+		try
+		{
+			participantes = ADMPersistenciaListas.getInstancia().obtenerParticipantes(idLista);
+		}
+		catch (Exception e)
+		{
+			throw e;
+		}
+		return participantes;
 	}
 	
 	public void cerrarLista() throws Exception
