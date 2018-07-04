@@ -2,8 +2,6 @@ package Servicios;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.ZoneId;
-import java.util.Date;
 import Controladores.CtrlABMListas;
 
 public class AvisoRegalo extends Thread{

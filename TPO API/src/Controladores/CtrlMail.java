@@ -50,7 +50,7 @@ public class CtrlMail {
 			message.setFrom(new InternetAddress((String)sessionProperties.get("mail.smtp.mail.sender")));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
 			message.setSubject(propiedadesMail.getProperty("AsuntoNotificarRegalos"));
-			message.setText(propiedadesMail.getProperty("MensajeNotificarRegalos") + participantes + "\n" + propiedadesMail.getProperty("Saludo"));
+			message.setText(propiedadesMail.getProperty("MensajeNotificarRegalos") + participantes +"<br><br>"+ propiedadesMail.getProperty("Saludo"),"ISO-8859-1","html");
 			Transport t = session.getTransport("smtp");
 			t.connect((String)sessionProperties.get("mail.smtp.user"), propiedadesMail.getProperty("PasswordMailApp"));
 			t.sendMessage(message, message.getAllRecipients());
@@ -72,7 +72,7 @@ public class CtrlMail {
 			message.setFrom(new InternetAddress((String)sessionProperties.get("mail.smtp.mail.sender")));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
 			message.setSubject(propiedadesMail.getProperty("AsuntoAvisoCierre"));
-			message.setText(propiedadesMail.getProperty("MensajeAvisoCierre") + propiedadesMail.getProperty("Saludo"));
+			message.setText(propiedadesMail.getProperty("MensajeAvisoCierre") + propiedadesMail.getProperty("Saludo"),"ISO-8859-1","html");
 			Transport t = session.getTransport("smtp");
 			t.connect((String)sessionProperties.get("mail.smtp.user"), propiedadesMail.getProperty("PasswordMailApp"));
 			t.sendMessage(message, message.getAllRecipients());

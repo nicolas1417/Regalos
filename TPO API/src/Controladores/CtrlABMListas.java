@@ -191,9 +191,10 @@ public class CtrlABMListas {
 		try
 		{
 			Calendar calendario = Calendar.getInstance();
-			Date fecha = new Date();
+			Date fecha = new Date();	
 			calendario.setTime(fecha);
 			calendario.add(Calendar.DAY_OF_WEEK, 7);
+			fecha = calendario.getTime();
 			
 			Lista objLista = new Lista();
 			Vector<Lista> listasParaNotificar = objLista.avisoCierre(fecha);
@@ -224,7 +225,7 @@ public class CtrlABMListas {
 			for(int i=0;i<listasParaNotificar.size();i++)
 			{
 				Lista l = listasParaNotificar.elementAt(i);
-				String participantes = null;
+				String participantes = "";
 				
 				for(int j=0;j<l.participantes.size();j++)
 				{
