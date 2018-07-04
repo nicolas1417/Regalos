@@ -96,18 +96,17 @@ public class CtrlABMUsuarios {
 		}
 	}
 	
-	public void modificarUsuario(String usuario, String contrasena,String passConfirmada, String nombre,boolean TipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void modificarUsuario(String usuario, String contrasena, String nombre,boolean TipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
 		{	
-			//fechaNac = textFieldFechaNac.getText();
 			int idTipoUsuario;
 			if(TipoUsuario)
 				idTipoUsuario = 1;
 			else
 				idTipoUsuario = 0;
 			Usuario obj = new Usuario();
-			obj.modificarUsuario(usuario, contrasena,passConfirmada, nombre, idTipoUsuario, fechaNacimiento, mail);
+			obj.modificarUsuario(usuario, contrasena, nombre, idTipoUsuario, fechaNacimiento, mail);
 		}
 		catch(Exception e) 
 		{

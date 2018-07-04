@@ -44,7 +44,7 @@ public class Usuario {
 		}
 	}	
 	
-	public void modificarUsuario(String usuario, String contrasena,String passConfirmada, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void modificarUsuario(String usuario, String contrasena, String nombre,int idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
 		try
 		{					

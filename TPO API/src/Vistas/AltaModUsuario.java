@@ -173,7 +173,7 @@ public class AltaModUsuario extends JFrame {
 					else
 					{
 						if (comprobarPasswords(textFieldConfPass.getText(), textFieldPassword.getText())) {
-							CtrlABMUsuarios.getInstancia().modificarUsuario(textFieldUsuario.getText(), textFieldPassword.getText(), textFieldConfPass.getText(), textFieldNombre.getText(), tipoUsuario, fechaNac, textFieldMail.getText());
+							CtrlABMUsuarios.getInstancia().modificarUsuario(textFieldUsuario.getText(), textFieldPassword.getText(), textFieldNombre.getText(), tipoUsuario, fechaNac, textFieldMail.getText());
 							textAreaMsgError.setForeground(Color.BLUE);
 							textAreaMsgError.setText("Usuario Modificado correctamente!");
 						}else {
