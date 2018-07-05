@@ -244,4 +244,27 @@ public class CtrlABMListas {
 			throw e;
 		}
 	}
+	
+	public void avisoInicio() throws Exception
+	{
+		try
+		{			
+			Lista objLista = new Lista();
+			Vector<Lista> listasParaNotificar = objLista.avisoInicio(new Date());
+			
+			for(int i=0;i<listasParaNotificar.size();i++)
+			{
+				Lista l = listasParaNotificar.elementAt(i);
+				
+				for(int j=0;j<l.participantes.size();j++)
+					if (!l.participantes.get(j).getPagoRealizado())
+						CtrlMail.getInstancia().EnviarEmailAvisoInicio(l.participantes.get(j).getUsuario().getMail());
+				
+			}	
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
 }

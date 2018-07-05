@@ -19,7 +19,6 @@ public class AvisoCierre extends Thread{
 		try {
 			ejecutarRutina();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

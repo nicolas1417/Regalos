@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.time.Month;
 import Controladores.CtrlABMListas;
 
-public class AvisoRegalo extends Thread{
+public class AvisoInicio extends Thread{
 	
-	public AvisoRegalo() throws InterruptedException
+	public AvisoInicio() throws InterruptedException
 	{
 		
 	}
@@ -29,7 +29,7 @@ public class AvisoRegalo extends Thread{
 			
 			while (fecha.isBefore(finFecha))
 			{
-				CtrlABMListas.getInstancia().notificarRegalos();
+				CtrlABMListas.getInstancia().avisoInicio();
 				
 				try {
 					sleep(120000); //dos minutos

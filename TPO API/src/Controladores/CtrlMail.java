@@ -84,6 +84,27 @@ public class CtrlMail {
 		}
 	}
 	
+	public void EnviarEmailAvisoInicio(String mail)
+	{
+		init();
+		try
+		{
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress((String)sessionProperties.get("mail.smtp.mail.sender")));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
+			message.setSubject(propiedadesMail.getProperty("AsuntoAvisoInicio"));
+			message.setText(propiedadesMail.getProperty("MensajeAvisoInicio") + propiedadesMail.getProperty("Saludo"),"ISO-8859-1","html");
+			Transport t = session.getTransport("smtp");
+			t.connect((String)sessionProperties.get("mail.smtp.user"), propiedadesMail.getProperty("PasswordMailApp"));
+			t.sendMessage(message, message.getAllRecipients());
+			t.close();
+		}
+		catch(MessagingException me)
+		{
+			me.printStackTrace();
+		}
+	}
+	
 	private void getConfiguracion()
 	{
 		String configuracion = "ConfigMail.txt";

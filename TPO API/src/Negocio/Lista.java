@@ -193,6 +193,30 @@ public class Lista {
 		
 	}
 	
+	public Vector<Lista> avisoInicio(Date fecha) throws Exception
+	{
+		try
+		{
+			Vector<Lista> v = buscarListas(CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
+			Vector<Lista> listasParaNotificar = new Vector<Lista>();
+			
+			for(int i=0;i<v.size();i++)
+			{
+				if(v.elementAt(i).getEstado() && v.elementAt(i).getFechaInicio().compareTo(fecha) == 0)
+				{
+					listasParaNotificar.add(v.elementAt(i));
+				}
+			}
+			
+			return listasParaNotificar;
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+		
+	}
+	
 	public void modificarLista(int idLista, java.util.Date fechaAga, int montoPart, java.util.Date fechaF, String correo, java.util.Date fechaI) throws Exception
 	{
 		try
