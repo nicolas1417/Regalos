@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import Controladores.CtrlSesion;
 import Negocio.Lista;
+import Negocio.Pago;
 import Negocio.Usuario;
 import Negocio.UsuarioDeLista;
 
@@ -63,7 +64,7 @@ public class ADMPersistenciaListas
 			
 			con = DataAccess.getConexion().getInstanciaDB();
 			
-			insertUsuarioDeLista = con.prepareStatement("INSERT INTO USUARIODELISTA (USUARIO,IDLISTA,ESTADO,PAGADO) VALUES (?,?,?,?)");
+			insertUsuarioDeLista = con.prepareStatement("INSERT INTO USUARIODELISTA (USUARIO,IDLISTA,ESTADO,IDPAGO) VALUES (?,?,?,?)");
 			
 			insertUsuarioDeLista.setString(1, logueado.getUsuario());
 			insertUsuarioDeLista.setInt(2, idLista);
@@ -164,6 +165,28 @@ public class ADMPersistenciaListas
 		}
 	}
 	
+	private int obtenerMontoRecaudado(int idLista) throws SQLException {
+		try
+		{
+			PreparedStatement s;
+			Connection con = DataAccess.getConexion().getInstanciaDB();
+			s = con.prepareStatement("select montoRecaudado from lista where idlista = ?");
+			s.setInt(1, idLista);
+			ResultSet rs = s.executeQuery();
+			
+			rs.next();			
+			int res = rs.getInt(1);
+			
+			DataAccess.getConexion().cerrarConexion();
+			
+			return res;
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+	}
+	
 	public Vector<Lista> buscarListas(String usuario) throws Exception
 	{
 		Vector<Lista> v = new Vector<Lista>();
@@ -205,7 +228,7 @@ public class ADMPersistenciaListas
 				
 				Usuario u = new Usuario(nombre,user,contrasena,fecha_nac,estadoUsuario==1,mailUsuario,tipousuario);
 				
-				UsuarioDeLista ul = new UsuarioDeLista(u, true, true);
+				UsuarioDeLista ul = new UsuarioDeLista(u, true, null);
 						
 				Lista l = new Lista(idLista, nombreAgasajado, fechaAgasajo, montoParticipante, montoRecaudado, fechaInicio, fechaFin, estadoLista==1, mailLista, ul);
 											
@@ -275,7 +298,7 @@ public class ADMPersistenciaListas
 		try
 		{
 			Connection con = DataAccess.getConexion().getInstanciaDB();
-			PreparedStatement s = con.prepareStatement("select u.usuario,u.contrasena,u.nombre,u.tipo,u.fechaNacimiento,u.mail,ul.estado,ul.pagado from usuariodelista ul inner join usuario u on ul.usuario = u.usuario where u.tipo = 0 and ul.idlista = ?");		
+			PreparedStatement s = con.prepareStatement("select u.usuario,u.contrasena,u.nombre,u.tipo,u.fechaNacimiento,u.mail,ul.estado,p.monto,p.fechaMov from usuariodelista ul inner join usuario u on ul.usuario = u.usuario left join pago p on ul.idPago = p.idPago where u.tipo = 0 and ul.idlista = ?");		
 			
 			s.setInt(1,idLista);
 			
@@ -294,11 +317,16 @@ public class ADMPersistenciaListas
 				int estado = result.getInt(7);
 				boolean tipoUsuario = idTipoUsuario > 0 ? true : false;
 				
-				int pagado = result.getInt(8);
-				boolean pagoRealizado = pagado > 0 ? true : false;
+				int monto = result.getInt(8);
+				Date fechaMov = result.getDate(9);				
 				
 				Usuario u = new Usuario(nombre,user,contrasena,fecha_nac,estado==1,mail,tipoUsuario);
-				UsuarioDeLista ul = new UsuarioDeLista(u, pagoRealizado, estado==1);
+			
+				Pago p = null;
+				if (monto != 0)
+					p = new Pago(monto, fechaMov);
+				
+				UsuarioDeLista ul = new UsuarioDeLista(u,estado==1,p);
 				
 				v.add(ul);
 			}										
@@ -311,5 +339,45 @@ public class ADMPersistenciaListas
 		{
 			throw e;
 		}
+	}
+	
+	public int RegistrarPago(String usuario,int idLista,int monto,int idPago) throws Exception
+	{
+		int montoRecaudado = obtenerMontoRecaudado(idLista);
+		montoRecaudado = montoRecaudado + monto;
+		
+		Connection con = DataAccess.getConexion().getInstanciaDB();
+		PreparedStatement s;
+		try
+		{
+			s = con.prepareStatement("UPDATE USUARIODELISTA SET idPago = ? WHERE idLista = ? and usuario = ?");
+			s.setInt(1,idPago);
+			s.setInt(2,idLista);
+			s.setString(3,usuario);
+			s.execute();
+			
+			DataAccess.getConexion().cerrarConexion();
+		}
+		catch(Exception e) 
+		{
+			throw e;
+		}
+		
+		con = DataAccess.getConexion().getInstanciaDB();
+		PreparedStatement s2;
+		try
+		{
+			s2 = con.prepareStatement("UPDATE LISTA SET montoRecaudado = ? WHERE idLista = ?");
+			s2.setInt(1,montoRecaudado);
+			s2.setInt(2,idLista);
+			s2.execute();
+			
+			DataAccess.getConexion().cerrarConexion();
+		}
+		catch(Exception e) 
+		{
+			throw e;
+		}
+		return montoRecaudado;
 	}
 }

@@ -1,20 +1,20 @@
 package Negocio;
 
 public class UsuarioDeLista {
-	private boolean pagoRealizado;
 	private boolean estado;
 	private Usuario usuario;
+	private Pago pago = null;
 		
 	public UsuarioDeLista()
 	{
 		
 	}
 	
-	public UsuarioDeLista(Usuario usuario, boolean pagoRealizado, boolean estado)
+	public UsuarioDeLista(Usuario usuario,boolean estado,Pago pago)
 	{
 		this.usuario = usuario;
-		this.pagoRealizado = pagoRealizado;
 		this.estado = estado;
+		this.pago = pago;
 	}
 
 	public void asociarUsuarioALista(Usuario usuario, Lista lista)
@@ -33,6 +33,6 @@ public class UsuarioDeLista {
 	
 	public boolean getPagoRealizado()
 	{
-		return this.pagoRealizado;
+		return (pago != null);
 	}
 }

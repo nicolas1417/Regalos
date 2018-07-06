@@ -3,6 +3,8 @@ package Vistas;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import Vistas.InicioDeUsuario;
 
@@ -12,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 import Controladores.CtrlABMListas;
 import Controladores.CtrlSesion;
+import ObservadorDePago.ObservadorPago;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,7 +23,7 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class InfoLista extends JFrame {
+public class InfoLista extends JFrame implements Observer{
 
 	/**
 	 * 
@@ -38,28 +41,15 @@ public class InfoLista extends JFrame {
 	JLabel PagoRealizado = new JLabel("----");
 	JLabel EstadoUsuarioEnLista = new JLabel("----");
 	JButton btnDarmeDeBaja = new JButton("Darme de baja de esta lista");
+	private ObservadorPago miObservador;
+	int idLista;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InfoLista frame = new InfoLista();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */
-	public InfoLista() {
+	public InfoLista(ObservadorPago obsPago) {
 		
+		miObservador = obsPago;
 		setResizable(false);
 		setTitle("Informaci\u00F3n de lista seleccionada");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -190,6 +180,7 @@ public class InfoLista extends JFrame {
 	}
 	
 	private void setearEtiquetas() {
+		idLista = Integer.parseInt(InicioDeUsuario.listaSeleccionada.get(0));
 		FechaAgasajo.setText(InicioDeUsuario.listaSeleccionada.get(1));
 		MontoParticipante.setText(InicioDeUsuario.listaSeleccionada.get(2));
 		MontoRecaudado.setText(InicioDeUsuario.listaSeleccionada.get(3));
@@ -210,5 +201,11 @@ public class InfoLista extends JFrame {
 			EstadoUsuarioEnLista.setText("Dado de baja");
 			btnDarmeDeBaja.setEnabled(false);
 		}
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		if (miObservador.getIdLista() == this.idLista)
+			MontoRecaudado.setText(String.valueOf(miObservador.getMontoRecaudado()));	
 	}
 }

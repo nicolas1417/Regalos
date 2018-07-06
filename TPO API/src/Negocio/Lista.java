@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import Controladores.CtrlSesion;
 import Persistencia.ADMPersistenciaListas;
+import Persistencia.ADMPersistenciaPago;
 import Persistencia.ADMPersistenciaUsuarios;
 
 public class Lista {
@@ -215,6 +216,22 @@ public class Lista {
 			throw e;
 		}
 		
+	}
+	
+	public int RegistrarPago(String usuario,int idLista,int monto,Date fechaMov) throws Exception
+	{
+		int montoRecaudado = 0;
+		try
+		{
+			int idPago = ADMPersistenciaPago.getInstancia().registrarPago(monto, fechaMov);
+			
+			return ADMPersistenciaListas.getInstancia().RegistrarPago(usuario, idLista, monto,idPago);
+		}
+		catch(Exception e) 
+		{
+			
+		}
+		return montoRecaudado;
 	}
 	
 	public void modificarLista(int idLista, java.util.Date fechaAga, int montoPart, java.util.Date fechaF, String correo, java.util.Date fechaI) throws Exception

@@ -267,4 +267,20 @@ public class CtrlABMListas {
 			throw e;
 		}
 	}
+	
+	public int RegistrarPago(String usuario,int idLista,int monto,Date fechaMov) throws Exception
+	{
+		int montoRecaudado = 0;
+		try
+		{
+			Lista l = new Lista();
+			
+			return l.RegistrarPago(usuario,idLista,monto,fechaMov);
+		}
+		catch(Exception e)
+		{
+			
+		}
+		return montoRecaudado;	
+	}
 }

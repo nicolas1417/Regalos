@@ -9,9 +9,11 @@ import javax.swing.border.EmptyBorder;
 
 import Controladores.CtrlABMListas;
 import Controladores.CtrlSesion;
+import ObservadorDePago.ObservadorPago;
 import Servicios.AvisoCierre;
 import Servicios.AvisoInicio;
 import Servicios.AvisoRegalo;
+import Servicios.InformarPago;
 
 import javax.swing.JMenuBar;
 import javax.swing.JLabel;
@@ -38,6 +40,7 @@ public class InicioDeUsuario extends JFrame {
 	private JPanel contentPane;
 	public static List<List<String>> misListas;
 	public static List<String> listaSeleccionada;
+	public ObservadorPago miObservador;
 
 	/**
 	 * Launch the application.
@@ -60,7 +63,9 @@ public class InicioDeUsuario extends JFrame {
 	 * @throws Exception 
 	 */
 	public InicioDeUsuario() throws Exception {
-				
+		
+		miObservador = new ObservadorPago();
+		
 		//Inicio - WORKERS - Mail Automáticos
 		AvisoRegalo hiloNotificarRegalos = null;
 		try 
@@ -96,6 +101,17 @@ public class InicioDeUsuario extends JFrame {
 			e1.printStackTrace();
 		}
 		hiloAvisoInicio.start();
+		
+		InformarPago hiloInformarPago = null;
+		try
+		{
+			hiloInformarPago = new InformarPago(miObservador);
+		}
+		catch(InterruptedException e1)
+		{
+			e1.printStackTrace();
+		}
+		hiloInformarPago.start();	
 		//FIN - WORKERS - Mail Automáticos
 		
 		setTitle("P\u00E1gina de inicio");
@@ -203,19 +219,21 @@ public class InicioDeUsuario extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				String seleccionada = listMisListas.getSelectedValue();
-				//List<String> listaCompleta = new ArrayList<String>();
+			
 				for(List<String> item : misListas) {
-					if(seleccionada.equals(item.get(8)))
+					if(seleccionada.equals(item.get(0)+'|'+item.get(8)))
 						listaSeleccionada = item;
 				}
-				InfoLista obj = new InfoLista();
+				
+				InfoLista obj = new InfoLista(miObservador);
+				miObservador.addObserver(obj);
 				obj.setVisible(true);
 			}
 		});
 		listMisListas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		misListas = CtrlABMListas.getInstancia().buscarMisListas();
 		for (List<String> item : misListas) {
-			model.addElement(item.get(8));
+			model.addElement(item.get(0)+'|'+item.get(8));
 		}
 		listMisListas.setBounds(0, 42, 235, 200);
 		contentPane.add(listMisListas);
