@@ -8,7 +8,6 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import Controladores.CtrlABMListas;
-import Negocio.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -21,7 +20,6 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 
@@ -178,10 +176,9 @@ public class AltaModLista extends JFrame {
 		});
 		btnAgregar.setBounds(427, 227, 89, 23);
 		contentPane.add(btnAgregar);
-		Vector<Usuario> lista = new Vector<Usuario>();
-		lista = CtrlABMListas.getInstancia().buscarUsuariosParticipantes();
-		for (Usuario item : lista) {
-			model.addElement(item.getUsuario());
+		List<String> lista = CtrlABMListas.getInstancia().buscarUsuariosParticipantes();
+		for (String s : lista) {
+			model.addElement(s);
 		}
 		
 		textAreaMsgError = new JTextArea();

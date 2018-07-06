@@ -51,35 +51,38 @@ public class InformarPago extends Thread{
 			    	// Apertura del fichero y creacion de BufferedReader para poder
 			        // hacer una lectura comoda (disponer del metodo readLine()).
 			        archivo = new File ("Pagos\\Pagos.txt");
-			        fechaProcesadoOK = new Date();
-			        DateFormat fechaHora = new SimpleDateFormat("yyyyMMddHHmmss");
-					String mascara = fechaHora.format(fechaProcesadoOK);
 			        
-			        
-			        fr = new FileReader (archivo);
-			        br = new BufferedReader(fr);
-
-			        // Lectura del fichero
-			        String linea;
-			        while((linea = br.readLine()) != null)
+			        if (archivo.exists())
 			        {
-			        	System.out.println(linea);
-			        	String [] datos = linea.split("\\|");
-			        	
-			        	int idLista = Integer.parseInt(datos[0]);
-			        	String usuario = datos[1];
-			        	int monto = Integer.parseInt(datos[2]);
-			        	Date fechaMov = new SimpleDateFormat("yyyy/MM/dd").parse(datos[3]);
-			        	
-			        	int montoRecaudado = CtrlABMListas.getInstancia().RegistrarPago(usuario,idLista,monto,fechaMov);
-			        	
-			        	miObservador.setMontoRecaudado(montoRecaudado, idLista);
+				        fechaProcesadoOK = new Date();
+				        DateFormat fechaHora = new SimpleDateFormat("yyyyMMddHHmmss");
+						String mascara = fechaHora.format(fechaProcesadoOK);
+				        	        
+				        fr = new FileReader (archivo);
+				        br = new BufferedReader(fr);
+	
+				        // Lectura del fichero
+				        String linea;
+				        while((linea = br.readLine()) != null)
+				        {
+				        	System.out.println(linea);
+				        	String [] datos = linea.split("\\|");
+				        	
+				        	int idLista = Integer.parseInt(datos[0]);
+				        	String usuario = datos[1];
+				        	int monto = Integer.parseInt(datos[2]);
+				        	Date fechaMov = new SimpleDateFormat("yyyy/MM/dd").parse(datos[3]);
+				        	
+				        	int montoRecaudado = CtrlABMListas.getInstancia().RegistrarPago(usuario,idLista,monto,fechaMov);
+				        	
+				        	miObservador.setMontoRecaudado(montoRecaudado, idLista);
+				        }
+				        
+				        fr.close();
+				        
+				        copyFile(archivo,new File ("Pagos\\Pagos_PROCESADOOK_"+ mascara +".txt" ));
+				        archivo.delete();
 			        }
-			        
-			        fr.close();
-			        
-			        copyFile(archivo,new File ("Pagos\\Pagos_PROCESADOOK_"+ mascara +".txt" ));
-			        archivo.delete();
 			    }
 			    catch(Exception e)
 			    {

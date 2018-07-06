@@ -16,15 +16,6 @@ public class UsuarioDeLista {
 		this.estado = estado;
 		this.pago = pago;
 	}
-
-	public void asociarUsuarioALista(Usuario usuario, Lista lista)
-	{
-		this.usuario = usuario;
-	}
-	
-	public void bajaUsuario(){
-		this.estado = false;
-	}
 	
 	public Usuario getUsuario()
 	{

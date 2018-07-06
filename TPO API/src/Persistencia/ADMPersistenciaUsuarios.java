@@ -29,26 +29,39 @@ public class ADMPersistenciaUsuarios
 		return instancia;
 	}
 	
-	public void altaUsuario(String usuario, String contrasena, String nombre,boolean idTipoUsuario, Date fechaNacimiento,String mail) throws Exception
+	public void altaUsuario(String usuario, String contrasena, String nombre,boolean tipoUsuario, Date fechaNacimiento,String mail) throws Exception
 	{
+		Connection con = DataAccess.getConexion().getInstanciaDB();
 		PreparedStatement s;
-		try {
-			Connection con = DataAccess.getConexion().getInstanciaDB();
+		try 
+		{
+			s = con.prepareStatement("INSERT INTO USUARIO (usuario,contrasena,nombre,tipo,fechaNacimiento,mail) VALUES (?,?,?,?,?,?)");
+			
 			int tipo;
-			if(idTipoUsuario)
+			
+			if(tipoUsuario)
 				tipo = 1;
 			else
 				tipo = 0;
+			
+			s.setString(1,usuario);
+			s.setString(2, contrasena);
+			s.setString(3, nombre);
+			s.setInt(4, tipo);
+			
 			DateFormat df = new SimpleDateFormat("yyyy-M-d");
 			String fechaParaSQL = df.format(fechaNacimiento);
-			String laConsulta = "INSERT INTO USUARIO (usuario,contrasena,nombre,tipo,fechaNacimiento,mail,estado) VALUES ('" + usuario + "','" + contrasena + "','" + nombre + "'," + tipo + "," + java.sql.Date.valueOf(fechaParaSQL) + ",'" + mail + "',1)";
-			s = con.prepareStatement(laConsulta);
-			//statement stmtConsulta = laConexion.prepareStatement(laConsulta);
-			//stmtConsulta.execute();
+			s.setDate(5, java.sql.Date.valueOf(fechaParaSQL));
+			
+			s.setString(6, mail);
+			
 			s.execute();
+			
 			DataAccess.getConexion().cerrarConexion();
-		}catch(Exception ex) {
-			throw ex;
+		} 
+		catch (Exception e) 
+		{
+			throw e;
 		}
 	}
 	
@@ -56,34 +69,25 @@ public class ADMPersistenciaUsuarios
 	{
 		try
 		{
+			
 			Connection con = DataAccess.getConexion().getInstanciaDB();
-			String laConsulta = "select u.usuario,u.contrasena,u.nombre,u.fechaNacimiento,u.mail,u.estado,u.tipo from usuario u where usuario = '" + usuario + "' AND contrasena = '" + password + "'";
-			Statement stmtConsulta = con.createStatement();
-			ResultSet rs = stmtConsulta.executeQuery(laConsulta);
-			if (!rs.next())
+			PreparedStatement s = con.prepareStatement("select u.usuario,u.contrasena,u.nombre,u.fechaNacimiento,u.mail,u.estado,u.tipo from usuario u where usuario = ? AND contrasena = ?");
+			s.setString(1,usuario);
+			s.setString(2, password);
+			ResultSet result = s.executeQuery();
+			
+			if (!result.next())
 				throw new Exception("El usuario o contraseña ingresada es incorrecta");	
 						
-			String user = rs.getString(1);
-			String contrasena = rs.getString(2);
-			String nombre = rs.getString(3);
-			Date fecha_nac = rs.getDate(4);
-			String mail = rs.getString(5);
-			int estado = rs.getInt(6);
-			int idTipoUsuario = rs.getInt(7);
+			String user = result.getString(1);
+			String contrasena = result.getString(2);
+			String nombre = result.getString(3);
+			Date fecha_nac = result.getDate(4);
+			String mail = result.getString(5);
+			int estado = result.getInt(6);
+			int idTipoUsuario = result.getInt(7);
 			
-			boolean estadoB;
-			if(estado > 0)
-				estadoB = true;
-			else
-				estadoB = false;
-			
-			boolean tipoDeUsuario;
-			if(idTipoUsuario > 0)
-				tipoDeUsuario = true;
-			else
-				tipoDeUsuario = false;
-			
-			Usuario u = new Usuario(nombre, user, contrasena, fecha_nac, estadoB, mail, tipoDeUsuario);			
+			Usuario u = new Usuario(nombre,user,contrasena,fecha_nac,estado==1,mail,idTipoUsuario==1);			
 			
 			DataAccess.getConexion().cerrarConexion();
 			
@@ -111,7 +115,6 @@ public class ADMPersistenciaUsuarios
 				String contrasena = result.getString(2);
 				String nombre = result.getString(3);
 				int idTipoUsuario = result.getInt(4);
-				//String codTipoUsuario = result.getString(5);
 				Date fecha_nac = result.getDate(5);
 				String mail = result.getString(6);
 				int estado = result.getInt(7);
@@ -126,7 +129,7 @@ public class ADMPersistenciaUsuarios
 				v.add(u);
 			}
 			
-			DataAccess.getConexion().cerrarConexion();
+			con.close();
 					
 			return v;
 		}
@@ -166,7 +169,7 @@ public class ADMPersistenciaUsuarios
 				v.add(u);
 			}
 			
-			DataAccess.getConexion().cerrarConexion();
+			con.close();
 					
 			return v;
 		}
@@ -197,7 +200,7 @@ public class ADMPersistenciaUsuarios
 			
 			s.execute();
 			
-			DataAccess.getConexion().cerrarConexion();
+			con.close();
 		}
 		catch(Exception e) 
 		{
@@ -215,7 +218,7 @@ public class ADMPersistenciaUsuarios
 			s.setString(1,usuario);
 			s.execute();
 			
-			DataAccess.getConexion().cerrarConexion();
+			con.close();
 		}
 		catch(Exception e) 
 		{

@@ -134,7 +134,7 @@ public class BuscarListas extends JFrame {
 							altaModLista.setVisible(true);	
 					}
 						else
-							textAreaMsgError.setText("No ha ingresado un usuario para modificar");	
+							textAreaMsgError.setText("No ha ingresado una Lista para modificar");	
 				}
 				catch (Exception e) 
 				{
@@ -155,12 +155,12 @@ public class BuscarListas extends JFrame {
 					{
 						CtrlABMListas.getInstancia().eliminarLista(Integer.parseInt(textFieldLista.getText()));
 						textAreaMsgError.setForeground(Color.BLUE);
-						textAreaMsgError.setText("Usuario Eliminado Correctamente");	
+						textAreaMsgError.setText("Lista Eliminada Correctamente");	
 					}
 					else
 					{
 						textAreaMsgError.setForeground(Color.RED);
-						textAreaMsgError.setText("No ha ingresado un usuario para Eliminar");	
+						textAreaMsgError.setText("No ha ingresado una Lista para Eliminar");	
 					}
 				}
 				catch(Exception ex)

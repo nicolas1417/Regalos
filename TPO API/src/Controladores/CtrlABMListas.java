@@ -1,5 +1,6 @@
 package Controladores;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -81,25 +82,23 @@ public class CtrlABMListas {
 		}
 	}
 	
-	public void agregarParticipante(UsuarioDeLista participante){
-		Lista obj = new Lista();
-		obj.agregarParticipante(participante);
-	}
-	
-	public Vector<Usuario> buscarUsuariosParticipantes() throws Exception
+	public List<String> buscarUsuariosParticipantes() throws Exception
 	{
+		List<String> l = new ArrayList<String>();
 		Usuario obj = new Usuario();
-		return obj.buscarUsuariosParticipantes();
+		Vector<Usuario> v = obj.buscarUsuariosParticipantes();
+		
+		for(Usuario u:v)
+			l.add(u.getUsuario());
+		
+		return l;
 	}
 	
-	public List<List<String>> buscarMisListas() throws Exception{
+	public List<List<String>> buscarMisListas() throws Exception
+	{
 		Lista obj = new Lista();
-		String logueado = obtenerLogueado();
+		String logueado = CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario();
 		return obj.buscarMisListas(logueado);
-	}
-	
-	private String obtenerLogueado() {
-		return CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario();
 	}
 	
 	public Vector<Usuario> buscarUsuarios() throws Exception
@@ -108,9 +107,9 @@ public class CtrlABMListas {
 		return obj.buscarUsuarios();
 	}
 	
-	public boolean bajaParticipante(String id, String usuario) throws Exception {
+	public boolean bajaParticipante(String id,String admin, String usuario) throws Exception {
 		Lista obj = new Lista();
-		return obj.bajaParticipante(id, usuario);
+		return obj.bajaParticipante(id,admin,usuario);
 	}
 	
 	public Object[][] buscarListas(Usuario usuario) throws Exception
@@ -178,12 +177,22 @@ public class CtrlABMListas {
 		return null;	
 	}
 	
-	private Lista buscarLista(int lista)
+	private Lista buscarLista(int lista)  throws Exception
 	{
-		for (Lista l:listas)
-			if (l.getIdLista() == lista)	
-				return l;
-		return null;
+		try
+		{
+			Lista objLista = new Lista();
+			Vector<Lista> v = objLista.buscarListas(CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
+			
+			for (Lista l:v)
+				if (l.getIdLista() == lista)	
+					return l;
+			return null;
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
 	}
 	
 	public void avisoCierre() throws Exception
@@ -257,7 +266,6 @@ public class CtrlABMListas {
 				Lista l = listasParaNotificar.elementAt(i);
 				
 				for(int j=0;j<l.participantes.size();j++)
-					if (!l.participantes.get(j).getPagoRealizado())
 						CtrlMail.getInstancia().EnviarEmailAvisoInicio(l.participantes.get(j).getUsuario().getMail());
 				
 			}	

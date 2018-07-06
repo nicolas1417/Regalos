@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-import Controladores.CtrlSesion;
 import Negocio.Lista;
 import Negocio.Pago;
 import Negocio.Usuario;
@@ -114,7 +113,8 @@ public class ADMPersistenciaListas
 		try {
 			PreparedStatement s;
 			Connection con = DataAccess.getConexion().getInstanciaDB();
-			s = con.prepareStatement("select * from LISTA INNER JOIN USUARIODELISTA ON USUARIODELISTA.idLista=LISTA.idLista where usuario = '" + logueado + "';");
+			s = con.prepareStatement("select l.*,ul.*,u.usuario as admin from LISTA l INNER JOIN USUARIODELISTA ul ON ul.idLista=l.idLista inner join USUARIODELISTA ul2 on l.idlista = ul2.idlista inner join USUARIO u on ul2.usuario = u.usuario AND u.tipo = 1 where ul.estado = 1 AND ul.usuario = ?");
+			s.setString(1, logueado);
 			ResultSet rs = s.executeQuery();
 			int i = 0;
 			while(rs.next()) {
@@ -133,6 +133,7 @@ public class ADMPersistenciaListas
 				subLista.add(rs.getString(12));
 				subLista.add(rs.getString(13));
 				subLista.add(rs.getString(14));
+				subLista.add(rs.getString(15));
 				res.add(i, subLista);
 				i++;
 			}

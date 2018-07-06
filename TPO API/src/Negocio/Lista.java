@@ -1,5 +1,7 @@
 package Negocio;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -7,7 +9,6 @@ import java.util.Vector;
 import Controladores.CtrlSesion;
 import Persistencia.ADMPersistenciaListas;
 import Persistencia.ADMPersistenciaPago;
-import Persistencia.ADMPersistenciaUsuarios;
 
 public class Lista {
 	public int idLista;
@@ -22,20 +23,10 @@ public class Lista {
 	public String mail;
 	public UsuarioDeLista administrador;
 	
-	//private static Lista instancia;
-	
 	public Lista()
 	{
 		
 	}
-	
-	/*public static Lista getInstancia()
-	{
-		if (instancia == null)
-			instancia = new Lista();
-		return instancia;
-	}*/
-	
 	
 	/*Constructor de la lista, deberia decirse quien es el administrador, que fecha
 	 * de inicio y fin tiene, monto que tiene que poner cada uno, nombre del agasajado
@@ -53,20 +44,6 @@ public class Lista {
 		this.estado = estado;
 		this.mail = mail;
 		this.administrador = admin;
-	}
-	
-	public void agregarParticipante(UsuarioDeLista nuevo){
-		this.participantes.add(nuevo);
-	}
-	
-	//El echado que se pase debe estar en la lista
-	public void quitarParticipante(UsuarioDeLista echado){
-		try {
-			this.participantes.remove(echado);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());//Seria mejor poner un messagebox.
-		}
-		
 	}
 	
 	public void altaListas(String nameAgasajado, int montoParticipante, java.util.Date fechaIni, String mail, java.util.Date fechaF, java.util.Date fechaAgasajo, List<String> usuarios, Usuario logueado) throws Exception
@@ -92,8 +69,12 @@ public class Lista {
 		}
 	}
 	
-	public boolean bajaParticipante(String id, String usuario) throws Exception {
-		return ADMPersistenciaListas.getInstancia().bajaParticipante(id, usuario);
+	public boolean bajaParticipante(String id, String admin, String usuario) throws Exception {
+		
+		if (!usuario.equals(admin))
+			return ADMPersistenciaListas.getInstancia().bajaParticipante(id, usuario);
+		
+		return false;
 	}
 	
 	public Vector<Lista> buscarListas(String usuario) throws Exception
@@ -203,9 +184,14 @@ public class Lista {
 			
 			for(int i=0;i<v.size();i++)
 			{
-				if(v.elementAt(i).getEstado() && v.elementAt(i).getFechaInicio().compareTo(fecha) == 0)
+				if(v.elementAt(i).getEstado())
 				{
-					listasParaNotificar.add(v.elementAt(i));
+					DateFormat daf = new SimpleDateFormat("yyyyMMdd");
+					String fechaInicioLista = daf.format(v.elementAt(i).getFechaInicio());
+					String fechaHoy = daf.format(fecha);
+					
+					if (fechaHoy.equals(fechaInicioLista))
+						listasParaNotificar.add(v.elementAt(i));
 				}
 			}
 			

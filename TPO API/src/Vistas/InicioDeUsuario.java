@@ -19,7 +19,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;

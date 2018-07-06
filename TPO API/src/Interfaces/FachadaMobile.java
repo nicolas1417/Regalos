@@ -3,8 +3,6 @@ import Controladores.CtrlABMUsuarios;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
-
 import Controladores.CtrlABMListas;
 
 public class FachadaMobile 
