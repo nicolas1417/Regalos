@@ -10,17 +10,17 @@ import Persistencia.ADMPersistenciaListas;
 import Persistencia.ADMPersistenciaPago;
 
 public class Lista {
-	public int idLista;
-	public String nombreAgasajado;
-	public Date fechaAgasajo;
-	public List<UsuarioDeLista> participantes;
-	public int montoPorParticipante;
-	public int montoRecaudado;
-	public Date fechaInicio;
-	public Date fechaFin;
-	public boolean estado;
-	public String mail;
-	public UsuarioDeLista administrador;
+	private int idLista;
+	private String nombreAgasajado;
+	private Date fechaAgasajo;
+	private List<UsuarioDeLista> participantes;
+	private int montoPorParticipante;
+	private int montoRecaudado;
+	private Date fechaInicio;
+	private Date fechaFin;
+	private boolean estado;
+	private String mail;
+	private UsuarioDeLista administrador;
 	
 	public Lista()
 	{
@@ -285,4 +285,10 @@ public class Lista {
 	{
 		return this.administrador;
 	}
+	
+	public List<UsuarioDeLista> getParticipantes()
+	{
+		return this.participantes;
+	}
+	
 }

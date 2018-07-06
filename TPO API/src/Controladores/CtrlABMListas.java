@@ -195,9 +195,9 @@ public class CtrlABMListas {
 			{
 				Lista l = listasParaNotificar.elementAt(i);
 				
-				for(int j=0;j<l.participantes.size();j++)
-					if (!l.participantes.get(j).getPagoRealizado())
-						CtrlMail.getInstancia().EnviarEmailAvisoCierre(l.participantes.get(j).getUsuario().getMail());
+				for(int j=0;j<l.getParticipantes().size();j++)
+					if (!l.getParticipantes().get(j).getPagoRealizado())
+						CtrlMail.getInstancia().EnviarEmailAvisoCierre(l.getParticipantes().get(j).getUsuario().getMail());
 				
 			}	
 		}
@@ -219,9 +219,9 @@ public class CtrlABMListas {
 				Lista l = listasParaNotificar.elementAt(i);
 				String participantes = "";
 				
-				for(int j=0;j<l.participantes.size();j++)
+				for(int j=0;j<l.getParticipantes().size();j++)
 				{
-					UsuarioDeLista ul = l.participantes.get(j);
+					UsuarioDeLista ul = l.getParticipantes().get(j);
 					
 					participantes = participantes + ul.getUsuario().getNombre() + ", ";
 				}
@@ -248,8 +248,8 @@ public class CtrlABMListas {
 			{
 				Lista l = listasParaNotificar.elementAt(i);
 				
-				for(int j=0;j<l.participantes.size();j++)
-						CtrlMail.getInstancia().EnviarEmailAvisoInicio(l.participantes.get(j).getUsuario().getMail());
+				for(int j=0;j<l.getParticipantes().size();j++)
+						CtrlMail.getInstancia().EnviarEmailAvisoInicio(l.getParticipantes().get(j).getUsuario().getMail());
 				
 			}	
 		}

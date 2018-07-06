@@ -7,7 +7,7 @@ import Controladores.CtrlABMListas;
 
 public class FachadaMobile 
 {
-	public Object[][] buscarUsuario()
+	public Object[][] buscarUsuarios()
 	{
 		try {
 			return CtrlABMUsuarios.getInstancia().buscarUsuarios();
