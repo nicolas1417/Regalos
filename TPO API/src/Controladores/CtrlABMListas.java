@@ -206,7 +206,7 @@ public class CtrlABMListas {
 			fecha = calendario.getTime();
 			
 			Lista objLista = new Lista();
-			Vector<Lista> listasParaNotificar = objLista.avisoCierre(fecha);
+			Vector<Lista> listasParaNotificar = objLista.avisoCierre(fecha,CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
 			
 			for(int i=0;i<listasParaNotificar.size();i++)
 			{
@@ -229,7 +229,7 @@ public class CtrlABMListas {
 		try
 		{
 			Lista objLista = new Lista();
-			Vector<Lista> listasParaNotificar = objLista.notificarRegalos(new Date());
+			Vector<Lista> listasParaNotificar = objLista.notificarRegalos(new Date(),CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
 			
 			for(int i=0;i<listasParaNotificar.size();i++)
 			{
@@ -259,7 +259,7 @@ public class CtrlABMListas {
 		try
 		{			
 			Lista objLista = new Lista();
-			Vector<Lista> listasParaNotificar = objLista.avisoInicio(new Date());
+			Vector<Lista> listasParaNotificar = objLista.avisoInicio(new Date(),CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
 			
 			for(int i=0;i<listasParaNotificar.size();i++)
 			{

@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-import Controladores.CtrlSesion;
 import Persistencia.ADMPersistenciaListas;
 import Persistencia.ADMPersistenciaPago;
 
@@ -126,11 +125,11 @@ public class Lista {
 		
 	}
 	
-	public Vector<Lista> notificarRegalos(Date fecha) throws Exception
+	public Vector<Lista> notificarRegalos(Date fecha,String usuario) throws Exception
 	{
 		try
 		{
-			Vector<Lista> v = buscarListas(CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
+			Vector<Lista> v = buscarListas(usuario);
 			Vector<Lista> listasParaNotificar = new Vector<Lista>();
 			
 			for(int i=0;i<v.size();i++)
@@ -151,11 +150,11 @@ public class Lista {
 		
 	}
 	
-	public Vector<Lista> avisoCierre(Date fecha) throws Exception
+	public Vector<Lista> avisoCierre(Date fecha,String usuario) throws Exception
 	{
 		try
 		{
-			Vector<Lista> v = buscarListas(CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
+			Vector<Lista> v = buscarListas(usuario);
 			Vector<Lista> listasParaNotificar = new Vector<Lista>();
 			
 			for(int i=0;i<v.size();i++)
@@ -175,11 +174,11 @@ public class Lista {
 		
 	}
 	
-	public Vector<Lista> avisoInicio(Date fecha) throws Exception
+	public Vector<Lista> avisoInicio(Date fecha,String usuario) throws Exception
 	{
 		try
 		{
-			Vector<Lista> v = buscarListas(CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
+			Vector<Lista> v = buscarListas(usuario);
 			Vector<Lista> listasParaNotificar = new Vector<Lista>();
 			
 			for(int i=0;i<v.size();i++)
