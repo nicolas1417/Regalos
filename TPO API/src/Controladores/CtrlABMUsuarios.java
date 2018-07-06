@@ -11,8 +11,7 @@ public class CtrlABMUsuarios {
 /*Provee métodos para manejar los usuarios, se mete en el modelo llamando los
  * metodos que agregan, editan o borran usuarios.*/
 	
-	private static CtrlABMUsuarios instancia;
-	private Vector<Usuario> usuarios;
+	private static CtrlABMUsuarios instancia;	
 	
 	public static CtrlABMUsuarios getInstancia()
 	{
@@ -49,9 +48,7 @@ public class CtrlABMUsuarios {
 				data[i][1] = v.elementAt(i).getNombre();
 				data[i][2] = v.elementAt(i).getDescTipo();
 				data[i][3] = v.elementAt(i).getMail();
-				data[i][4] = v.elementAt(i).getDescEstado();
-				
-				this.agregarUsuario(v.elementAt(i));
+				data[i][4] = v.elementAt(i).getDescEstado();					
 			}
 			
 			return data;
@@ -62,18 +59,13 @@ public class CtrlABMUsuarios {
 		}
 	}
 	
-	private void agregarUsuario(Usuario u)
-	{
-		if (usuarios == null)
-			usuarios = new Vector<Usuario>();
-		usuarios.add(u);
-	}
-	
 	public String[] buscarUsuarioParaModificar(String usuario) throws Exception
 	{
 		try
-		{	
-			for (Usuario u:usuarios)
+		{	Usuario obj = new Usuario();
+			Vector<Usuario> v = obj.buscarUsuarios();
+			
+			for (Usuario u:v)
 			{
 				if (u.getUsuario().equals(usuario) && u.getEstado())
 				{
