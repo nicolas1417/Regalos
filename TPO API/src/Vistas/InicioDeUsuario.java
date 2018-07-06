@@ -141,13 +141,14 @@ public class InicioDeUsuario extends JFrame {
 		mnArchivo.add(mntmCerrarSesin);
 		mnArchivo.add(mntmSalir);
 		
-		JMenu mnAdministrar = new JMenu("Administrar");
-		menuBar.add(mnAdministrar);
-		
 		/*
 		 * Si el usuario es administrador se muestran estos controles sino no.
 		 * */
 		if(CtrlSesion.getInstancia().getUsuarioLogueado().getTipo()) {
+			
+			JMenu mnAdministrar = new JMenu("Administrar");
+			menuBar.add(mnAdministrar);
+			
 			JMenuItem mntmAltaDeUsuario = new JMenuItem("Alta de Usuario");
 			mntmAltaDeUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -185,19 +186,17 @@ public class InicioDeUsuario extends JFrame {
 				}
 			});
 			mnAdministrar.add(mntmNewMenuItem);
+			
+			JMenuItem mntmBuscarListas = new JMenuItem("Buscar Listas");
+			mntmBuscarListas.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BuscarListas bl = new BuscarListas();
+					bl.setLocationRelativeTo(null);
+					bl.setVisible(true);
+				}
+			});
+			mnAdministrar.add(mntmBuscarListas);
 		}
-		
-		
-		
-		JMenuItem mntmBajaDeLista = new JMenuItem("Buscar Listas");
-		mntmBajaDeLista.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BuscarListas bl = new BuscarListas();
-				bl.setLocationRelativeTo(null);
-				bl.setVisible(true);
-			}
-		});
-		mnAdministrar.add(mntmBajaDeLista);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
