@@ -1,5 +1,6 @@
 package Controladores;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -59,6 +60,11 @@ public class CtrlABMListas {
 		{
 			
 		}
+	}
+	
+	public List<String> buscarMisPagos() throws SQLException{
+		Lista obj = new Lista();
+		return obj.buscarMisPagos(CtrlSesion.getInstancia().getUsuarioLogueado().getUsuario());
 	}
 	
 	public void eliminarLista(int idLista)

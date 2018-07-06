@@ -1,5 +1,6 @@
 package Negocio;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,6 +44,11 @@ public class Lista {
 		this.estado = estado;
 		this.mail = mail;
 		this.administrador = admin;
+	}
+	
+	public List<String> buscarMisPagos(String logueado) throws SQLException{
+		UsuarioDeLista obj = new UsuarioDeLista();
+		return obj.buscarMisPagos(logueado);
 	}
 	
 	public void altaListas(String nameAgasajado, int montoParticipante, java.util.Date fechaIni, String mail, java.util.Date fechaF, java.util.Date fechaAgasajo, List<String> usuarios, Usuario logueado) throws Exception

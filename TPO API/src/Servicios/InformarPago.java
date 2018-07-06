@@ -51,7 +51,7 @@ public class InformarPago extends Thread{
 			    {
 			    	// Apertura del fichero y creacion de BufferedReader para poder
 			        // hacer una lectura comoda (disponer del metodo readLine()).
-			        archivo = new File ("Pagos\\Pagos.txt");
+			        archivo = new File ("Pagos/Pagos.txt");
 			        
 			        if (archivo.exists())
 			        {

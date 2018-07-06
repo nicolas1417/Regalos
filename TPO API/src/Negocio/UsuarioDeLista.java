@@ -1,5 +1,8 @@
 package Negocio;
 
+import java.sql.SQLException;
+import java.util.List;
+
 public class UsuarioDeLista {
 	private boolean estado;
 	private Usuario usuario;
@@ -15,6 +18,11 @@ public class UsuarioDeLista {
 		this.usuario = usuario;
 		this.estado = estado;
 		this.pago = pago;
+	}
+	
+	public List<String> buscarMisPagos(String logueado) throws SQLException{
+		Pago obj = new Pago();
+		return obj.buscarMisPagos(logueado);
 	}
 	
 	public Usuario getUsuario()

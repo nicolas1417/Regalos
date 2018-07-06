@@ -1,6 +1,8 @@
  	package Negocio;
 
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 import Persistencia.ADMPersistenciaPago;
 
@@ -11,6 +13,13 @@ public class Pago {
 	public Pago(int monto, Date fechaMov)
 	{
 		
+	}
+	
+	public Pago(){
+		
+	}
+	public List<String> buscarMisPagos(String logueado) throws SQLException{
+		return ADMPersistenciaPago.getInstancia().buscarMisPagos(logueado);
 	}
 	
 	public int RegistrarPago()

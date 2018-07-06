@@ -42,6 +42,7 @@ public class InicioDeUsuario extends JFrame {
 	public static List<List<String>> misListas;
 	public static List<String> listaSeleccionada;
 	public ObservadorPago miObservador;
+	public static List<String> misPagos;
 
 	/**
 	 * Launch the application.
@@ -242,13 +243,21 @@ public class InicioDeUsuario extends JFrame {
 		listMisListas.setBounds(10, 42, 200, 361);
 		contentPane.add(listMisListas);
 		
-		JList<Object> list_1 = new JList<Object>();
+		DefaultListModel<String> model2 = new DefaultListModel<String>();
+		JList<String> list_1 = new JList<String>(model2);
 		list_1.setBounds(246, 42, 201, 361);
 		contentPane.add(list_1);
 		
 		JLabel lblMisPagos = new JLabel("Mis pagos:");
 		lblMisPagos.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		misPagos = CtrlABMListas.getInstancia().buscarMisPagos();
+		for (String item : misPagos) {
+			model2.addElement(item);
+		}
 		lblMisPagos.setBounds(246, 25, 192, 14);
 		contentPane.add(lblMisPagos);
+		
+		
 	}
 }
