@@ -24,6 +24,7 @@ public class AvisoRegalo extends Thread{
 	{
 		try
 		{
+			sleep(20000);
 			LocalDate finFecha = LocalDate.of(2018, Month.JULY,20);
 			LocalDate fecha = LocalDate.now();
 			

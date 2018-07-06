@@ -36,6 +36,7 @@ public class InformarPago extends Thread{
 	{
 		try
 		{
+			sleep(20000);
 			LocalDate finFecha = LocalDate.of(2018, Month.JULY,20);
 			LocalDate fecha = LocalDate.now();
 			
@@ -90,7 +91,7 @@ public class InformarPago extends Thread{
 			    }
 			   
 				try {
-					sleep(20000);
+					sleep(120000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
