@@ -130,9 +130,17 @@ public class AltaModLista extends JFrame {
 					
 					if(listaMod == 0)
 					{
-						//Crea la lista junto con los usuarios de lista que se seleccionaron
-						CtrlABMListas.getInstancia().crearLista(textFieldAgasajado.getText(), Integer.parseInt(textFieldMonto.getText()), formatter.parse(textFieldFechaInicio.getText()), textFieldMail.getText(), formatter.parse(textFieldFechaFin.getText()) , formatter.parse(textFieldFechaAgasajo.getText()), usuariosParaAgregar);
-					    mensaje.setText("Lista guardada correctamente!");
+						if (usuariosParaAgregar != null)
+						{
+							//Crea la lista junto con los usuarios de lista que se seleccionaron
+							CtrlABMListas.getInstancia().crearLista(textFieldAgasajado.getText(), Integer.parseInt(textFieldMonto.getText()), formatter.parse(textFieldFechaInicio.getText()), textFieldMail.getText(), formatter.parse(textFieldFechaFin.getText()) , formatter.parse(textFieldFechaAgasajo.getText()), usuariosParaAgregar);
+						    mensaje.setText("Lista guardada correctamente!");
+						}
+						else 
+						{
+							mensaje.setForeground(Color.RED);
+							mensaje.setText("Debe elegir al menos un participante");
+						}
 					}
 					else 
 					{
