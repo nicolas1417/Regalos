@@ -11,8 +11,6 @@ import Negocio.Usuario;
 import Negocio.UsuarioDeLista;
 
 public class CtrlABMListas {
-
-	private Vector<Lista> listas;
 	private static CtrlABMListas instancia;
 	
 	public static CtrlABMListas getInstancia()
@@ -33,12 +31,7 @@ public class CtrlABMListas {
 			throw e;
 		}
 	}
-	
-	public void modificarLista(){
-		/*Permite cambiar algo de la lista, pueden ser varias cosas y haber
-		 * sobrecarga.*/
-	}		
-	
+		
 	public void crearLista(String nombreAgasajado, int montoPart, java.util.Date fechaInicio, String correo, java.util.Date fechaFin, java.util.Date fechaAgasajo, List<String> usuarios) throws Exception
 	{
 		try
@@ -130,9 +123,7 @@ public class CtrlABMListas {
 				data[i][4] = v.elementAt(i).getMontoRecaudado();
 				data[i][5] = v.elementAt(i).getFechaInicio();
 				data[i][6] = v.elementAt(i).getFechaFin();
-				data[i][7] = v.elementAt(i).getDescEstado();
-				
-				this.agregarLista(v.elementAt(i));
+				data[i][7] = v.elementAt(i).getDescEstado();							
 			}
 			
 			return data;
@@ -141,14 +132,6 @@ public class CtrlABMListas {
 		{
 			throw e;
 		}
-	}
-	
-	private void agregarLista(Lista l) 
-	{
-		if(listas == null)
-			listas = new Vector<Lista>();
-		
-		listas.add(l);
 	}
 	
 	public String[] buscarListaParaModificar(int lista) throws Exception
