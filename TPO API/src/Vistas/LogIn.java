@@ -41,6 +41,7 @@ public class LogIn extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					LogIn frame = new LogIn();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -54,6 +55,7 @@ public class LogIn extends JFrame {
 	 * Create the frame.
 	 */
 	public LogIn() {
+		setResizable(false);
 		setTitle("Iniciar sesi\u00F3n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

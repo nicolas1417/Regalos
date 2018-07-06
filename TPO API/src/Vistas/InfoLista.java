@@ -59,74 +59,74 @@ public class InfoLista extends JFrame implements Observer{
 		
 		JLabel lblNombreDelAgasajado = new JLabel("Nombre del agasajado:");
 		lblNombreDelAgasajado.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNombreDelAgasajado.setBounds(10, 11, 140, 14);
+		lblNombreDelAgasajado.setBounds(10, 11, 154, 14);
 		contentPane.add(lblNombreDelAgasajado);
 		
 		JLabel lblFechaDelAgasajo = new JLabel("Fecha del agasajo:");
 		lblFechaDelAgasajo.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFechaDelAgasajo.setBounds(10, 36, 140, 14);
+		lblFechaDelAgasajo.setBounds(10, 36, 154, 14);
 		contentPane.add(lblFechaDelAgasajo);
 		
 		JLabel lblMontoPorParticipante = new JLabel("Monto por participante:");
 		lblMontoPorParticipante.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMontoPorParticipante.setBounds(10, 61, 140, 14);
+		lblMontoPorParticipante.setBounds(10, 61, 154, 14);
 		contentPane.add(lblMontoPorParticipante);
 		
 		JLabel lblMontoRecaudado = new JLabel("Monto recaudado:");
 		lblMontoRecaudado.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMontoRecaudado.setBounds(10, 86, 140, 14);
+		lblMontoRecaudado.setBounds(10, 86, 154, 14);
 		contentPane.add(lblMontoRecaudado);
 		
 		JLabel lblFechaDeInicio = new JLabel("Fecha de inicio:");
 		lblFechaDeInicio.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFechaDeInicio.setBounds(10, 111, 140, 14);
+		lblFechaDeInicio.setBounds(10, 111, 154, 14);
 		contentPane.add(lblFechaDeInicio);
 		
 		JLabel lblFechaDeFin = new JLabel("Fecha de fin:");
 		lblFechaDeFin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFechaDeFin.setBounds(10, 136, 140, 14);
+		lblFechaDeFin.setBounds(10, 136, 154, 14);
 		contentPane.add(lblFechaDeFin);
 		
 		JLabel lblEstado = new JLabel("Estado de la lista:");
 		lblEstado.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblEstado.setBounds(10, 161, 140, 14);
+		lblEstado.setBounds(10, 161, 154, 14);
 		contentPane.add(lblEstado);
 		
 		JLabel lblMailDeLa = new JLabel("Mail de la lista:");
 		lblMailDeLa.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMailDeLa.setBounds(10, 186, 140, 14);
+		lblMailDeLa.setBounds(10, 186, 154, 14);
 		contentPane.add(lblMailDeLa);
 		
-		NombreAgasajado.setBounds(160, 11, 274, 14);
+		NombreAgasajado.setBounds(174, 11, 260, 14);
 		contentPane.add(NombreAgasajado);
 		
-		FechaAgasajo.setBounds(160, 36, 274, 14);
+		FechaAgasajo.setBounds(174, 36, 260, 14);
 		contentPane.add(FechaAgasajo);
 		
-		MontoParticipante.setBounds(160, 61, 274, 14);
+		MontoParticipante.setBounds(174, 61, 260, 14);
 		contentPane.add(MontoParticipante);
 		
-		MontoRecaudado.setBounds(160, 86, 274, 14);
+		MontoRecaudado.setBounds(174, 86, 260, 14);
 		contentPane.add(MontoRecaudado);
 		
-		FechaInicio.setBounds(160, 111, 274, 14);
+		FechaInicio.setBounds(174, 111, 260, 14);
 		contentPane.add(FechaInicio);
 		
-		FechaFin.setBounds(160, 136, 274, 14);
+		FechaFin.setBounds(174, 136, 260, 14);
 		contentPane.add(FechaFin);
 		
-		EstadoLista.setBounds(160, 161, 274, 14);
+		EstadoLista.setBounds(174, 161, 260, 14);
 		contentPane.add(EstadoLista);
 		
-		MailLista.setBounds(160, 186, 274, 14);
+		MailLista.setBounds(174, 186, 260, 14);
 		contentPane.add(MailLista);
 		
 		JLabel lblMiEstadoEn = new JLabel("Mi estado en la lista:");
 		lblMiEstadoEn.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMiEstadoEn.setBounds(10, 211, 140, 14);
+		lblMiEstadoEn.setBounds(10, 211, 154, 14);
 		contentPane.add(lblMiEstadoEn);
 		
-		EstadoUsuarioEnLista.setBounds(160, 211, 274, 14);
+		EstadoUsuarioEnLista.setBounds(174, 211, 260, 14);
 		contentPane.add(EstadoUsuarioEnLista);
 		
 		setearEtiquetas();
@@ -159,14 +159,15 @@ public class InfoLista extends JFrame implements Observer{
 			}
 		});
 		btnDarmeDeBaja.setBounds(10, 269, 205, 23);
-		contentPane.add(btnDarmeDeBaja);		
+		if(!CtrlSesion.getInstancia().getUsuarioLogueado().getTipo())
+			contentPane.add(btnDarmeDeBaja);		
 		
 		lblAdminLista = new JLabel("Administrador de la lista:");
 		lblAdminLista.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblAdminLista.setBounds(10, 236, 140, 14);
+		lblAdminLista.setBounds(10, 236, 154, 14);
 		contentPane.add(lblAdminLista);
 		
-		adminLista.setBounds(160, 236, 274, 14);
+		adminLista.setBounds(174, 236, 260, 14);
 		contentPane.add(adminLista);
 	}
 	
