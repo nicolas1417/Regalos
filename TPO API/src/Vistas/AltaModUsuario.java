@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -29,8 +30,8 @@ public class AltaModUsuario extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldUsuario;
-	private JTextField textFieldPassword;
-	private JTextField textFieldConfPass;
+	private JPasswordField textFieldPassword;
+	private JPasswordField textFieldConfPass;
 	private JTextField textFieldNombre;
 	private JTextField textFieldFechaNac;
 	private JTextField textFieldMail;
@@ -70,7 +71,7 @@ public class AltaModUsuario extends JFrame {
 		lblContrasena.setBounds(43, 32, 77, 14);
 		contentPane.add(lblContrasena);
 		
-		textFieldPassword = new JTextField();
+		textFieldPassword = new JPasswordField();
 		textFieldPassword.setBounds(126, 30, 306, 20);
 		contentPane.add(textFieldPassword);
 		textFieldPassword.setColumns(10);
@@ -81,7 +82,7 @@ public class AltaModUsuario extends JFrame {
 		lblConfirmarContrasea.setBounds(10, 56, 113, 14);
 		contentPane.add(lblConfirmarContrasea);
 		
-		textFieldConfPass = new JTextField();
+		textFieldConfPass = new JPasswordField();
 		textFieldConfPass.setBounds(126, 54, 306, 20);
 		contentPane.add(textFieldConfPass);
 		textFieldConfPass.setColumns(10);
