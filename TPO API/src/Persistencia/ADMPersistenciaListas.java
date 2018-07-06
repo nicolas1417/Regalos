@@ -56,22 +56,6 @@ public class ADMPersistenciaListas
 			insertLista.setString(8, nombreAgasajado);
 			
 			insertLista.execute();
-					
-			DataAccess.getConexion().cerrarConexion();
-			
-			idLista = obtenerUltimoId();
-			
-			con = DataAccess.getConexion().getInstanciaDB();
-			
-			insertUsuarioDeLista = con.prepareStatement("INSERT INTO USUARIODELISTA (USUARIO,IDLISTA,ESTADO,IDPAGO) VALUES (?,?,?,?)");
-			
-			insertUsuarioDeLista.setString(1, logueado.getUsuario());
-			insertUsuarioDeLista.setInt(2, idLista);
-			insertUsuarioDeLista.setInt(3, 1);
-			insertUsuarioDeLista.setInt(4, 0);
-			
-			insertUsuarioDeLista.execute();
-			
 			DataAccess.getConexion().cerrarConexion();
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -83,16 +67,17 @@ public class ADMPersistenciaListas
 				
 			for(String item : usuarios) {
 				Connection con = DataAccess.getConexion().getInstanciaDB();
-				s2 = con.prepareStatement("INSERT INTO USUARIODELISTA(usuario, idlista, estado) VALUES(?,?,?)");
+				s2 = con.prepareStatement("INSERT INTO USUARIODELISTA (USUARIO,IDLISTA,ESTADO,IDPAGO) VALUES (?,?,?,?)");
 				s2.setString(1, item);
 				s2.setInt(2,idLista);
 				s2.setInt(3, 1);
+				s2.setInt(4, 0);
 				s2.execute();
 				DataAccess.getConexion().cerrarConexion();
 			}
 		}catch (Exception ex) {
 			
-		}		
+		}
 	}
 	
 	public boolean bajaParticipante(String id, String usuario) throws Exception {
