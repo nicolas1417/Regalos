@@ -63,7 +63,7 @@ public class AltaModLista extends JFrame {
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		JList<String> listNueva = new JList<String>(model);
 		listNueva.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		listNueva.setBounds(339, 39, 243, 178);
+		listNueva.setBounds(339, 39, 245, 178);
 		
 		JLabel lblNewLabel = new JLabel("Fecha del agasajo:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -180,9 +180,12 @@ public class AltaModLista extends JFrame {
 				for(String item : lista) {
 					usuariosParaAgregar.add(item);
 				}
+				mensaje.setForeground(Color.BLUE);
+				mensaje.setText("Usuarios seleccionados agregados");
+				btnAgregar.setEnabled(false);
 			}
 		});
-		btnAgregar.setBounds(427, 227, 89, 23);
+		btnAgregar.setBounds(415, 227, 94, 23);
 		contentPane.add(btnAgregar);
 		List<String> lista = CtrlABMListas.getInstancia().buscarUsuariosParticipantes();
 		for (String s : lista) {

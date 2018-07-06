@@ -29,6 +29,8 @@ import javax.swing.JSeparator;
 import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
+import javax.swing.UIManager;
 
 public class InicioDeUsuario extends JFrame {
 
@@ -62,6 +64,7 @@ public class InicioDeUsuario extends JFrame {
 	 * @throws Exception 
 	 */
 	public InicioDeUsuario() throws Exception {
+		setResizable(false);
 		
 		miObservador = new ObservadorPago();
 		
@@ -115,7 +118,7 @@ public class InicioDeUsuario extends JFrame {
 		
 		setTitle("P\u00E1gina de inicio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 473, 473);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -204,11 +207,14 @@ public class InicioDeUsuario extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Bienvenido " + CtrlSesion.getInstancia().getUsuarioLogueado().getNombre());
+		lblNewLabel.setForeground(UIManager.getColor("Menu.selectionBackground"));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel.setBounds(0, 0, 442, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblMisListas = new JLabel("Mis listas:");
-		lblMisListas.setBounds(0, 22, 119, 14);
+		lblMisListas.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblMisListas.setBounds(10, 25, 119, 14);
 		contentPane.add(lblMisListas);
 		
 		DefaultListModel<String> model = new DefaultListModel<String>();
@@ -219,7 +225,7 @@ public class InicioDeUsuario extends JFrame {
 				String seleccionada = listMisListas.getSelectedValue();
 			
 				for(List<String> item : misListas) {
-					if(seleccionada.equals(item.get(0)+'|'+item.get(8)))
+					if(seleccionada.equals(item.get(0)+"| Agasajado: "+item.get(8)))
 						listaSeleccionada = item;
 				}
 				
@@ -231,17 +237,18 @@ public class InicioDeUsuario extends JFrame {
 		listMisListas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		misListas = CtrlABMListas.getInstancia().buscarMisListas();
 		for (List<String> item : misListas) {
-			model.addElement(item.get(0)+'|'+item.get(8));
+			model.addElement(item.get(0)+ "| Agasajado: " +item.get(8));
 		}
-		listMisListas.setBounds(0, 42, 235, 200);
+		listMisListas.setBounds(10, 42, 200, 361);
 		contentPane.add(listMisListas);
 		
-		JList list_1 = new JList();
-		list_1.setBounds(241, 42, 191, 200);
+		JList<Object> list_1 = new JList<Object>();
+		list_1.setBounds(246, 42, 201, 361);
 		contentPane.add(list_1);
 		
 		JLabel lblMisPagos = new JLabel("Mis pagos:");
-		lblMisPagos.setBounds(240, 22, 192, 14);
+		lblMisPagos.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblMisPagos.setBounds(246, 25, 192, 14);
 		contentPane.add(lblMisPagos);
 	}
 }

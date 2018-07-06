@@ -59,7 +59,7 @@ public class BuscarUsuarios extends JFrame {
 		setResizable(false);
 		setTitle("Modificar o eliminar usuarios");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 625, 300);
+		setBounds(100, 100, 730, 330);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -94,19 +94,19 @@ public class BuscarUsuarios extends JFrame {
 
 		// creamos un scroll y le añadomos la tabla
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 10, 589, 150);
+		scrollPane.setBounds(10, 10, 704, 221);
 		scrollPane.setViewportView(table);
 		getContentPane().add(scrollPane);
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblUsuario.setBounds(10, 171, 46, 14);
+		lblUsuario.setBounds(10, 270, 46, 14);
 		contentPane.add(lblUsuario);
 		
 		JTextArea textAreaMsgError = new JTextArea();
 		textAreaMsgError.setForeground(Color.RED);
-		textAreaMsgError.setBounds(20, 204, 294, 47);		
+		textAreaMsgError.setBounds(420, 242, 294, 47);		
 	    textAreaMsgError.setWrapStyleWord(true);
 	    textAreaMsgError.setLineWrap(true);
 	    textAreaMsgError.setOpaque(false);
@@ -118,7 +118,7 @@ public class BuscarUsuarios extends JFrame {
 		contentPane.add(textAreaMsgError);
 		
 		textFieldUsuario = new JTextField();
-		textFieldUsuario.setBounds(66, 168, 152, 20);
+		textFieldUsuario.setBounds(65, 267, 155, 20);
 		contentPane.add(textFieldUsuario);
 		textFieldUsuario.setColumns(10);
 		
@@ -137,7 +137,7 @@ public class BuscarUsuarios extends JFrame {
 					textAreaMsgError.setText("No ha ingresado un usuario para modificar");
 			}
 		});
-		btnModificar.setBounds(228, 167, 86, 23);
+		btnModificar.setBounds(228, 266, 86, 23);
 		contentPane.add(btnModificar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
@@ -164,7 +164,7 @@ public class BuscarUsuarios extends JFrame {
 				}
 			}
 		});
-		btnEliminar.setBounds(324, 167, 86, 23);
+		btnEliminar.setBounds(324, 266, 86, 23);
 		contentPane.add(btnEliminar);
 	}
 }

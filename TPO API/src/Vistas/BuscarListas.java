@@ -53,9 +53,10 @@ public class BuscarListas extends JFrame {
 	 * Create the frame.
 	 */
 	public BuscarListas() {
+		setResizable(false);
 		setTitle("Modificar o eliminar listas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 700, 300);
+		setBounds(100, 100, 730, 330);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -90,19 +91,19 @@ public class BuscarListas extends JFrame {
 
 		// creamos un scroll y le añadomos la tabla
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 10, 664, 150);
+		scrollPane.setBounds(10, 10, 694, 213);
 		scrollPane.setViewportView(table);
 		getContentPane().add(scrollPane);
 		
 		JLabel lblLista = new JLabel("C\u00F3digo Lista:");
 		lblLista.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblLista.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLista.setBounds(10, 171, 75, 14);
+		lblLista.setBounds(10, 264, 75, 14);
 		contentPane.add(lblLista);
 		
 		JTextArea textAreaMsgError = new JTextArea();
 		textAreaMsgError.setForeground(Color.RED);
-		textAreaMsgError.setBounds(20, 204, 564, 47);		
+		textAreaMsgError.setBounds(444, 234, 260, 47);		
 	    textAreaMsgError.setWrapStyleWord(true);
 	    textAreaMsgError.setLineWrap(true);
 	    textAreaMsgError.setOpaque(false);
@@ -114,7 +115,7 @@ public class BuscarListas extends JFrame {
 		contentPane.add(textAreaMsgError);
 		
 		textFieldLista = new JTextField();
-		textFieldLista.setBounds(95, 168, 271, 20);
+		textFieldLista.setBounds(92, 261, 155, 20);
 		contentPane.add(textFieldLista);
 		textFieldLista.setColumns(10);
 		
@@ -142,7 +143,7 @@ public class BuscarListas extends JFrame {
 				} 
 			}
 		});
-		btnModificar.setBounds(376, 167, 86, 23);
+		btnModificar.setBounds(257, 260, 86, 23);
 		contentPane.add(btnModificar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
@@ -169,7 +170,7 @@ public class BuscarListas extends JFrame {
 				}
 			}
 		});
-		btnEliminar.setBounds(472, 167, 86, 23);
+		btnEliminar.setBounds(353, 260, 86, 23);
 		contentPane.add(btnEliminar);
 	}
 
